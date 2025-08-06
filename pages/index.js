@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import NavBar from '../components/NavBar';
 import { teamLogoMap, normalizeTeamName, computeRecord } from '../utils/teamUtils';
-
+import Head from 'next/head'; 
 const styles = {
   tableHeader: {
     textAlign: 'left',
@@ -100,14 +101,22 @@ export default function HomePage() {
   };
 
   return (
+    
+    
     <div style={{ maxWidth: 900, margin: 'auto', padding: '1rem', fontFamily: 'Arial, sans-serif', color: '#111' }}>
-      <nav style={{ marginBottom: '1rem', fontSize: '1rem', color: '#0070f3' }}>
-        <Link href="/team/allteamsrecords">All Teams Records</Link>|{' '}
-        <Link href="/about">About</Link> |{' '}
-        <Link href="/record-book">Record Book</Link> |{' '}
-        <Link href="/path-to-conference">Path to Conference</Link> |{' '}
-        
-      </nav>
+       <Head>
+      <title>College Football Belt – The Lineal Title Tracker</title>
+      <meta
+        name="description"
+        content="Track the history, reigns, and future path of the College Football Belt – the lineal championship of college football."
+      />
+      <meta property="og:title" content="College Football Belt – CFB Lineal Championship" />
+      <meta property="og:description" content="See which team holds the College Football Belt, explore historical reigns, and follow its potential path." />
+      <meta property="og:image" content="/images/fallback-helmet.png" />
+      <meta property="og:url" content="https://your-domain.com" />
+      <meta name="twitter:card" content="summary_large_image" />
+    </Head>
+    <NavBar />
 
       <div style={{ width: '100%', height: '90px', backgroundColor: '#f0f0f0', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#666', fontStyle: 'italic' }}>
         Ad Placeholder (Leaderboard)
