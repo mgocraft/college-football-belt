@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { teamLogoMap, normalizeTeamName } from '../../utils/teamUtils';
+import Link from 'next/link';
+import { teamLogoMap, normalizeTeamName, computeRecord } from '../../utils/teamUtils';
+import NavBar from '../../components/NavBar';
 
 export default function AllTeamsRecords() {
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState('');
-  const [openStates, setOpenStates] = useState({});
-  const [openReigns, setOpenReigns] = useState({});
+  const [sortKey, setSortKey] = useState('wins');
+  const [sortAsc, setSortAsc] = useState(false);
 
   useEffect(() => {
     fetch('/api/belt')
@@ -16,64 +18,51 @@ export default function AllTeamsRecords() {
 
   if (!data.length) return <p>Loading...</p>;
 
-  const teamStats = {};
-
-  const cleanOpponentName = (text) => {
-    const match = text.match(/(?:vs\.|at)?\s*#?\d*\s*([A-Za-z.&\s'-]+?)(?=\s+\(|$)/i);
-    if (!match) return null;
-    return match[1].trim();
-  };
-
+  const teamSet = new Set();
   data.forEach((reign) => {
-    const winner = reign.beltHolder;
-    const loser = reign.beltWon;
-    const defenses = reign.defenses || [];
-
-    if (!teamStats[winner]) teamStats[winner] = { wins: 0, losses: 0, reigns: [], games: [] };
-    if (!teamStats[loser]) teamStats[loser] = { wins: 0, losses: 0, reigns: [], games: [] };
-
-    const totalWins = 1 + defenses.length;
-    teamStats[winner].wins += totalWins;
-    teamStats[winner].reigns.push(reign);
-    teamStats[winner].games.push({ result: 'W', opponent: loser, date: reign.startOfReign });
-
-    teamStats[loser].losses += 1;
-    teamStats[loser].games.push({ result: 'L', opponent: winner, date: reign.startOfReign });
-
-    defenses.forEach((defenseText) => {
-      const opponent = cleanOpponentName(defenseText);
-      if (opponent) {
-        if (!teamStats[opponent]) teamStats[opponent] = { wins: 0, losses: 0, reigns: [], games: [] };
-        teamStats[opponent].losses += 1;
-        teamStats[winner].games.push({ result: 'W', opponent, date: defenseText });
-        teamStats[opponent].games.push({ result: 'L', opponent: winner, date: defenseText });
+    teamSet.add(reign.beltHolder);
+    (reign.defenses || []).forEach((defText) => {
+      const match = defText.match(/^(vs\.|at) (.*?) \((W|L|T) (\d+)[\-\u2013](\d+)\)/);
+      if (match) {
+        const opponentRaw = match[2];
+        teamSet.add(opponentRaw.trim());
       }
     });
   });
 
-  const sortedTeams = Object.entries(teamStats)
-    .sort(([, a], [, b]) => (b.wins + b.losses) - (a.wins + a.losses));
+  const sortedTeams = Array.from(teamSet)
+    .map((team) => {
+      const record = computeRecord(team, data);
+      return { team, ...record };
+    })
+    .filter(({ team }) =>
+      normalizeTeamName(team).toLowerCase().includes(filter.toLowerCase())
+    )
+    .sort((a, b) => {
+      const aVal = a[sortKey];
+      const bVal = b[sortKey];
+      return sortAsc ? aVal - bVal : bVal - aVal;
+    });
 
-  const filteredTeams = sortedTeams.filter(([team]) =>
-    normalizeTeamName(team).toLowerCase().includes(filter.toLowerCase())
-  );
+  const FALLBACK_LOGO = '/images/fallback-helmet.png';
 
-  const toggleOpen = (team) => {
-    setOpenStates(prev => ({ ...prev, [team]: !prev[team] }));
-  };
-
-  const toggleReignOpen = (team, index) => {
-    setOpenReigns(prev => ({
-      ...prev,
-      [team]: {
-        ...(prev[team] || {}),
-        [index]: !((prev[team] || {})[index])
-      }
-    }));
+  const handleSort = (key) => {
+    if (key === sortKey) {
+      setSortAsc(!sortAsc);
+    } else {
+      setSortKey(key);
+      setSortAsc(true);
+    }
   };
 
   return (
     <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '1rem' }}>
+      <NavBar />
+
+      <div style={{ width: '100%', height: '90px', background: '#f0f0f0', textAlign: 'center', lineHeight: '90px', marginBottom: '1rem' }}>
+        AdSense Placeholder
+      </div>
+
       <h1 style={{ textAlign: 'center', fontSize: '1.5rem', fontWeight: 'bold' }}>All Teams Records</h1>
 
       <input
@@ -83,64 +72,57 @@ export default function AllTeamsRecords() {
         style={{ width: '100%', padding: '0.5rem', marginBottom: '1rem', fontSize: '1rem' }}
       />
 
-      <div style={{ display: 'grid', gridTemplateColumns: '40px 60px 1fr 100px 80px 80px', fontWeight: 'bold', borderBottom: '2px solid #ccc', paddingBottom: '0.5rem' }}>
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: '40px 60px 1fr 60px 60px 60px 60px 80px',
+        fontWeight: 'bold',
+        borderBottom: '2px solid #ccc',
+        paddingBottom: '0.5rem',
+        cursor: 'pointer'
+      }}>
         <div>#</div>
         <div>Logo</div>
-        <div>Name</div>
-        <div>Record</div>
-        <div>Win %</div>
-        <div>Reigns</div>
+        <div onClick={() => handleSort('team')}>Name</div>
+        <div onClick={() => handleSort('wins')}>W</div>
+        <div onClick={() => handleSort('losses')}>L</div>
+        <div onClick={() => handleSort('ties')}>T</div>
+        <div onClick={() => handleSort('winPct')}>Win%</div>
+        <div onClick={() => handleSort('reigns')}>Reigns</div>
       </div>
 
-      {filteredTeams.map(([team, stats], idx) => {
-        const logoId = teamLogoMap[normalizeTeamName(team)];
-        const logoUrl = logoId ? `https://a.espncdn.com/i/teamlogos/ncaa/500/${logoId}.png` : '';
-        const totalGames = stats.wins + stats.losses;
-        const winPct = totalGames ? ((stats.wins / totalGames) * 100).toFixed(1) : '0.0';
-        const isOpen = openStates[team] || false;
+      {sortedTeams.map((row, idx) => {
+        const logoId = teamLogoMap[normalizeTeamName(row.team)];
+        const logoUrl = logoId
+          ? `https://a.espncdn.com/i/teamlogos/ncaa/500/${logoId}.png`
+          : FALLBACK_LOGO;
 
         return (
-          <div key={idx} style={{ borderBottom: '1px solid #ddd', padding: '0.5rem 0', cursor: 'pointer' }} onClick={() => toggleOpen(team)}>
-            <div style={{ display: 'grid', gridTemplateColumns: '40px 60px 1fr 100px 80px 80px', alignItems: 'center' }}>
-              <div>{idx + 1}</div>
-              <div>{logoUrl && <img src={logoUrl} alt={`${team} logo`} style={{ height: '50px', width: '50px', objectFit: 'contain' }} />}</div>
-              <div>{team}</div>
-              <div>{stats.wins}-{stats.losses}</div>
-              <div>{winPct}%</div>
-              <div>{stats.reigns.length}</div>
-            </div>
-
-            {isOpen && (
-              <div style={{ marginLeft: '3rem', marginTop: '0.5rem' }}>
-                {stats.reigns.map((r, i) => {
-                  const reignOpen = openReigns[team]?.[i] || false;
-                  return (
-                    <div key={i} style={{ marginBottom: '0.5rem' }}>
-                      <div
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          toggleReignOpen(team, i);
-                        }}
-                        style={{ color: 'blue', textDecoration: 'underline', cursor: 'pointer' }}
-                      >
-                        Reign {i + 1}: {r.startOfReign} – {r.endOfReign} ({r.numberOfDefenses} defenses)
-                      </div>
-                      {reignOpen && (
-                        <div style={{ marginLeft: '1.5rem', fontSize: '0.9rem' }}>
-                          <div>Won from: {r.beltWon}</div>
-                          {r.defenses?.map((def, j) => (
-                            <div key={j}>Defense {j + 1}: {def}</div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
+          <Link href={`/team/${normalizeTeamName(row.team)}`} key={row.team} legacyBehavior>
+            <a style={{ textDecoration: 'none', color: 'inherit' }}>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: '40px 60px 1fr 60px 60px 60px 60px 80px',
+                alignItems: 'center',
+                padding: '0.5rem 0',
+                borderBottom: '1px solid #ddd'
+              }}>
+                <div>{idx + 1}</div>
+                <div><img src={logoUrl} alt={`${row.team} logo`} style={{ height: '50px', width: '50px', objectFit: 'contain' }} /></div>
+                <div>{row.team}</div>
+                <div>{row.wins}</div>
+                <div>{row.losses}</div>
+                <div>{row.ties}</div>
+                <div>{row.winPct.toFixed(1)}%</div>
+                <div>{row.reigns}</div>
               </div>
-            )}
-          </div>
+            </a>
+          </Link>
         );
       })}
+
+      <div style={{ width: '100%', height: '250px', background: '#f0f0f0', textAlign: 'center', lineHeight: '250px', marginTop: '2rem' }}>
+        AdSense Placeholder
+      </div>
     </div>
   );
 }

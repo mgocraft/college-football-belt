@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { teamLogoMap, normalizeTeamName } from '../utils/teamUtils';
+import { teamLogoMap, normalizeTeamName, computeRecord } from '../utils/teamUtils';
 
 const styles = {
   tableHeader: {
@@ -15,17 +15,14 @@ const styles = {
     padding: '10px 12px',
     borderBottom: '1px solid #ddd',
   },
-  tableRowHover: {
-    backgroundColor: '#f9fcff',
-  },
 };
 
 export default function HomePage() {
   const [data, setData] = useState([]);
   const router = useRouter();
-  const page = parseInt(router.query.page || '1');
+  const page = parseInt(router.query.page || '1', 10);
   const itemsPerPage = 10;
-  const nextOpponent = 'Texas';
+  const nextOpponent = 'Long Island University';
 
   useEffect(() => {
     fetch('/api/belt')
@@ -37,46 +34,20 @@ export default function HomePage() {
   if (!data.length) return <p>Loading...</p>;
 
   const currentReign = data.find((r) => r.endOfReign === 'Ongoing');
-  const normalizedHolder = normalizeTeamName(currentReign?.beltHolder);
-  const normalizedOpponent = normalizeTeamName(nextOpponent);
-  const currentLogoId = teamLogoMap[normalizedHolder];
-  const opponentLogoId = teamLogoMap[normalizedOpponent];
+
+  const currentRecord = computeRecord(currentReign?.beltHolder, data);
+  const opponentRecord = computeRecord(nextOpponent, data);
+
+  const countReigns = (team) => data.filter((r) => r.beltHolder === team).length;
+
+  const currentLogoId = teamLogoMap[normalizeTeamName(currentReign?.beltHolder)];
+  const opponentLogoId = teamLogoMap[normalizeTeamName(nextOpponent)];
   const currentLogoUrl = currentLogoId
     ? `https://a.espncdn.com/i/teamlogos/ncaa/500/${currentLogoId}.png`
     : '';
   const opponentLogoUrl = opponentLogoId
     ? `https://a.espncdn.com/i/teamlogos/ncaa/500/${opponentLogoId}.png`
     : '';
-
-  const reignsByTeam = {};
-  const winsByTeam = {};
-  const lossesByTeam = {};
-  const gamesByTeam = {};
-
-  data.forEach((reign) => {
-    const holder = reign.beltHolder;
-    const lostTo = reign.beltWon;
-
-    reignsByTeam[holder] = (reignsByTeam[holder] || 0) + 1;
-
-    winsByTeam[holder] = (winsByTeam[holder] || 0) + 1 + (reign.defenses?.length || 0);
-
-    lossesByTeam[lostTo] = (lossesByTeam[lostTo] || 0) + 1;
-
-    gamesByTeam[holder] = (gamesByTeam[holder] || 0) + 1 + (reign.defenses?.length || 0);
-    gamesByTeam[lostTo] = (gamesByTeam[lostTo] || 0) + 1;
-  });
-
-  const getWins = (team) => winsByTeam[team] || 0;
-  const getLosses = (team) => lossesByTeam[team] || 0;
-
-  const getWinPct = (team) => {
-    const wins = getWins(team);
-    const losses = getLosses(team);
-    const games = wins + losses;
-    if (games === 0) return '0%';
-    return `${((wins / games) * 100).toFixed(1)}%`;
-  };
 
   const pastReigns = data.filter((r) => r !== currentReign);
   const totalPages = Math.ceil(pastReigns.length / itemsPerPage);
@@ -114,6 +85,7 @@ export default function HomePage() {
             margin: '0 4px',
             cursor: 'pointer',
           }}
+          aria-current={page === i ? 'page' : undefined}
         >
           {i}
         </button>
@@ -129,45 +101,31 @@ export default function HomePage() {
 
   return (
     <div style={{ maxWidth: 900, margin: 'auto', padding: '1rem', fontFamily: 'Arial, sans-serif', color: '#111' }}>
-      {/* Navigation links */}
       <nav style={{ marginBottom: '1rem', fontSize: '1rem', color: '#0070f3' }}>
-        <Link href="/about">About</Link> | <Link href="/record-book">Record Book</Link> | <Link href="/path-to-conference">Path to Conference</Link>
+        <Link href="/team/allteamsrecords">All Teams Records</Link>|{' '}
+        <Link href="/about">About</Link> |{' '}
+        <Link href="/record-book">Record Book</Link> |{' '}
+        <Link href="/path-to-conference">Path to Conference</Link> |{' '}
+        
       </nav>
 
-      {/* Adsense leaderboard placeholder */}
-      <div
-        style={{
-          width: '100%',
-          height: '90px',
-          backgroundColor: '#f0f0f0',
-          marginBottom: '1.5rem',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          color: '#666',
-          fontStyle: 'italic',
-        }}
-      >
+      <div style={{ width: '100%', height: '90px', backgroundColor: '#f0f0f0', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#666', fontStyle: 'italic' }}>
         Ad Placeholder (Leaderboard)
       </div>
 
-      <h1 style={{ fontSize: '2rem', marginBottom: '1rem', color: '#001f3f' }}>🏆 Belt Next Game</h1>
+      <div style={{ textAlign: 'center', marginBottom: '0.25rem' }}>
+        <h1 style={{ fontSize: '2rem', margin: 0, color: '#001f3f' }}>The College Football Belt</h1>
+        <div style={{ fontSize: '1.5rem', fontStyle: 'italic', color: '#666', marginTop: '0.5rem' }}>Next Game</div>
+      </div>
 
-      {/* Logos linked, but text under logos NOT linked */}
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          marginBottom: '1.5rem',
-          gap: '2rem',
-          justifyContent: 'center',
-        }}
-      >
+      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '1.5rem', gap: '2rem', justifyContent: 'center' }}>
         {[{ name: currentReign.beltHolder, logo: currentLogoUrl }, { name: nextOpponent, logo: opponentLogoUrl }].map((team, idx) => (
           <div key={idx} style={{ textAlign: 'center' }}>
             <Link href={`/team/${encodeURIComponent(team.name)}`} legacyBehavior>
               <a>
-                <img src={team.logo} alt={`${team.name} logo`} style={{ height: 100, cursor: 'pointer' }} />
+                {team.logo && (
+                  <img src={team.logo} alt={`${team.name} logo`} style={{ height: 100, cursor: 'pointer' }} />
+                )}
               </a>
             </Link>
             <div style={{ marginTop: 4, fontWeight: 600 }}>{team.name}</div>
@@ -175,7 +133,6 @@ export default function HomePage() {
         ))}
       </div>
 
-      {/* Main record table - team names linked */}
       <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '1rem' }}>
         <thead>
           <tr>
@@ -187,8 +144,8 @@ export default function HomePage() {
         </thead>
         <tbody>
           {[currentReign.beltHolder, nextOpponent].map((team) => {
-            const wins = getWins(team);
-            const losses = getLosses(team);
+            const record = computeRecord(team, data);
+            const reignsCount = countReigns(team);
             return (
               <tr key={team}>
                 <td style={styles.tableCell}>
@@ -196,23 +153,17 @@ export default function HomePage() {
                     <a>{team}</a>
                   </Link>
                 </td>
-                <td style={styles.tableCell}>{reignsByTeam[team] || 0}</td>
-                <td style={styles.tableCell}>
-                  {wins} - {losses}
-                </td>
-                <td style={styles.tableCell}>{getWinPct(team)}</td>
+                <td style={styles.tableCell}>{reignsCount}</td>
+                <td style={styles.tableCell}>{record.wins} - {record.losses} - {record.ties}</td>
+                <td style={styles.tableCell}>{record.winPct}</td>
               </tr>
             );
           })}
         </tbody>
       </table>
-
-      {/* Preview text */}
-      <div style={{ marginBottom: '1rem', fontStyle: 'italic', color: '#444' }}>
-        This game will determine whether the belt stays with {currentReign.beltHolder} or passes to {nextOpponent}. It’s expected to be a key matchup this season.
-      </div>
-
-      {/* Betting affiliate link */}
+<div style={{ marginBottom: '1rem',  color: '#000' }}>
+  Florida starts its 2025 season belt defense taking on the Long Island Sharks, an opponent requested by long departed coach Jim McElwain. The Sharks have unsurprisingly never played in a belt game before. With an expected win Florida will move up to a 14th place tie in total wins with Auburn.
+</div>
       <div style={{ marginBottom: '2rem' }}>
         <a
           href="https://example-betting-affiliate.com"
@@ -224,8 +175,9 @@ export default function HomePage() {
         </a>
       </div>
 
-      {/* Past reigns section */}
-      <h2 style={{ fontSize: '1.5rem', marginBottom: '0.75rem', color: '#001f3f' }}>Past Belt Reigns</h2>
+      <h2 style={{ fontSize: '1.5rem', marginBottom: '0.75rem', color: '#001f3f' }}>
+        Past Belt Reigns
+      </h2>
 
       <table style={{ width: '100%', borderCollapse: 'collapse' }}>
         <thead>
@@ -263,20 +215,7 @@ export default function HomePage() {
 
       <div style={{ marginTop: '1rem' }}>{getPagination()}</div>
 
-      {/* Adsense medium rectangle placeholder */}
-      <div
-        style={{
-          width: '100%',
-          height: '250px',
-          backgroundColor: '#f0f0f0',
-          marginTop: '2rem',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          color: '#666',
-          fontStyle: 'italic',
-        }}
-      >
+      <div style={{ width: '100%', height: '250px', backgroundColor: '#f0f0f0', marginTop: '2rem', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#666', fontStyle: 'italic' }}>
         Ad Placeholder (Medium Rectangle)
       </div>
     </div>
