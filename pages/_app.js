@@ -24,7 +24,8 @@ export default function MyApp({ Component, pageProps }) {
           `,
         }}
       />
-
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7568133290427764"
+     crossorigin="anonymous"></script>
       {/* Render all pages */}
       <Component {...pageProps} />
     </>
