@@ -6,6 +6,8 @@ import {
   computeRecord,
   debugTeamGames,
 } from '../../utils/teamUtils';
+import AdUnit from '../../components/AdUnit';
+import NavBar from '../../components/NavBar';
 import Link from 'next/link';
 
 const styles = {
@@ -129,32 +131,11 @@ export default function TeamPage() {
         borderRadius: '8px',
       }}
     >
-      <nav
-        style={{
-          marginBottom: '1rem',
-          fontSize: '1rem',
-          color: '#0070f3',
-        }}
-      >
-        <Link href="/">Home</Link> | <Link href="/about">About</Link> |{' '}
-        <Link href="/record-book">Record Book</Link>
-      </nav>
+    <NavBar />
 
-      <div
-        style={{
-          width: '100%',
-          height: '90px',
-          backgroundColor: '#f0f0f0',
-          marginBottom: '1.5rem',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          color: '#666',
-          fontStyle: 'italic',
-        }}
-      >
-        Ad Placeholder (Leaderboard)
-      </div>
+   <div style={{ marginBottom: '1.5rem' }}>
+  <AdUnit adSlot="9168138847" />
+</div>
 
       <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
         {logoUrl && (
@@ -286,6 +267,11 @@ export default function TeamPage() {
           ))}
         </tbody>
       </table>
+        <div style={{ marginBottom: '1.5rem' }}>
+  <AdUnit adSlot="9168138847" />
+</div>
     </div>
+    
+
   );
 }

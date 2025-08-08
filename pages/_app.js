@@ -24,6 +24,22 @@ export default function MyApp({ Component, pageProps }) {
           `,
         }}
       />
+        <Script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7568133290427764"
+        crossOrigin="anonymous"
+        strategy="afterInteractive"
+      />
+       {/* Google AdSense Auto Ads */}
+      <Script
+        id="adsense-auto-ads"
+        strategy="afterInteractive"
+        data-ad-client="ca-pub-7568133290427764"
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+      />
+
+      
 
       {/* Render all pages */}
       <Component {...pageProps} />

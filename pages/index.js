@@ -4,6 +4,10 @@ import { useRouter } from 'next/router';
 import NavBar from '../components/NavBar';
 import { teamLogoMap, normalizeTeamName, computeRecord } from '../utils/teamUtils';
 import Head from 'next/head'; 
+import AdUnit from '../components/AdUnit';
+
+// ...inside your component render where the placeholder was:
+
 const styles = {
   tableHeader: {
     textAlign: 'left',
@@ -118,9 +122,9 @@ export default function HomePage() {
     </Head>
     <NavBar />
 
-      <div style={{ width: '100%', height: '90px', backgroundColor: '#f0f0f0', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#666', fontStyle: 'italic' }}>
-        Ad Placeholder (Leaderboard)
-      </div>
+    <div style={{ marginBottom: '1.5rem' }}>
+  <AdUnit adSlot="9168138847" />
+</div>
 
       <div style={{ textAlign: 'center', marginBottom: '0.25rem' }}>
         <h1 style={{ fontSize: '2rem', margin: 0, color: '#001f3f' }}>The College Football Belt</h1>
@@ -224,9 +228,9 @@ export default function HomePage() {
 
       <div style={{ marginTop: '1rem' }}>{getPagination()}</div>
 
-      <div style={{ width: '100%', height: '250px', backgroundColor: '#f0f0f0', marginTop: '2rem', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#666', fontStyle: 'italic' }}>
-        Ad Placeholder (Medium Rectangle)
-      </div>
+    <div style={{ marginBottom: '1.5rem' }}>
+  <AdUnit adSlot="9168138847" />
+</div>
     </div>
   );
 }

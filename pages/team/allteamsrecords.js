@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { teamLogoMap, normalizeTeamName, computeRecord } from '../../utils/teamUtils';
 import NavBar from '../../components/NavBar';
+import AdUnit from '../../components/AdUnit';
 
 export default function AllTeamsRecords() {
   const [data, setData] = useState([]);
@@ -59,9 +60,9 @@ export default function AllTeamsRecords() {
     <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '1rem' }}>
       <NavBar />
 
-      <div style={{ width: '100%', height: '90px', background: '#f0f0f0', textAlign: 'center', lineHeight: '90px', marginBottom: '1rem' }}>
-        AdSense Placeholder
-      </div>
+        <div style={{ marginBottom: '1.5rem' }}>
+  <AdUnit adSlot="9168138847" />
+</div>
 
       <h1 style={{ textAlign: 'center', fontSize: '1.5rem', fontWeight: 'bold' }}>All Teams Records</h1>
 
@@ -120,9 +121,9 @@ export default function AllTeamsRecords() {
         );
       })}
 
-      <div style={{ width: '100%', height: '250px', background: '#f0f0f0', textAlign: 'center', lineHeight: '250px', marginTop: '2rem' }}>
-        AdSense Placeholder
-      </div>
+         <div style={{ marginBottom: '1.5rem' }}>
+  <AdUnit adSlot="9168138847" />
+</div>
     </div>
   );
 }
