@@ -28,7 +28,7 @@ export default function AboutPage() {
 
       <ul>
         <li style={{ marginBottom: '0.5rem' }}>
-          💵 <a href="https://www.buymeacoffee.com/YOUR_HANDLE" target="_blank" rel="noopener noreferrer">Buy Me a Coffee</a>
+          💵 <a href="https://www.buymeacoffee.com/cfbbelt" target="_blank" rel="noopener noreferrer">Buy Me a Coffee</a>
         </li>
        
       </ul>
