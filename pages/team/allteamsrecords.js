@@ -33,10 +33,12 @@ export default function AllTeamsRecords() {
 
   const sortedTeams = Array.from(teamSet)
     .map((team) => {
-      const record = computeRecord(team, data); // keep as-is if your computeRecord expects (team, data)
+      const record = computeRecord(team, data); // keep (team, data) if that's your signature
       return { team, ...record };
     })
-    .filter(({ team }) => normalizeTeamName(team).toLowerCase().includes(filter.toLowerCase()))
+    .filter(({ team }) =>
+      normalizeTeamName(team).toLowerCase().includes(filter.toLowerCase())
+    )
     .sort((a, b) => {
       const aVal = a[sortKey];
       const bVal = b[sortKey];
@@ -46,12 +48,8 @@ export default function AllTeamsRecords() {
   const FALLBACK_LOGO = '/images/fallback-helmet.png';
 
   const handleSort = (key) => {
-    if (key === sortKey) {
-      setSortAsc(!sortAsc);
-    } else {
-      setSortKey(key);
-      setSortAsc(true);
-    }
+    if (key === sortKey) setSortAsc(!sortAsc);
+    else { setSortKey(key); setSortAsc(true); }
   };
 
   return (
@@ -59,7 +57,7 @@ export default function AllTeamsRecords() {
       <NavBar />
 
       <div style={{ marginBottom: '1.5rem' }}>
-        <AdUnit AdSlot="9168138847" variant="leaderboard" />
+        <AdUnit adSlot="9168138847" variant="leaderboard" />
       </div>
 
       <h1 style={{ textAlign: 'center', fontSize: '1.5rem', fontWeight: 'bold' }}>All Teams Records</h1>
@@ -71,7 +69,6 @@ export default function AllTeamsRecords() {
         style={{ width: '100%', padding: '0.5rem', marginBottom: '1rem', fontSize: '1rem' }}
       />
 
-      {/* Header */}
       <div className="gridRow header clickable">
         <div>#</div>
         <div>Logo</div>
@@ -83,7 +80,6 @@ export default function AllTeamsRecords() {
         <div className="num" onClick={() => handleSort('reigns')}>Reigns</div>
       </div>
 
-      {/* Rows */}
       {sortedTeams.map((row, idx) => {
         const logoId = teamLogoMap[normalizeTeamName(row.team)];
         const logoUrl = logoId
@@ -109,50 +105,48 @@ export default function AllTeamsRecords() {
       })}
 
       <div style={{ margin: '1.5rem 0' }}>
-        <AdUnit slot="9168138847" variant="leaderboard" />
+        <AdUnit adSlot="9168138847" variant="leaderboard" />
       </div>
 
       <style jsx>{`
         .rowLink { text-decoration: none; color: inherit; }
-
-        /* Shared grid: add column gaps so numbers don't kiss the name */
         .gridRow {
           display: grid;
           grid-template-columns: 40px 60px 1fr 60px 60px 60px 60px 80px;
           align-items: center;
           padding: 0.5rem 0;
           border-bottom: 1px solid #ddd;
-          column-gap: 12px; /* <-- key spacing fix */
+          column-gap: 12px;
         }
-
-        .header {
-          font-weight: bold;
-          border-bottom: 2px solid #ccc;
-          padding-bottom: 0.5rem;
-        }
-
+        .header { font-weight: bold; border-bottom: 2px solid #ccc; padding-bottom: 0.5rem; }
         .clickable { cursor: pointer; }
-
         .logo { height: 50px; width: 50px; object-fit: contain; }
-
         .teamCell {
-          display: block;
           overflow: hidden;
           text-overflow: ellipsis;
-          white-space: nowrap; /* prevents wrap into number columns */
+          white-space: nowrap;
           min-width: 0;
         }
-
         .num { text-align: right; white-space: nowrap; }
 
-        /* Mobile tweaks */
         @media (max-width: 640px) {
           .gridRow {
-            grid-template-columns: 28px 44px 1fr 52px 52px 48px 64px 64px;
+            grid-template-columns: 24px 40px minmax(0, 1fr) 48px 48px 44px 56px 56px;
             column-gap: 8px;
-            padding: 0.4rem 0;
+            padding: 0.35rem 0;
           }
-          .logo { height: 40px; width: 40px; }
+          .logo { height: 36px; width: 36px; }
+          .teamCell {
+            white-space: normal;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+          }
+        }
+        @media (max-width: 400px) {
+          .gridRow { grid-template-columns: 24px 36px minmax(0, 1fr) 44px 44px 40px 56px; }
+          .gridRow > :nth-child(8) { display: none; }
         }
       `}</style>
     </div>
