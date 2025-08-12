@@ -33,12 +33,10 @@ export default function AllTeamsRecords() {
 
   const sortedTeams = Array.from(teamSet)
     .map((team) => {
-      const record = computeRecord(team, data);
+      const record = computeRecord(team, data); // keep as-is if your computeRecord expects (team, data)
       return { team, ...record };
     })
-    .filter(({ team }) =>
-      normalizeTeamName(team).toLowerCase().includes(filter.toLowerCase())
-    )
+    .filter(({ team }) => normalizeTeamName(team).toLowerCase().includes(filter.toLowerCase()))
     .sort((a, b) => {
       const aVal = a[sortKey];
       const bVal = b[sortKey];
@@ -60,9 +58,9 @@ export default function AllTeamsRecords() {
     <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '1rem' }}>
       <NavBar />
 
-        <div style={{ marginBottom: '1.5rem' }}>
-  <AdUnit adSlot="9168138847" />
-</div>
+      <div style={{ marginBottom: '1.5rem' }}>
+        <AdUnit AdSlot="9168138847" variant="leaderboard" />
+      </div>
 
       <h1 style={{ textAlign: 'center', fontSize: '1.5rem', fontWeight: 'bold' }}>All Teams Records</h1>
 
@@ -73,24 +71,19 @@ export default function AllTeamsRecords() {
         style={{ width: '100%', padding: '0.5rem', marginBottom: '1rem', fontSize: '1rem' }}
       />
 
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: '40px 60px 1fr 60px 60px 60px 60px 80px',
-        fontWeight: 'bold',
-        borderBottom: '2px solid #ccc',
-        paddingBottom: '0.5rem',
-        cursor: 'pointer'
-      }}>
+      {/* Header */}
+      <div className="gridRow header clickable">
         <div>#</div>
         <div>Logo</div>
         <div onClick={() => handleSort('team')}>Name</div>
-        <div onClick={() => handleSort('wins')}>W</div>
-        <div onClick={() => handleSort('losses')}>L</div>
-        <div onClick={() => handleSort('ties')}>T</div>
-        <div onClick={() => handleSort('winPct')}>Win%</div>
-        <div onClick={() => handleSort('reigns')}>Reigns</div>
+        <div className="num" onClick={() => handleSort('wins')}>W</div>
+        <div className="num" onClick={() => handleSort('losses')}>L</div>
+        <div className="num" onClick={() => handleSort('ties')}>T</div>
+        <div className="num" onClick={() => handleSort('winPct')}>Win%</div>
+        <div className="num" onClick={() => handleSort('reigns')}>Reigns</div>
       </div>
 
+      {/* Rows */}
       {sortedTeams.map((row, idx) => {
         const logoId = teamLogoMap[normalizeTeamName(row.team)];
         const logoUrl = logoId
@@ -99,31 +92,69 @@ export default function AllTeamsRecords() {
 
         return (
           <Link href={`/team/${normalizeTeamName(row.team)}`} key={row.team} legacyBehavior>
-            <a style={{ textDecoration: 'none', color: 'inherit' }}>
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: '40px 60px 1fr 60px 60px 60px 60px 80px',
-                alignItems: 'center',
-                padding: '0.5rem 0',
-                borderBottom: '1px solid #ddd'
-              }}>
-                <div>{idx + 1}</div>
-                <div><img src={logoUrl} alt={`${row.team} logo`} style={{ height: '50px', width: '50px', objectFit: 'contain' }} /></div>
-                <div>{row.team}</div>
-                <div>{row.wins}</div>
-                <div>{row.losses}</div>
-                <div>{row.ties}</div>
-                <div>{row.winPct.toFixed(1)}%</div>
-                <div>{row.reigns}</div>
+            <a className="rowLink">
+              <div className="gridRow">
+                <div className="num">{idx + 1}</div>
+                <div><img src={logoUrl} alt={`${row.team} logo`} className="logo" /></div>
+                <div className="teamCell">{row.team}</div>
+                <div className="num">{row.wins}</div>
+                <div className="num">{row.losses}</div>
+                <div className="num">{row.ties}</div>
+                <div className="num">{row.winPct.toFixed(1)}%</div>
+                <div className="num">{row.reigns}</div>
               </div>
             </a>
           </Link>
         );
       })}
 
-         <div style={{ marginBottom: '1.5rem' }}>
-  <AdUnit adSlot="9168138847" />
-</div>
+      <div style={{ margin: '1.5rem 0' }}>
+        <AdUnit slot="9168138847" variant="leaderboard" />
+      </div>
+
+      <style jsx>{`
+        .rowLink { text-decoration: none; color: inherit; }
+
+        /* Shared grid: add column gaps so numbers don't kiss the name */
+        .gridRow {
+          display: grid;
+          grid-template-columns: 40px 60px 1fr 60px 60px 60px 60px 80px;
+          align-items: center;
+          padding: 0.5rem 0;
+          border-bottom: 1px solid #ddd;
+          column-gap: 12px; /* <-- key spacing fix */
+        }
+
+        .header {
+          font-weight: bold;
+          border-bottom: 2px solid #ccc;
+          padding-bottom: 0.5rem;
+        }
+
+        .clickable { cursor: pointer; }
+
+        .logo { height: 50px; width: 50px; object-fit: contain; }
+
+        .teamCell {
+          display: block;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap; /* prevents wrap into number columns */
+          min-width: 0;
+        }
+
+        .num { text-align: right; white-space: nowrap; }
+
+        /* Mobile tweaks */
+        @media (max-width: 640px) {
+          .gridRow {
+            grid-template-columns: 28px 44px 1fr 52px 52px 48px 64px 64px;
+            column-gap: 8px;
+            padding: 0.4rem 0;
+          }
+          .logo { height: 40px; width: 40px; }
+        }
+      `}</style>
     </div>
   );
 }
