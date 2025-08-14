@@ -42,7 +42,7 @@ export default function TeamPage() {
       .catch((err) => console.error('Error loading belt data:', err));
   }, [team]);
 
-  if (!data.length || !team) return <p>Loading...</p>;
+  if (!data.length || !team) return <p></p>;
 
   const normalizedTeam = normalizeTeamName(team);
   const logoId = teamLogoMap[normalizedTeam];

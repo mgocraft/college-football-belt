@@ -17,7 +17,7 @@ export default function AllTeamsRecords() {
       .catch((err) => console.error('Error loading belt data:', err));
   }, []);
 
-  if (!data.length) return <p>Loading...</p>;
+  if (!data.length) return <p></p>;
 
   const teamSet = new Set();
   data.forEach((reign) => {

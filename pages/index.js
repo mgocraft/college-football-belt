@@ -5,6 +5,7 @@ import NavBar from '../components/NavBar';
 import { teamLogoMap, normalizeTeamName, computeRecord } from '../utils/teamUtils';
 import Head from 'next/head'; 
 import AdUnit from '../components/AdUnit';
+import Footer from '../components/Footer';
 
 // ...inside your component render where the placeholder was:
 
@@ -36,7 +37,7 @@ export default function HomePage() {
       .catch((err) => console.error('Error loading belt data:', err));
   }, []);
 
-  if (!data.length) return <p>Loading...</p>;
+  if (!data.length) return <p></p>;
 
   const currentReign = data.find((r) => r.endOfReign === 'Ongoing');
 
@@ -177,16 +178,7 @@ export default function HomePage() {
 <div style={{ marginBottom: '1rem',  color: '#000' }}>
   Florida starts its 2025 season belt defense taking on the Long Island Sharks, an opponent requested by long departed coach Jim McElwain. The Sharks have unsurprisingly never played in a belt game before. With an expected win Florida will move up to a 14th place tie in total wins with Auburn.
 </div>
-      <div style={{ marginBottom: '2rem' }}>
-        <a
-          href="https://example-betting-affiliate.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ textDecoration: 'underline', color: '#0070f3' }}
-        >
-          🏈 Bet on the Belt Game
-        </a>
-      </div>
+  
 
       <h2 style={{ fontSize: '1.5rem', marginBottom: '0.75rem', color: '#001f3f' }}>
         Past Belt Reigns
@@ -230,6 +222,7 @@ export default function HomePage() {
 
     <div style={{ marginBottom: '1.5rem' }}>
   <AdUnit adSlot="9168138847" />
+   <Footer />
 </div>
     </div>
   );
