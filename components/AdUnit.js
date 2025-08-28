@@ -1,23 +1,24 @@
 import { useEffect, useRef } from "react";
 
 /**
- * Drop‑in AdSense component tuned for cfbbelt.com
- * - Forces horizontal formats in top/bottom leaderboard spots
- * - Caps width so ads don’t look oversized on desktop
- * - Uses responsive mobile sizes without huge vertical blocks
- * - Defers (adsbygoogle).push() until the slot is in view (reduces CLS)
+ * AdSense unit for cfbbelt.com
+ * - NEW: `enabled` prop gates all rendering/pushing until real content is present.
+ * - Lazy-inits (adsbygoogle).push() only when the slot is in view (reduces CLS).
+ * - Backward-compatible with your existing props (AdSlot, variant/type/format).
  *
  * Usage examples:
- *   <AdUnit slot="9168138847" variant="leaderboard" />
- *   <AdUnit slot="1234567890" variant="inContent" />
+ *   const hasMeaningfulContent = Boolean(data?.items?.length >= 3);
+ *   <AdUnit AdSlot="9168138847" variant="leaderboard" enabled={hasMeaningfulContent} />
+ *   <AdUnit AdSlot="1234567890" variant="inContent"  enabled={hasMeaningfulContent} />
  *
- * Notes:
- * - Keep the global AdSense script in _app.tsx or _document.tsx:
- *   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7568133290427764" crossorigin="anonymous"></script>
+ * Keep the global AdSense script controlled in _app.js (with your route blocklist).
  */
 
 export default function AdUnit({
   AdSlot,
+  slot, // allow either name
+  // Gate ad rendering/fill until the page actually has content
+  enabled = true,
   // Backward-compatible: accept `variant`, `type`, or `format` without changing page code
   variant = "leaderboard",
   type: legacyType,
@@ -28,20 +29,28 @@ export default function AdUnit({
   const ref = useRef(null);
   const pushedRef = useRef(false);
 
+  // Early exit: do not render any ad markup when not enabled
+  if (!enabled) return null;
+
   useEffect(() => {
-    if (!ref.current || pushedRef.current) return;
+    // If somehow rendered but disabled later, don't push
+    if (!enabled || !ref.current || pushedRef.current) return;
 
     // Defer pushing until visible to avoid CLS and wasted requests
     const el = ref.current;
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting && typeof window !== "undefined") {
+          if (
+            entry.isIntersecting &&
+            typeof window !== "undefined" &&
+            el.getAttribute("data-adsbygoogle-status") !== "done"
+          ) {
             try {
               (window.adsbygoogle = window.adsbygoogle || []).push({});
               pushedRef.current = true;
               io.disconnect();
-            } catch (e) {
+            } catch {
               // swallow; AdSense will retry
             }
           }
@@ -52,15 +61,17 @@ export default function AdUnit({
 
     io.observe(el);
     return () => io.disconnect();
-  }, []);
+  }, [enabled]);
 
-    // Resolve variant from any legacy props without requiring page changes
-  const resolvedVariant = (legacyType || legacyFormat || variant || "leaderboard").toLowerCase().includes("content")
+  // Resolve variant from any legacy props without requiring page changes
+  const resolvedVariant = (legacyType || legacyFormat || variant || "leaderboard")
+    .toLowerCase()
+    .includes("content")
     ? "inContent"
     : "leaderboard";
 
-  // Size presets — keep horizontal, cap width, avoid tall blocks
   const preset = presets[resolvedVariant] || presets.leaderboard;
+  const resolvedSlot = slot || AdSlot; // support either prop name
 
   return (
     <div className={`${preset.wrapper} ${className}`}>
@@ -69,7 +80,7 @@ export default function AdUnit({
         className={`adsbygoogle ${preset.ins}`}
         style={preset.style}
         data-ad-client={client}
-        data-ad-slot={AdSlot}
+        data-ad-slot={resolvedSlot}
         data-ad-format={preset.dataAdFormat}
         data-full-width-responsive={preset.fullWidthResponsive}
       />
@@ -82,7 +93,7 @@ export default function AdUnit({
         @media (max-width: 1024px) { .leaderboard { max-width: 468px; min-height: 60px; } }
         @media (max-width: 640px)  { .leaderboard { max-width: 320px; min-height: 100px; } }
 
-        /* In‑content: prefer 336x280/300x250 but never full‑width skyscrapers */
+        /* In-content: prefer 336x280/300x250 but never full-width skyscrapers */
         .incontent { max-width: 336px; min-height: 280px; }
         @media (max-width: 1024px) { .incontent { max-width: 300px; min-height: 250px; } }
         @media (max-width: 400px)  { .incontent { max-width: 300px; min-height: 250px; } }
@@ -97,7 +108,7 @@ const presets = {
     ins: "leaderboard",
     // Force horizontal so AdSense doesn’t render tall squares
     dataAdFormat: "horizontal",
-    fullWidthResponsive: "false",
+    fullWidthResponsive: "false", // string expected by Google
     style: { display: "block" },
   },
   inContent: {
@@ -105,7 +116,7 @@ const presets = {
     ins: "incontent",
     // Let Google pick from rectangle family within capped container
     dataAdFormat: "auto",
-    fullWidthResponsive: "false",
+    fullWidthResponsive: "false", // string expected by Google
     style: { display: "block" },
   },
 };
