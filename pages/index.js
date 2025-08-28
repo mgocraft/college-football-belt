@@ -124,7 +124,7 @@ export default function HomePage() {
     <NavBar />
 
     <div style={{ marginBottom: '1.5rem' }}>
-  <AdUnit adSlot="9168138847" />
+  <AdUnit AdSlot="9168138847" enabled={data.length > 0} />
 </div>
 
       <div style={{ textAlign: 'center', marginBottom: '0.25rem' }}>
@@ -221,7 +221,7 @@ export default function HomePage() {
       <div style={{ marginTop: '1rem' }}>{getPagination()}</div>
 
     <div style={{ marginBottom: '1.5rem' }}>
-  <AdUnit adSlot="9168138847" />
+  <AdUnit AdSlot="9168138847" enabled={data.length > 0} />
    <Footer />
 </div>
     </div>

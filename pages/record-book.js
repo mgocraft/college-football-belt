@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import NavBar from '../components/NavBar';
+import AdUnit from '../components/AdUnit';
 import { teamLogoMap, normalizeTeamName } from '../utils/teamUtils';
 
 export default function RecordBookPage() {
@@ -11,7 +12,13 @@ export default function RecordBookPage() {
       .then((json) => setData(json));
   }, []);
 
-  if (!data.length) return <p>Loading...</p>;
+  if (!data.length) return (
+    <div style={{ maxWidth: '800px', margin: 'auto', padding: '1rem', fontFamily: 'Arial, sans-serif', color: '#111' }}>
+      <NavBar />
+      <h1 style={{ fontSize: '2rem', marginBottom: '1rem', color: '#001f3f' }}>Record Book</h1>
+      <p>Loading...</p>
+    </div>
+  );
 
   const teamStats = {};
   const allTeams = new Set();
@@ -82,6 +89,12 @@ export default function RecordBookPage() {
   return (
     <div style={{ maxWidth: '800px', margin: 'auto', padding: '1rem', fontFamily: 'Arial, sans-serif', color: '#111' }}>
       <NavBar />
+
+      {/* Safe top ad: only after data is present */}
+      <div style={{ margin: '1rem 0' }}>
+        <AdUnit AdSlot="9168138847" enabled={data.length > 0} />
+      </div>
+
       <h1 style={{ fontSize: '2rem', marginBottom: '1rem', color: '#001f3f' }}>Record Book</h1>
 
       <div style={rowStyle}><strong>🏆 Longest Reign:</strong>&nbsp; {logo(longestReign.beltHolder)} {longestReign.beltHolder} with {longestReign.numberOfDefenses} defenses</div>
@@ -108,6 +121,11 @@ export default function RecordBookPage() {
             </div>
           ))}
         </div>
+      </div>
+
+      {/* Safe bottom ad: only after data is present */}
+      <div style={{ margin: '1.5rem 0' }}>
+        <AdUnit AdSlot="9168138847" enabled={data.length > 0} />
       </div>
     </div>
   );

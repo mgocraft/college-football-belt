@@ -57,7 +57,7 @@ export default function AllTeamsRecords() {
       <NavBar />
 
       <div style={{ marginBottom: '1.5rem' }}>
-        <AdUnit adSlot="9168138847" variant="leaderboard" />
+        <AdUnit AdSlot="9168138847" variant="leaderboard" enabled={data.length > 0} />
       </div>
 
       <h1 style={{ textAlign: 'center', fontSize: '1.5rem', fontWeight: 'bold' }}>All Teams Records</h1>
@@ -105,7 +105,7 @@ export default function AllTeamsRecords() {
       })}
 
       <div style={{ margin: '1.5rem 0' }}>
-        <AdUnit adSlot="9168138847" variant="leaderboard" />
+        <AdUnit AdSlot="9168138847" variant="leaderboard" enabled={data.length > 0} />
       </div>
 
       <style jsx>{`
