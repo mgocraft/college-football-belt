@@ -37,6 +37,7 @@ export const teamLogoMap = {
   Pittsburgh: 221,
   Purdue: 2509,
   SouthCarolina: 2579,
+  SouthFlorida: 58,
   Stanford: 24,
   Syracuse: 183,
   Tennessee: 2633,

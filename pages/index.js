@@ -28,7 +28,7 @@ export default function HomePage({ data }) {
   const router = useRouter();
   const page = parseInt(router.query.page || '1', 10);
   const itemsPerPage = 10;
-  const nextOpponent = 'Long Island University';
+  const nextOpponent = 'South Florida';
 
   if (!data.length) return <p></p>;
 
@@ -169,7 +169,7 @@ export default function HomePage({ data }) {
         </tbody>
       </table>
 <div style={{ marginBottom: '1rem',  color: '#000' }}>
-  Florida starts its 2025 season belt defense taking on the Long Island Sharks, an opponent requested by long departed coach Jim McElwain. The Sharks have unsurprisingly never played in a belt game before. With an expected win Florida will move up to a 14th place tie in total wins with Auburn.
+  Florida continues its 2025 belt defense with an in-state clash against the South Florida Bulls. The Bulls have taken their shots at the belt before but have yet to capture it. A win would keep the Gators' reign alive and push them toward a 14th-place tie in total wins with Auburn.
 </div>
   
 
