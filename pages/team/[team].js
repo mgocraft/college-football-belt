@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import {
   teamLogoMap,
   normalizeTeamName,
@@ -8,6 +7,7 @@ import {
 } from '../../utils/teamUtils';
 import AdUnit from '../../components/AdUnit';
 import NavBar from '../../components/NavBar';
+import { fetchFromApi } from '../../utils/ssr';
 
 const styles = {
   tableHeader: {
@@ -23,23 +23,14 @@ const styles = {
   },
 };
 
-export default function TeamPage() {
-  const router = useRouter();
-  const { team } = router.query;
-  const [data, setData] = useState([]);
+export default function TeamPage({ data, team }) {
   const [expandedRows, setExpandedRows] = useState({});
 
   useEffect(() => {
-    fetch('/api/belt')
-      .then((res) => res.json())
-      .then((json) => {
-        setData(json);
-        if (typeof window !== 'undefined' && team) {
-          debugTeamGames(team, json);
-        }
-      })
-      .catch((err) => console.error('Error loading belt data:', err));
-  }, [team]);
+    if (typeof window !== 'undefined' && team) {
+      debugTeamGames(team, data);
+    }
+  }, [team, data]);
 
   if (!data.length || !team) return <p></p>;
 
@@ -152,6 +143,12 @@ export default function TeamPage() {
       .sort((a, b) => totalReignsByTeam[b] - totalReignsByTeam[a])
       .indexOf(team) + 1;
 
+  const firstReign = reignCount > 0 ? filteredReigns[reignCount - 1] : null;
+  const intro = `This page chronicles ${team}'s history with the College Football Belt, which passes to any FBS team that defeats the current holder.`;
+  const summary = firstReign
+    ? `${team} first captured the College Football Belt on ${firstReign.startOfReign} after ${firstReign.beltWon}. The program has enjoyed ${reignCount} total reign${reignCount === 1 ? '' : 's'} and owns a belt game record of ${totalWins}-${losses}-${ties}.`
+    : `${team} has never held the College Football Belt. The team is ${totalWins}-${losses}-${ties} in belt games.`;
+
   const toggleRow = (idx) => {
     setExpandedRows((prev) => ({ ...prev, [idx]: !prev[idx] }));
   };
@@ -186,6 +183,28 @@ export default function TeamPage() {
         )}
         <h1 style={{ fontSize: '2rem', color: '#001f3f' }}>{team}</h1>
       </div>
+
+      <p
+        style={{
+          textAlign: 'center',
+          fontSize: '1rem',
+          marginBottom: '1rem',
+          lineHeight: '1.6',
+        }}
+      >
+        {intro}
+      </p>
+
+      <p
+        style={{
+          textAlign: 'center',
+          fontSize: '1rem',
+          marginBottom: '2rem',
+          lineHeight: '1.6',
+        }}
+      >
+        {summary}
+      </p>
 
       <div
         style={{
@@ -284,8 +303,13 @@ export default function TeamPage() {
       </div>
 
       <div style={{ marginBottom: '1.5rem' }}>
-        <AdUnit AdSlot="9168138847" enabled={data.length > 0} />
+      <AdUnit AdSlot="9168138847" enabled={data.length > 0} />
       </div>
     </div>
   );
+}
+
+export async function getServerSideProps({ params, req }) {
+  const data = await fetchFromApi(req, '/api/belt');
+  return { props: { data, team: params.team } };
 }

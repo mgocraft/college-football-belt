@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import NavBar from '../components/NavBar';
 import { teamLogoMap, normalizeTeamName, computeRecord } from '../utils/teamUtils';
-import Head from 'next/head'; 
+import Head from 'next/head';
 import AdUnit from '../components/AdUnit';
 import Footer from '../components/Footer';
+import { fetchFromApi } from '../utils/ssr';
 
 // ...inside your component render where the placeholder was:
 
@@ -23,19 +24,11 @@ const styles = {
   },
 };
 
-export default function HomePage() {
-  const [data, setData] = useState([]);
+export default function HomePage({ data }) {
   const router = useRouter();
   const page = parseInt(router.query.page || '1', 10);
   const itemsPerPage = 10;
   const nextOpponent = 'Long Island University';
-
-  useEffect(() => {
-    fetch('/api/belt')
-      .then((res) => res.json())
-      .then((json) => setData(json))
-      .catch((err) => console.error('Error loading belt data:', err));
-  }, []);
 
   if (!data.length) return <p></p>;
 
@@ -226,4 +219,9 @@ export default function HomePage() {
 </div>
     </div>
   );
+}
+
+export async function getServerSideProps({ req }) {
+  const data = await fetchFromApi(req, '/api/belt');
+  return { props: { data } };
 }

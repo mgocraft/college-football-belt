@@ -1,22 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import NavBar from '../components/NavBar';
 import AdUnit from '../components/AdUnit';
 import { teamLogoMap, normalizeTeamName } from '../utils/teamUtils';
+import { fetchFromApi } from '../utils/ssr';
 
-export default function RecordBookPage() {
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    fetch('/api/belt')
-      .then((res) => res.json())
-      .then((json) => setData(json));
-  }, []);
-
+export default function RecordBookPage({ data }) {
   if (!data.length) return (
     <div style={{ maxWidth: '800px', margin: 'auto', padding: '1rem', fontFamily: 'Arial, sans-serif', color: '#111' }}>
       <NavBar />
       <h1 style={{ fontSize: '2rem', marginBottom: '1rem', color: '#001f3f' }}>Record Book</h1>
-      <p>Loading...</p>
+      <p style={{ marginBottom: '1rem' }}>
+        Historical highlights and statistical leaders from every College Football Belt game.
+      </p>
+      <p>No data available.</p>
     </div>
   );
 
@@ -125,8 +121,13 @@ export default function RecordBookPage() {
 
       {/* Safe bottom ad: only after data is present */}
       <div style={{ margin: '1.5rem 0' }}>
-        <AdUnit AdSlot="9168138847" enabled={data.length > 0} />
+      <AdUnit AdSlot="9168138847" enabled={data.length > 0} />
       </div>
     </div>
   );
+}
+
+export async function getServerSideProps({ req }) {
+  const data = await fetchFromApi(req, '/api/belt');
+  return { props: { data } };
 }

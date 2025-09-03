@@ -1,21 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { teamLogoMap, normalizeTeamName, computeRecord } from '../../utils/teamUtils';
 import NavBar from '../../components/NavBar';
 import AdUnit from '../../components/AdUnit';
+import { fetchFromApi } from '../../utils/ssr';
 
-export default function AllTeamsRecords() {
-  const [data, setData] = useState([]);
+export default function AllTeamsRecords({ data }) {
   const [filter, setFilter] = useState('');
   const [sortKey, setSortKey] = useState('wins');
   const [sortAsc, setSortAsc] = useState(false);
-
-  useEffect(() => {
-    fetch('/api/belt')
-      .then((res) => res.json())
-      .then((json) => setData(json))
-      .catch((err) => console.error('Error loading belt data:', err));
-  }, []);
 
   if (!data.length) return <p></p>;
 
@@ -61,6 +54,9 @@ export default function AllTeamsRecords() {
       </div>
 
       <h1 style={{ textAlign: 'center', fontSize: '1.5rem', fontWeight: 'bold' }}>All Teams Records</h1>
+      <p style={{ textAlign: 'center', marginBottom: '1rem' }}>
+        Search and sort every program's performance in College Football Belt history.
+      </p>
 
       <input
         placeholder="Filter by team name..."
@@ -151,4 +147,9 @@ export default function AllTeamsRecords() {
       `}</style>
     </div>
   );
+}
+
+export async function getServerSideProps({ req }) {
+  const data = await fetchFromApi(req, '/api/belt');
+  return { props: { data } };
 }
