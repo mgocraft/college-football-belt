@@ -19,7 +19,7 @@ export default function AllTeamsRecords({ data }) {
   data.forEach((reign) => {
     teamSet.add(cleanTeamName(reign.beltHolder));
     (reign.defenses || []).forEach((defText) => {
-      const match = defText.match(/^(vs\.|at) (.*?) \((W|L|T) (\d+)[\-\u2013](\d+)\)/);
+      const match = defText.match(/^(vs\.?|at) (?:#\d+ )?(.*?) \((W|L|T) (\d+)[\-\u2013](\d+)\)/);
       if (match) {
         const opponentRaw = match[2];
         teamSet.add(cleanTeamName(opponentRaw));
