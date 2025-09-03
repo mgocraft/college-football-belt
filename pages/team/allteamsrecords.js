@@ -5,6 +5,9 @@ import NavBar from '../../components/NavBar';
 import AdUnit from '../../components/AdUnit';
 import { fetchFromApi } from '../../utils/ssr';
 
+const cleanTeamName = (name = '') =>
+  name.replace(/^#\d+\s*/, '').split('(')[0].trim();
+
 export default function AllTeamsRecords({ data }) {
   const [filter, setFilter] = useState('');
   const [sortKey, setSortKey] = useState('wins');
@@ -14,12 +17,12 @@ export default function AllTeamsRecords({ data }) {
 
   const teamSet = new Set();
   data.forEach((reign) => {
-    teamSet.add(reign.beltHolder);
+    teamSet.add(cleanTeamName(reign.beltHolder));
     (reign.defenses || []).forEach((defText) => {
       const match = defText.match(/^(vs\.|at) (.*?) \((W|L|T) (\d+)[\-\u2013](\d+)\)/);
       if (match) {
         const opponentRaw = match[2];
-        teamSet.add(opponentRaw.trim());
+        teamSet.add(cleanTeamName(opponentRaw));
       }
     });
   });
