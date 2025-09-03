@@ -169,7 +169,7 @@ export default function HomePage({ data }) {
         </tbody>
       </table>
 <div style={{ marginBottom: '1rem',  color: '#000' }}>
-  Florida continues its 2025 belt defense with an in-state clash against the South Florida Bulls. The Bulls have taken their shots at the belt before but have yet to capture it. A win would keep the Gators' reign alive and push them toward a 14th-place tie in total wins with Auburn.
+  Florida continues its 2025 belt defense with an in-state clash against the South Florida Bulls. This is the Bulls first ever College Football Belt game. A win would keep the Gators' reign alive and push them toward a 14th-place tie in total wins with Auburn.
 </div>
   
 
