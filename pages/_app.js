@@ -39,17 +39,18 @@ function ensureAutoAdsLoaded(pubId) {
 
 export default function MyApp({ Component, pageProps }) {
   const router = useRouter();
+  const { hasContent = true } = pageProps;
 
   useEffect(() => {
     const handle = (url) => {
-      if (!isBlocked(url)) ensureAutoAdsLoaded(PUB_ID);
+      if (!isBlocked(url) && hasContent) ensureAutoAdsLoaded(PUB_ID);
     };
     // initial load
     handle(router.pathname);
     // on client route changes
     router.events.on("routeChangeStart", handle);
     return () => router.events.off("routeChangeStart", handle);
-  }, [router.pathname]);
+  }, [router.pathname, hasContent]);
 
   return (
     <>

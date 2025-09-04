@@ -30,7 +30,23 @@ export default function HomePage({ data }) {
   const itemsPerPage = 10;
   const nextOpponent = 'South Florida';
 
-  if (!data.length) return <p></p>;
+  if (!data.length) {
+    return (
+      <div
+        style={{
+          maxWidth: 700,
+          margin: '2rem auto',
+          padding: '1rem',
+          fontFamily: 'Arial, sans-serif',
+          textAlign: 'center',
+        }}
+      >
+        <NavBar />
+        <p style={{ marginTop: '2rem' }}>No data available.</p>
+        <p>Please check back later for updated belt information.</p>
+      </div>
+    );
+  }
 
   const currentReign = data.find((r) => r.endOfReign === 'Ongoing');
 
@@ -223,5 +239,5 @@ export default function HomePage({ data }) {
 
 export async function getServerSideProps({ req }) {
   const data = await fetchFromApi(req, '/api/belt');
-  return { props: { data } };
+  return { props: { data, hasContent: data.length > 0 } };
 }

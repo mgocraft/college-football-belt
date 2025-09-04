@@ -32,7 +32,23 @@ export default function TeamPage({ data, team }) {
     }
   }, [team, data]);
 
-  if (!data.length || !team) return <p></p>;
+  if (!data.length || !team) {
+    return (
+      <div
+        style={{
+          maxWidth: 700,
+          margin: '2rem auto',
+          padding: '1.5rem',
+          fontFamily: 'Arial, sans-serif',
+          textAlign: 'center',
+        }}
+      >
+        <NavBar />
+        <p style={{ marginTop: '2rem' }}>No data available.</p>
+        <p>Please check back later.</p>
+      </div>
+    );
+  }
 
   const normalizedTeam = normalizeTeamName(team);
 
@@ -311,5 +327,34 @@ export default function TeamPage({ data, team }) {
 
 export async function getServerSideProps({ params, req }) {
   const data = await fetchFromApi(req, '/api/belt');
-  return { props: { data, team: params.team } };
+  const normalizedTeam = normalizeTeamName(params.team);
+
+  const validHolders = new Set(
+    data.map((r) => normalizeTeamName(r.beltHolder))
+  );
+  let teamExists = validHolders.has(normalizedTeam);
+  if (!teamExists) {
+    outer: for (const reign of data) {
+      for (const text of reign.defenses || []) {
+        const m = text.match(
+          /^(vs\.|at)\s+(.*?)\s+\((W|L|T)\s+(\d+)[\-–](\d+)\)/
+        );
+        if (m) {
+          const opp = normalizeTeamName(m[2].trim());
+          if (opp === normalizedTeam) {
+            teamExists = true;
+            break outer;
+          }
+        }
+      }
+    }
+  }
+
+  return {
+    props: {
+      data,
+      team: params.team,
+      hasContent: data.length > 0 && teamExists,
+    },
+  };
 }
