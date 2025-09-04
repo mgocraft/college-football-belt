@@ -13,7 +13,23 @@ export default function AllTeamsRecords({ data }) {
   const [sortKey, setSortKey] = useState('wins');
   const [sortAsc, setSortAsc] = useState(false);
 
-  if (!data.length) return <p></p>;
+  if (!data.length) {
+    return (
+      <div
+        style={{
+          maxWidth: '700px',
+          margin: '2rem auto',
+          padding: '1rem',
+          fontFamily: 'Arial, sans-serif',
+          textAlign: 'center',
+        }}
+      >
+        <NavBar />
+        <p style={{ marginTop: '2rem' }}>No data available.</p>
+        <p>Try again later.</p>
+      </div>
+    );
+  }
 
   const teamSet = new Set();
   data.forEach((reign) => {
@@ -154,5 +170,5 @@ export default function AllTeamsRecords({ data }) {
 
 export async function getServerSideProps({ req }) {
   const data = await fetchFromApi(req, '/api/belt');
-  return { props: { data } };
+  return { props: { data, hasContent: data.length > 0 } };
 }
