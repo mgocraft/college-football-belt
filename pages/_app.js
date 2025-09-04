@@ -24,6 +24,10 @@ function isBlocked(pathname) {
 }
 
 function ensureAutoAdsLoaded(pubId) {
+  // Skip if the page has no meaningful text content
+  const bodyText = (document?.body?.innerText || "").trim();
+  if (!bodyText.length) return;
+
   // Avoid double-inserting the auto-ads script
   const already = Array.from(document.scripts).some((s) =>
     s.src.includes("pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
@@ -43,8 +47,12 @@ export default function MyApp({ Component, pageProps }) {
 
   useEffect(() => {
     const handle = (url) => {
-      if (!isBlocked(url) && hasContent) ensureAutoAdsLoaded(PUB_ID);
+      const bodyText = (document?.body?.innerText || "").trim();
+      const contentPresent =
+        typeof hasContent === "boolean" ? hasContent : bodyText.length > 0;
+      if (!isBlocked(url) && contentPresent) ensureAutoAdsLoaded(PUB_ID);
     };
+
     // initial load
     handle(router.pathname);
     // on client route changes
