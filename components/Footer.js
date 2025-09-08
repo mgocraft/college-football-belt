@@ -1,5 +1,6 @@
 import { FaInstagram, FaXTwitter } from 'react-icons/fa6';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 export default function Footer() {
   const [lastUpdated, setLastUpdated] = useState('');
@@ -16,7 +17,6 @@ export default function Footer() {
     }
     fetchLastUpdated();
   }, []);
-
   return (
     <footer style={styles.footer}>
       {lastUpdated && (
@@ -29,6 +29,20 @@ export default function Footer() {
           })}
         </div>
       )}
+      <div style={styles.linkRow}>
+        <Link href="/about" style={styles.link}>
+          About
+        </Link>
+        <Link href="/contact" style={styles.link}>
+          Contact
+        </Link>
+        <Link href="/privacy" style={styles.link}>
+          Privacy Policy
+        </Link>
+        <Link href="/terms" style={styles.link}>
+          Terms &amp; Conditions
+        </Link>
+      </div>
       <div style={styles.iconRow}>
         <a
           href="https://instagram.com/thecollegefootballbelt"
@@ -66,6 +80,15 @@ const styles = {
     gap: '16px',
   },
   iconLink: {
+    color: '#000',
+    textDecoration: 'none',
+  },
+  linkRow: {
+    display: 'flex',
+    gap: '12px',
+    fontSize: '0.9rem',
+  },
+  link: {
     color: '#000',
     textDecoration: 'none',
   },
