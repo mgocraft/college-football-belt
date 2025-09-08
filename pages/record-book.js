@@ -2,6 +2,7 @@ import React from 'react';
 import NavBar from '../components/NavBar';
 import AdUnit from '../components/AdUnit';
 import Head from 'next/head';
+import Link from 'next/link';
 import { teamLogoMap, normalizeTeamName } from '../utils/teamUtils';
 import { fetchFromApi } from '../utils/ssr';
 
@@ -107,6 +108,21 @@ export default function RecordBookPage({ data }) {
       </div>
 
       <h1 style={{ fontSize: '2rem', marginBottom: '1rem', color: '#001f3f' }}>Record Book</h1>
+      <h2 style={{ fontSize: '1.25rem', marginBottom: '0.75rem', color: '#001f3f' }}>About the Record Book</h2>
+      <p style={{ marginBottom: '1rem' }}>
+        College Football Belt’s record book distills more than a century of championship lineage into a quick
+        reference for the curious fan. The summary at the top ranks programs by record book superlatives: the
+        longest reign, teams that have piled up wins, and those that keep falling short. Beneath those highlights,
+        the page explores broader trends. The 'Top 5 Most Played Belt Matchups' table showcases rivalries that have
+        repeatedly influenced the belt's path, revealing traditional powers and regional battles. Another list calls
+        out major FBS programs that have never captured the title, a reminder of how elusive the belt can be. Use
+        these tables alongside the <Link href="/team/allteamsrecords">All Teams Records</Link> directory to study how
+        individual schools stack up and identify surprising underperformers. For a fuller narrative about how the belt
+        originated and why fans track it, visit the <Link href="/about">about page</Link>. Together these resources
+        provide a compact yet meaningful history of the sport's most itinerant championship. Whether you're scanning
+        for the dominant dynasties or tracing obscure upsets, the record book turns decades of box scores into a
+        digestible snapshot.
+      </p>
 
       <div style={rowStyle}><strong>🏆 Longest Reign:</strong>&nbsp; {logo(longestReign.beltHolder)} {longestReign.beltHolder} with {longestReign.numberOfDefenses} defenses</div>
       <div style={rowStyle}><strong>💔 Most Losses Without a Win:</strong>&nbsp; {logo(mostLossesWithoutWin[0])} {mostLossesWithoutWin[0]} with {mostLossesWithoutWin[1].losses} losses</div>

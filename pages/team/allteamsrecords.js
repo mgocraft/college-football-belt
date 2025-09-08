@@ -87,8 +87,17 @@ export default function AllTeamsRecords({ data }) {
       </div>
 
       <h1 style={{ textAlign: 'center', fontSize: '1.5rem', fontWeight: 'bold' }}>All Teams Records</h1>
+      <h2 style={{ textAlign: 'center', fontSize: '1.25rem', margin: '0.5rem 0', color: '#001f3f' }}>About These Team Records</h2>
       <p style={{ textAlign: 'center', marginBottom: '1rem' }}>
-        Search and sort every program's performance in College Football Belt history.
+        Every school that has participated in a College Football Belt game is cataloged below, offering a searchable
+        database of wins, losses, ties, and reigns. The table lets you filter by name, reorder by clicking any column,
+        and follow links to individual team pages for deeper dives. Comparing win percentages side by side reveals which
+        programs seized their opportunities and which let the belt slip away. Historians can trace eras of dominance or
+        drought, while newcomers gain a quick sense of the belt’s competitive landscape. Use it alongside the <Link href="/record-book">Record Book</Link> to identify standout
+        performances or surprising absences, and visit the <Link href="/about">about page</Link> for background on how the
+        belt travels from champion to champion. By centralizing every program’s belt resume, this table highlights the
+        breadth of schools touched by the title and invites fans to explore the stories behind the numbers. It is an
+        evolving ledger that grows with each new game.
       </p>
 
       <input
