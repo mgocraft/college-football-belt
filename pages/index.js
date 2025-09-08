@@ -28,7 +28,7 @@ export default function HomePage({ data }) {
   const router = useRouter();
   const page = parseInt(router.query.page || '1', 10);
   const itemsPerPage = 10;
-  const nextOpponent = 'South Florida';
+  const nextOpponent = 'Alabama';
 
   if (!data.length) {
     return (
@@ -185,7 +185,7 @@ export default function HomePage({ data }) {
         </tbody>
       </table>
 <div style={{ marginBottom: '1rem',  color: '#000' }}>
-  Florida continues its 2025 belt defense with an in-state clash against the South Florida Bulls. This is the Bulls first ever College Football Belt game. A win would keep the Gators' reign alive and push them toward a 14th-place tie in total wins with Auburn.
+  South Florida begins its 2025 belt reign with a showdown against the Alabama Crimson Tide. The Bulls seek their first defense and aim to extend their stay atop the College Football Belt.
 </div>
   
 
