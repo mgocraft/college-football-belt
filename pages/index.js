@@ -203,6 +203,9 @@ export default function HomePage({ data }) {
         with {nextOpponent} offers a chance to extend the streak and further cement their lineal legacy.
       </div>
 
+      <h2 style={{ fontSize: '1.5rem', marginBottom: '0.75rem', color: '#001f3f' }}>
+        About The CFB Belt
+      </h2>
       <section style={{ marginBottom: '1.5rem', color: '#000', lineHeight: 1.6 }}>
         <p>
           The College Football Belt is a lineal championship that traces a single path through the sport's history, rewarding
