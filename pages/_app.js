@@ -2,6 +2,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import Script from "next/script";
+import Footer from "../components/Footer";
 
 const PUB_ID = "ca-pub-7568133290427764"; // your AdSense publisher ID
 
@@ -84,6 +85,7 @@ export default function MyApp({ Component, pageProps }) {
          Auto-ads now loads dynamically only on allowed routes. */}
 
       <Component {...pageProps} />
+      <Footer />
     </>
   );
 }
