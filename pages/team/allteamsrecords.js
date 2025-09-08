@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { teamLogoMap, normalizeTeamName, computeRecord } from '../../utils/teamUtils';
 import NavBar from '../../components/NavBar';
 import AdUnit from '../../components/AdUnit';
+import Head from 'next/head';
 import { fetchFromApi } from '../../utils/ssr';
 
 const cleanTeamName = (name = '') =>
@@ -12,6 +13,17 @@ export default function AllTeamsRecords({ data }) {
   const [filter, setFilter] = useState('');
   const [sortKey, setSortKey] = useState('wins');
   const [sortAsc, setSortAsc] = useState(false);
+
+  const head = (
+    <Head>
+      <title>All Teams Records - College Football Belt</title>
+      <meta
+        name="description"
+        content="Search and sort every program's performance in College Football Belt history."
+      />
+      <meta property="og:image" content="/images/fallback-helmet.png" />
+    </Head>
+  );
 
   if (!data.length) {
     return (
@@ -24,6 +36,7 @@ export default function AllTeamsRecords({ data }) {
           textAlign: 'center',
         }}
       >
+        {head}
         <NavBar />
         <p style={{ marginTop: '2rem' }}>No data available.</p>
         <p>Try again later.</p>
@@ -66,6 +79,7 @@ export default function AllTeamsRecords({ data }) {
 
   return (
     <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '1rem' }}>
+      {head}
       <NavBar />
 
       <div style={{ marginBottom: '1.5rem' }}>

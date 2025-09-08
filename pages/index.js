@@ -212,7 +212,13 @@ export default function HomePage({ data }) {
               <tr key={idx} style={{ backgroundColor: idx % 2 === 0 ? '#f5f7fa' : 'white' }}>
                 <td style={styles.tableCell}>
                   <div style={{ display: 'flex', alignItems: 'center' }}>
-                    {logoUrl && <img src={logoUrl} alt="" style={{ height: 24, marginRight: 8 }} />}
+                    {logoUrl && (
+                      <img
+                        src={logoUrl}
+                        alt={`${reign.beltHolder} logo`}
+                        style={{ height: 24, marginRight: 8 }}
+                      />
+                    )}
                     <Link href={`/team/${encodeURIComponent(reign.beltHolder)}`} legacyBehavior>
                       <a>{reign.beltHolder}</a>
                     </Link>

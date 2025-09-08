@@ -1,20 +1,34 @@
 import React from 'react';
 import NavBar from '../components/NavBar';
 import AdUnit from '../components/AdUnit';
+import Head from 'next/head';
 import { teamLogoMap, normalizeTeamName } from '../utils/teamUtils';
 import { fetchFromApi } from '../utils/ssr';
 
 export default function RecordBookPage({ data }) {
-  if (!data.length) return (
-    <div style={{ maxWidth: '800px', margin: 'auto', padding: '1rem', fontFamily: 'Arial, sans-serif', color: '#111' }}>
-      <NavBar />
-      <h1 style={{ fontSize: '2rem', marginBottom: '1rem', color: '#001f3f' }}>Record Book</h1>
-      <p style={{ marginBottom: '1rem' }}>
-        Historical highlights and statistical leaders from every College Football Belt game.
-      </p>
-      <p>No data available.</p>
-    </div>
+  const head = (
+    <Head>
+      <title>Record Book - College Football Belt</title>
+      <meta
+        name="description"
+        content="Historical highlights and statistical leaders from every College Football Belt game."
+      />
+      <meta property="og:image" content="/images/fallback-helmet.png" />
+    </Head>
   );
+
+  if (!data.length)
+    return (
+      <div style={{ maxWidth: '800px', margin: 'auto', padding: '1rem', fontFamily: 'Arial, sans-serif', color: '#111' }}>
+        {head}
+        <NavBar />
+        <h1 style={{ fontSize: '2rem', marginBottom: '1rem', color: '#001f3f' }}>Record Book</h1>
+        <p style={{ marginBottom: '1rem' }}>
+          Historical highlights and statistical leaders from every College Football Belt game.
+        </p>
+        <p>No data available.</p>
+      </div>
+    );
 
   const teamStats = {};
   const allTeams = new Set();
@@ -84,6 +98,7 @@ export default function RecordBookPage({ data }) {
 
   return (
     <div style={{ maxWidth: '800px', margin: 'auto', padding: '1rem', fontFamily: 'Arial, sans-serif', color: '#111' }}>
+      {head}
       <NavBar />
 
       {/* Safe top ad: only after data is present */}
