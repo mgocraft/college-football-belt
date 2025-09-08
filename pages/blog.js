@@ -16,7 +16,8 @@ export default function Blog() {
       <h1 style={{ fontSize: '2rem', marginBottom: '1rem', color: '#001f3f' }}>College Football Belt Blog</h1>
 
       {/* Most recent post first */}
-    <h2 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>Great Upsets in Belt Game History</h2>
+      <article style={{ marginBottom: '3rem' }}>
+        <h2 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>Great Upsets in Belt Game History</h2>
         <time
           dateTime="2025-09-09"
           style={{
@@ -28,8 +29,11 @@ export default function Blog() {
         >
           September 09, 2025
         </time>
-            <p> The USF Bulls pulled of a huge upset of the Florida Gators. The Gators were favored by 18.5 points. Here are some other notable CFB Belt game upsets: </p>
-             <ul>
+        <p>
+          The USF Bulls pulled off a huge upset of the Florida Gators. The Gators were favored by 18.5 points. Here are
+          some other notable CFB Belt game upsets:
+        </p>
+        <ul>
           <li>
             <strong>1981 – Wisconsin 21, #1 Michigan 14</strong>
             <br />
@@ -62,9 +66,9 @@ export default function Blog() {
           </li>
         </ul>
         <p>
-          Florida at LSU is where we should see our first real challenge.
-          The Bulls have never worn the Belt, yet their speed and chaos on defense could pressure the Gators. A couple of
-          early breaks and USF might craft the next chapter in upset history.
+          Florida at LSU is where we should see our first real challenge. The Bulls have never worn the Belt, yet their
+          speed and chaos on defense could pressure the Gators. A couple of early breaks and USF might craft the next
+          chapter in upset history.
         </p>
       </article>
 
