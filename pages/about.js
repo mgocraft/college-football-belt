@@ -1,10 +1,20 @@
 import React from 'react';
 import NavBar from '../components/NavBar';
+import Head from 'next/head';
+import Link from 'next/link';
 
 export default function AboutPage() {
   return (
     <div style={{ maxWidth: '800px', margin: 'auto', padding: '1rem', fontFamily: 'Arial, sans-serif', color: '#111' }}>
       <NavBar />
+
+      <Head>
+        <title>About the College Football Belt</title>
+        <meta
+          name="description"
+          content="Learn about the history and mission of the College Football Belt project and how you can support it."
+        />
+      </Head>
 
       <h1 style={{ fontSize: '2rem', marginBottom: '1rem', color: '#001f3f' }}>About the College Football Belt</h1>
 
@@ -14,6 +24,11 @@ export default function AboutPage() {
 
       <p style={{ marginBottom: '1rem' }}>
         I’ve built this site on nights and weekends, combining my love for college football with my background in data and web development. The goal is to make the Belt more accessible and engaging — with stats, history, and predictive features all in one place.
+      </p>
+      <p style={{ marginBottom: '1rem' }}>
+        Explore the{' '}
+        <Link href="/record-book">Record Book</Link>{' '}
+        for historical highlights and statistical leaders from every belt game.
       </p>
         <p style={{ marginBottom: '1rem' }}>
         If you ever need to contact me for any reason feel free to 📨 email me at <a href="mailto:contact@cfbbelt.com">contact@cfbbelt.com</a>

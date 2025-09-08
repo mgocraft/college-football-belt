@@ -4,6 +4,7 @@ import { teamLogoMap, normalizeTeamName, computeRecord } from '../../utils/teamU
 import NavBar from '../../components/NavBar';
 import AdUnit from '../../components/AdUnit';
 import { fetchFromApi } from '../../utils/ssr';
+import Head from 'next/head';
 
 const cleanTeamName = (name = '') =>
   name.replace(/^#\d+\s*/, '').split('(')[0].trim();
@@ -67,6 +68,13 @@ export default function AllTeamsRecords({ data }) {
   return (
     <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '1rem' }}>
       <NavBar />
+      <Head>
+        <title>All Teams Belt Records</title>
+        <meta
+          name="description"
+          content="Search and sort every program's performance in College Football Belt history."
+        />
+      </Head>
 
       <div style={{ marginBottom: '1.5rem' }}>
         <AdUnit AdSlot="9168138847" variant="leaderboard" enabled={data.length > 0} />
@@ -74,7 +82,8 @@ export default function AllTeamsRecords({ data }) {
 
       <h1 style={{ textAlign: 'center', fontSize: '1.5rem', fontWeight: 'bold' }}>All Teams Records</h1>
       <p style={{ textAlign: 'center', marginBottom: '1rem' }}>
-        Search and sort every program's performance in College Football Belt history.
+        Search and sort every program's performance in College Football Belt history. Visit the{' '}
+        <Link href="/record-book">Record Book</Link> for highlights and leaders.
       </p>
 
       <input

@@ -3,11 +3,20 @@ import NavBar from '../components/NavBar';
 import AdUnit from '../components/AdUnit';
 import { teamLogoMap, normalizeTeamName } from '../utils/teamUtils';
 import { fetchFromApi } from '../utils/ssr';
+import Head from 'next/head';
+import Link from 'next/link';
 
 export default function RecordBookPage({ data }) {
   if (!data.length) return (
     <div style={{ maxWidth: '800px', margin: 'auto', padding: '1rem', fontFamily: 'Arial, sans-serif', color: '#111' }}>
       <NavBar />
+      <Head>
+        <title>College Football Belt Record Book</title>
+        <meta
+          name="description"
+          content="Historical highlights and statistical leaders from every College Football Belt game."
+        />
+      </Head>
       <h1 style={{ fontSize: '2rem', marginBottom: '1rem', color: '#001f3f' }}>Record Book</h1>
       <p style={{ marginBottom: '1rem' }}>
         Historical highlights and statistical leaders from every College Football Belt game.
@@ -85,6 +94,13 @@ export default function RecordBookPage({ data }) {
   return (
     <div style={{ maxWidth: '800px', margin: 'auto', padding: '1rem', fontFamily: 'Arial, sans-serif', color: '#111' }}>
       <NavBar />
+      <Head>
+        <title>College Football Belt Record Book</title>
+        <meta
+          name="description"
+          content="Historical highlights and statistical leaders from every College Football Belt game."
+        />
+      </Head>
 
       {/* Safe top ad: only after data is present */}
       <div style={{ margin: '1rem 0' }}>
@@ -118,6 +134,11 @@ export default function RecordBookPage({ data }) {
           ))}
         </div>
       </div>
+
+      <p style={{ marginTop: '2rem' }}>
+        For analysis and commentary, visit our{' '}
+        <Link href="/blog">blog</Link> for the latest updates.
+      </p>
 
       {/* Safe bottom ad: only after data is present */}
       <div style={{ margin: '1.5rem 0' }}>

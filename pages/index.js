@@ -138,7 +138,7 @@ export default function HomePage({ data }) {
 
       <div style={{ textAlign: 'center', marginBottom: '0.25rem' }}>
         <h1 style={{ fontSize: '2rem', margin: 0, color: '#001f3f' }}>The College Football Belt</h1>
-        <div style={{ fontSize: '1.5rem', fontStyle: 'italic', color: '#666', marginTop: '0.5rem' }}>Next Game</div>
+        <h2 style={{ fontSize: '1.5rem', fontStyle: 'italic', color: '#666', marginTop: '0.5rem' }}>Next Game</h2>
       </div>
 
       <div style={{ display: 'flex', alignItems: 'center', marginBottom: '1.5rem', gap: '2rem', justifyContent: 'center' }}>
@@ -187,6 +187,10 @@ export default function HomePage({ data }) {
 <div style={{ marginBottom: '1rem',  color: '#000' }}>
   Florida continues its 2025 belt defense with an in-state clash against the South Florida Bulls. This is the Bulls first ever College Football Belt game. A win would keep the Gators' reign alive and push them toward a 14th-place tie in total wins with Auburn.
 </div>
+
+      <p style={{ marginBottom: '1rem' }}>
+        Dive into the <Link href="/record-book">Record Book</Link> for full historical stats.
+      </p>
   
 
       <h2 style={{ fontSize: '1.5rem', marginBottom: '0.75rem', color: '#001f3f' }}>

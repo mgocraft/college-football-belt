@@ -8,6 +8,8 @@ import {
 import AdUnit from '../../components/AdUnit';
 import NavBar from '../../components/NavBar';
 import { fetchFromApi } from '../../utils/ssr';
+import Head from 'next/head';
+import Link from 'next/link';
 
 const styles = {
   tableHeader: {
@@ -44,6 +46,10 @@ export default function TeamPage({ data, team }) {
         }}
       >
         <NavBar />
+        <Head>
+          <title>Team Not Found - College Football Belt</title>
+          <meta name="description" content="The requested team was not found in College Football Belt history." />
+        </Head>
         <p style={{ marginTop: '2rem' }}>No data available.</p>
         <p>Please check back later.</p>
       </div>
@@ -84,6 +90,10 @@ export default function TeamPage({ data, team }) {
         }}
       >
         <NavBar />
+        <Head>
+          <title>Team Not Found - College Football Belt</title>
+          <meta name="description" content="The team does not appear in College Football Belt history." />
+        </Head>
         <h1 style={{ fontSize: '2rem', color: '#001f3f', marginTop: '1rem' }}>
           Team not found
         </h1>
@@ -183,6 +193,13 @@ export default function TeamPage({ data, team }) {
       }}
     >
       <NavBar />
+      <Head>
+        <title>{team} - College Football Belt History</title>
+        <meta
+          name="description"
+          content={summary}
+        />
+      </Head>
 
       {/* ✅ Gate manual ads on real data */}
       <div style={{ marginBottom: '1.5rem' }}>
@@ -220,6 +237,10 @@ export default function TeamPage({ data, team }) {
         }}
       >
         {summary}
+      </p>
+
+      <p style={{ textAlign: 'center', marginBottom: '2rem' }}>
+        <Link href="/record-book">View the full Record Book</Link>
       </p>
 
       <div

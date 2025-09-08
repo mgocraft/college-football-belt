@@ -1,10 +1,19 @@
 import React from 'react';
 import NavBar from '../components/NavBar';
+import Head from 'next/head';
+import Link from 'next/link';
 
 export default function PathToConference() {
   return (
     <div style={{ maxWidth: '900px', margin: 'auto', padding: '1rem', fontFamily: 'Arial, sans-serif', color: '#111' }}>
       <NavBar />
+      <Head>
+        <title>Path to the Conferences</title>
+        <meta
+          name="description"
+          content="How the College Football Belt could travel through major conferences during the 2025 season."
+        />
+      </Head>
       <h1 style={{ fontSize: '2rem', marginBottom: '1rem', color: '#001f3f' }}>Path to the Conferences</h1>
 
       <p style={{ fontSize: '1rem', marginBottom: '1rem' }}>
@@ -36,6 +45,10 @@ export default function PathToConference() {
       <div style={{ marginTop: '2rem', fontStyle: 'italic', color: '#444' }}>
         Belt movement is based on real schedules and historical team strength. This page will update as the season progresses.
       </div>
+      <p style={{ marginTop: '1.5rem' }}>
+        For historical champions, check the{' '}
+        <Link href="/record-book">Record Book</Link>.
+      </p>
     </div>
   );
 }

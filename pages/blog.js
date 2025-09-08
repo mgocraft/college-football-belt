@@ -1,6 +1,7 @@
 // pages/blog.js
 import NavBar from '../components/NavBar';
 import Head from 'next/head';
+import Link from 'next/link';
 
 export default function Blog() {
   return (
@@ -30,6 +31,11 @@ export default function Blog() {
         <p>
           The season kicks off with LIU at Florida — a pretty boring game for a belt championship but the LIU logo is
           pretty cool.
+        </p>
+
+        <p>
+          Looking for historical context? Browse the{' '}
+          <Link href="/record-book">Record Book</Link> to see past champions and key statistics.
         </p>
 
         <div style={{
