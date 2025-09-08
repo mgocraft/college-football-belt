@@ -16,6 +16,58 @@ export default function Blog() {
       <h1 style={{ fontSize: '2rem', marginBottom: '1rem', color: '#001f3f' }}>College Football Belt Blog</h1>
 
       {/* Most recent post first */}
+    <h2 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>Great Upsets in Belt Game History</h2>
+        <time
+          dateTime="2025-09-09"
+          style={{
+            color: '#555',
+            fontSize: '0.9rem',
+            marginBottom: '0.5rem',
+            display: 'block'
+          }}
+        >
+          September 09, 2025
+        </time>
+            <p> The USF Bulls pulled of a huge upset of the Florida Gators. The Gators were favored by 18.5 points. Here are some other notable CFB Belt game upsets: </p>
+             <ul>
+          <li>
+            <strong>1981 – Wisconsin 21, #1 Michigan 14</strong>
+            <br />
+            The unranked Badgers stunned the top-ranked Wolverines in Madison, snapping Michigan’s short reign and
+            handing the belt to Wisconsin for a single week.
+          </li>
+          <li>
+            <strong>1998 – Texas A&M 28, #2 Nebraska 21</strong>
+            <br />
+            The Aggies halted Nebraska’s 15-game belt streak in College Station, turning a title defense into an
+            unexpected transfer of power.
+          </li>
+          <li>
+            <strong>2007 – Auburn 20, #4 Florida 17</strong>
+            <br />
+            Florida looked invincible after its national championship run, but Auburn walked into Gainesville as a
+            two-touchdown underdog and left with the belt.
+          </li>
+          <li>
+            <strong>2007 – Arkansas 50, #1 LSU 48 (3OT)</strong>
+            <br />
+            Darren McFadden and the Razorbacks outlasted top-ranked LSU in Baton Rouge, one of the wildest belt
+            exchanges of the modern era.
+          </li>
+          <li>
+            <strong>2012 – Baylor 52, #1 Kansas State 24</strong>
+            <br />
+            The Wildcats were eyeing a title shot before the Bears detonated those dreams in Waco, seizing the belt with
+            a 28-point shocker.
+          </li>
+        </ul>
+        <p>
+          Florida at LSU is where we should see our first real challenge.
+          The Bulls have never worn the Belt, yet their speed and chaos on defense could pressure the Gators. A couple of
+          early breaks and USF might craft the next chapter in upset history.
+        </p>
+      </article>
+
       <article style={{ marginBottom: '3rem' }}>
         <h2 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>2025 Season Preview</h2>
         <p style={{ color: '#555', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Posted August 6, 2025</p>
