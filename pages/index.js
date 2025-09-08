@@ -5,7 +5,6 @@ import NavBar from '../components/NavBar';
 import { teamLogoMap, normalizeTeamName, computeRecord } from '../utils/teamUtils';
 import Head from 'next/head';
 import AdUnit from '../components/AdUnit';
-import Footer from '../components/Footer';
 import { fetchFromApi } from '../utils/ssr';
 
 // ...inside your component render where the placeholder was:
@@ -237,7 +236,6 @@ export default function HomePage({ data }) {
 
     <div style={{ marginBottom: '1.5rem' }}>
   <AdUnit AdSlot="9168138847" enabled={data.length > 0} />
-   <Footer />
 </div>
     </div>
   );
