@@ -9,6 +9,7 @@ export default function Blog() {
       <Head>
         <title>CFB Belt Blog</title>
         <meta name="description" content="Follow the latest updates and insights about the College Football Belt." />
+        <meta property="og:image" content="/images/2025week1.png" />
       </Head>
 
       <NavBar />

@@ -28,7 +28,7 @@ export default function HomePage({ data }) {
   const router = useRouter();
   const page = parseInt(router.query.page || '1', 10);
   const itemsPerPage = 10;
-  const nextOpponent = 'South Florida';
+  const nextOpponent = 'Miami';
 
   if (!data.length) {
     return (
@@ -185,7 +185,7 @@ export default function HomePage({ data }) {
         </tbody>
       </table>
 <div style={{ marginBottom: '1rem',  color: '#000' }}>
-  Florida continues its 2025 belt defense with an in-state clash against the South Florida Bulls. This is the Bulls first ever College Football Belt game. A win would keep the Gators' reign alive and push them toward a 14th-place tie in total wins with Auburn.
+  South Florida begins its first ever belt reign with a showdown against the Miami Hurricanes. The Bulls seek their first defense and aim to extend their the surprising College Football Belt reign. Miami was expected to potentially have a shot at the belt against an in-state team preseason but it was not expected to be USF.
 </div>
 
       <p style={{ marginBottom: '1rem' }}>
@@ -216,7 +216,13 @@ export default function HomePage({ data }) {
               <tr key={idx} style={{ backgroundColor: idx % 2 === 0 ? '#f5f7fa' : 'white' }}>
                 <td style={styles.tableCell}>
                   <div style={{ display: 'flex', alignItems: 'center' }}>
-                    {logoUrl && <img src={logoUrl} alt="" style={{ height: 24, marginRight: 8 }} />}
+                    {logoUrl && (
+                      <img
+                        src={logoUrl}
+                        alt={`${reign.beltHolder} logo`}
+                        style={{ height: 24, marginRight: 8 }}
+                      />
+                    )}
                     <Link href={`/team/${encodeURIComponent(reign.beltHolder)}`} legacyBehavior>
                       <a>{reign.beltHolder}</a>
                     </Link>

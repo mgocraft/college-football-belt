@@ -7,6 +7,7 @@ import {
 } from '../../utils/teamUtils';
 import AdUnit from '../../components/AdUnit';
 import NavBar from '../../components/NavBar';
+import Head from 'next/head';
 import { fetchFromApi } from '../../utils/ssr';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -27,6 +28,20 @@ const styles = {
 
 export default function TeamPage({ data, team }) {
   const [expandedRows, setExpandedRows] = useState({});
+  const defaultHead = (
+    <Head>
+      <title>{team ? `${team} - College Football Belt History` : 'College Football Belt Team'}</title>
+      <meta
+        name="description"
+        content={
+          team
+            ? `Explore ${team}'s history with the College Football Belt.`
+            : 'Team information for the College Football Belt.'
+        }
+      />
+      <meta property="og:image" content="/images/fallback-helmet.png" />
+    </Head>
+  );
 
   useEffect(() => {
     if (typeof window !== 'undefined' && team) {
@@ -45,6 +60,7 @@ export default function TeamPage({ data, team }) {
           textAlign: 'center',
         }}
       >
+        {defaultHead}
         <NavBar />
         <Head>
           <title>Team Not Found - College Football Belt</title>
@@ -89,6 +105,7 @@ export default function TeamPage({ data, team }) {
           textAlign: 'center',
         }}
       >
+        {defaultHead}
         <NavBar />
         <Head>
           <title>Team Not Found - College Football Belt</title>
@@ -109,6 +126,17 @@ export default function TeamPage({ data, team }) {
   const logoUrl = logoId
     ? `https://a.espncdn.com/i/teamlogos/ncaa/500/${logoId}.png`
     : '';
+
+  const head = (
+    <Head>
+      <title>{team} - College Football Belt History</title>
+      <meta
+        name="description"
+        content={`Explore ${team}'s history with the College Football Belt.`}
+      />
+      <meta property="og:image" content={logoUrl || '/images/fallback-helmet.png'} />
+    </Head>
+  );
 
   const filteredReigns = data
     .filter((r) => normalizeTeamName(r.beltHolder) === normalizedTeam)
@@ -192,6 +220,7 @@ export default function TeamPage({ data, team }) {
         borderRadius: '8px',
       }}
     >
+      {head}
       <NavBar />
       <Head>
         <title>{team} - College Football Belt History</title>
