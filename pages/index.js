@@ -184,10 +184,43 @@ export default function HomePage({ data }) {
           })}
         </tbody>
       </table>
-<div style={{ marginBottom: '1rem',  color: '#000' }}>
-  South Florida begins its first ever belt reign with a showdown against the Miami Hurricanes. The Bulls seek their first defense and aim to extend their the surprising College Football Belt reign. Miami was expected to potentially have a shot at the belt against an in-state team preseason but it was not expected to be USF.
-</div>
-  
+      <h2 style={{ fontSize: '1.5rem', marginBottom: '0.75rem', color: '#001f3f' }}>
+        Next Game Preview
+      </h2>
+      <div style={{ marginBottom: '1rem', color: '#000' }}>
+        South Florida begins its first ever belt reign with a showdown against the Miami Hurricanes. The Bulls seek their first
+        defense and aim to extend the surprising College Football Belt reign. Miami was expected to potentially have a shot at
+        the belt against an in-state team preseason, but it was not expected to be USF.
+      </div>
+
+      <h2 style={{ fontSize: '1.5rem', marginBottom: '0.75rem', color: '#001f3f' }}>
+        Reign Summary
+      </h2>
+      <div style={{ marginBottom: '1rem', color: '#000' }}>
+        {currentReign.beltHolder} captured the College Football Belt on {currentReign.startOfReign} and has defended it{' '}
+        {currentReign.numberOfDefenses} time{currentReign.numberOfDefenses === 1 ? '' : 's'}. This marks their{' '}
+        {countReigns(currentReign.beltHolder)} reign{countReigns(currentReign.beltHolder) === 1 ? '' : 's'} with an overall belt
+        record of {currentRecord.wins}-{currentRecord.losses}-{currentRecord.ties} ({currentRecord.winPct}). The upcoming clash
+        with {nextOpponent} offers a chance to extend the streak and further cement their lineal legacy.
+      </div>
+
+      <section style={{ marginBottom: '1.5rem', color: '#000', lineHeight: 1.6 }}>
+        <p>
+          The College Football Belt is a lineal championship that traces a single path through the sport's history, rewarding
+          each program that manages to topple the reigning holder on the field. Much like boxing’s legendary belts, ownership is
+          determined solely by results: beat the champion and the prize is yours. The tradition begins with first ever football game where Rutgers defeated Princeton 6-4 in 1869. Every subsequent game featuring the belt holder creates a
+          potential transfer of power, making the belt a colorful thread that connects eras, conferences, and generations of
+          players.
+        </p>
+     
+        <p>
+          This site exists to make the belt’s journey easy to follow for casual fans and diehards alike. By combining a
+          historical database with up-to-date matchup previews, it highlights the ongoing drama of college football’s most
+          unofficial prize. Visitors can explore past reigns, gauge the significance of upcoming games, or trace how their
+          favorite team might seize the title. Whether you are discovering the concept for the first time or reminiscing about a
+          classic reign, the goal is to offer a central hub for the stories and statistics that define the College Football Belt.
+        </p>
+      </section>
 
       <h2 style={{ fontSize: '1.5rem', marginBottom: '0.75rem', color: '#001f3f' }}>
         Past Belt Reigns
