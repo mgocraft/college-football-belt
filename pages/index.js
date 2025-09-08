@@ -28,7 +28,7 @@ export default function HomePage({ data }) {
   const router = useRouter();
   const page = parseInt(router.query.page || '1', 10);
   const itemsPerPage = 10;
-  const nextOpponent = 'Alabama';
+  const nextOpponent = 'Miami';
 
   if (!data.length) {
     return (
@@ -185,7 +185,7 @@ export default function HomePage({ data }) {
         </tbody>
       </table>
 <div style={{ marginBottom: '1rem',  color: '#000' }}>
-  South Florida begins its 2025 belt reign with a showdown against the Alabama Crimson Tide. The Bulls seek their first defense and aim to extend their stay atop the College Football Belt.
+  South Florida begins its first ever belt reign with a showdown against the Miami Hurricanes. The Bulls seek their first defense and aim to extend their the surprising College Football Belt reign. Miami was expected to potentially have a shot at the belt against an in-state team preseason but it was not expected to be USF.
 </div>
   
 
