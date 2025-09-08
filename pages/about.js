@@ -1,9 +1,17 @@
 import React from 'react';
 import NavBar from '../components/NavBar';
+import Head from 'next/head';
 
 export default function AboutPage() {
   return (
     <div style={{ maxWidth: '800px', margin: 'auto', padding: '1rem', fontFamily: 'Arial, sans-serif', color: '#111' }}>
+      <Head>
+        <title>About - College Football Belt</title>
+        <meta
+          name="description"
+          content="Learn about the College Football Belt project, its history, and how to support the site."
+        />
+      </Head>
       <NavBar />
 
       <h1 style={{ fontSize: '2rem', marginBottom: '1rem', color: '#001f3f' }}>About the College Football Belt</h1>
