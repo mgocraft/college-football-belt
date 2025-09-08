@@ -65,11 +65,7 @@ export default function Blog() {
             a 28-point shocker.
           </li>
         </ul>
-        <p>
-          Florida at LSU is where we should see our first real challenge. The Bulls have never worn the Belt, yet their
-          speed and chaos on defense could pressure the Gators. A couple of early breaks and USF might craft the next
-          chapter in upset history.
-        </p>
+    
       </article>
 
       <article style={{ marginBottom: '3rem' }}>
