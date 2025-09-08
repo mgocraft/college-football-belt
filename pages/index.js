@@ -208,19 +208,11 @@ export default function HomePage({ data }) {
         <p>
           The College Football Belt is a lineal championship that traces a single path through the sport's history, rewarding
           each program that manages to topple the reigning holder on the field. Much like boxing’s legendary belts, ownership is
-          determined solely by results: beat the champion and the prize is yours. The tradition begins with the 1971 Nebraska
-          team that closed a dominant season ranked number one. Every subsequent game featuring the belt holder creates a
+          determined solely by results: beat the champion and the prize is yours. The tradition begins with first ever football game where Rutgers defeated Princeton 6-4 in 1869. Every subsequent game featuring the belt holder creates a
           potential transfer of power, making the belt a colorful thread that connects eras, conferences, and generations of
           players.
         </p>
-        <p>
-          Reconstructing that lineage requires trustworthy information, so the data powering this site is compiled from
-          official NCAA statistics, historical box scores, and curated open datasets. Those records are cross-referenced with
-          resources such as Sports Reference, ESPN, and archived media guides to verify results and dates. Whenever possible,
-          multiple sources are consulted to resolve discrepancies, ensuring the timeline reflects what happened on the field.
-          The current schedule and future projections are likewise generated from publicly available APIs, providing a
-          transparent view of how the belt could travel in the coming weeks.
-        </p>
+     
         <p>
           This site exists to make the belt’s journey easy to follow for casual fans and diehards alike. By combining a
           historical database with up-to-date matchup previews, it highlights the ongoing drama of college football’s most
