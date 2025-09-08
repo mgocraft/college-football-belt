@@ -13,10 +13,14 @@ export default function PathToConference() {
 
       <h2 style={{ fontSize: '1.5rem', marginTop: '2rem', color: '#001f3f' }}>ACC</h2>
       <ol>
-        <li>Florida loses to <strong>Miami</strong> (Week 3)</li>
-        <li>Florida loses to <strong>LSU</strong>, who then loses to <strong>South Carolina</strong>, who then loses to <strong>Clemson</strong></li>
-        <li>Florid loses to <strong>Georgia</strong> who then loses to <strong>Georgia Tech</strong></li>
+        <li>South Florida loses to <strong>Miami</strong> (Week 3)</li>
+    
       </ol>
+
+          <h2 style={{ fontSize: '1.5rem', marginTop: '2rem', color: '#001f3f' }}>SEC</h2>
+      <p style={{ marginBottom: '0.5rem' }}>
+        USF loses to Miami, who loses to Florida to give it back them for a second time this season.
+      </p>
 
       <h2 style={{ fontSize: '1.5rem', marginTop: '2rem', color: '#001f3f' }}>Big 12</h2>
       <p style={{ marginBottom: '0.5rem' }}>
@@ -30,7 +34,7 @@ export default function PathToConference() {
 
       <h2 style={{ fontSize: '1.5rem', marginTop: '2rem', color: '#001f3f' }}>Group of Five / Independents</h2>
       <p style={{ marginBottom: '0.5rem' }}>
-        Florida opens the season against Long Island University (FCS), but there aren't many realistic paths to G5 conferences or FCS.
+        The belt is currently in the AAC.
       </p>
 
       <div style={{ marginTop: '2rem', fontStyle: 'italic', color: '#444' }}>
