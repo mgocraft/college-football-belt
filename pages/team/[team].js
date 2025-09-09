@@ -8,6 +8,7 @@ import {
 import AdUnit from '../../components/AdUnit';
 import NavBar from '../../components/NavBar';
 import Head from 'next/head';
+import AmazonBanner from '../../components/AmazonBanner';
 import { fetchFromApi } from '../../utils/ssr';
 
 const styles = {
@@ -348,7 +349,7 @@ export default function TeamPage({ data, team }) {
       </div>
 
       <div style={{ marginBottom: '1.5rem' }}>
-      <AdUnit AdSlot="9168138847" enabled={data.length > 0} />
+        <AmazonBanner />
       </div>
     </div>
   );

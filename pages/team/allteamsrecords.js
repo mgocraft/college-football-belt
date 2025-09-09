@@ -4,6 +4,7 @@ import { teamLogoMap, normalizeTeamName, computeRecord } from '../../utils/teamU
 import NavBar from '../../components/NavBar';
 import AdUnit from '../../components/AdUnit';
 import Head from 'next/head';
+import AmazonBanner from '../../components/AmazonBanner';
 import { fetchFromApi } from '../../utils/ssr';
 
 const cleanTeamName = (name = '') =>
@@ -143,7 +144,7 @@ export default function AllTeamsRecords({ data }) {
       })}
 
       <div style={{ margin: '1.5rem 0' }}>
-        <AdUnit AdSlot="9168138847" variant="leaderboard" enabled={data.length > 0} />
+        <AmazonBanner />
       </div>
 
       <style jsx>{`

@@ -4,6 +4,7 @@ import AdUnit from '../components/AdUnit';
 import Head from 'next/head';
 import Link from 'next/link';
 import { teamLogoMap, normalizeTeamName } from '../utils/teamUtils';
+import AmazonBanner from '../components/AmazonBanner';
 import { fetchFromApi } from '../utils/ssr';
 
 export default function RecordBookPage({ data }) {
@@ -152,7 +153,7 @@ export default function RecordBookPage({ data }) {
 
       {/* Safe bottom ad: only after data is present */}
       <div style={{ margin: '1.5rem 0' }}>
-      <AdUnit AdSlot="9168138847" enabled={data.length > 0} />
+        <AmazonBanner />
       </div>
     </div>
   );

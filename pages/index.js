@@ -5,6 +5,7 @@ import NavBar from '../components/NavBar';
 import { teamLogoMap, normalizeTeamName, computeRecord } from '../utils/teamUtils';
 import Head from 'next/head';
 import AdUnit from '../components/AdUnit';
+import AmazonBanner from '../components/AmazonBanner';
 import { fetchFromApi } from '../utils/ssr';
 
 // ...inside your component render where the placeholder was:
@@ -131,9 +132,9 @@ export default function HomePage({ data }) {
     </Head>
     <NavBar />
 
-    <div style={{ marginBottom: '1.5rem' }}>
-  <AdUnit AdSlot="9168138847" enabled={data.length > 0} />
-</div>
+      <div style={{ marginBottom: '1.5rem' }}>
+        <AdUnit AdSlot="9168138847" enabled={data.length > 0} />
+      </div>
 
       <div style={{ textAlign: 'center', marginBottom: '0.25rem' }}>
         <h1 style={{ fontSize: '2rem', margin: 0, color: '#001f3f' }}>The College Football Belt</h1>
@@ -270,9 +271,9 @@ export default function HomePage({ data }) {
 
       <div style={{ marginTop: '1rem' }}>{getPagination()}</div>
 
-    <div style={{ marginBottom: '1.5rem' }}>
-  <AdUnit AdSlot="9168138847" enabled={data.length > 0} />
-</div>
+      <div style={{ marginBottom: '1.5rem' }}>
+        <AmazonBanner />
+      </div>
     </div>
   );
 }
