@@ -5,6 +5,7 @@ import Script from "next/script";
 import Footer from "../components/Footer";
 
 const PUB_ID = "ca-pub-7568133290427764"; // your AdSense publisher ID
+const ADSENSE_ENABLED = process.env.NEXT_PUBLIC_ADSENSE_ENABLED === "true";
 
 // Routes where Auto Ads must NEVER initialize
 const AUTO_ADS_BLOCKLIST = [
@@ -25,6 +26,7 @@ function isBlocked(pathname) {
 }
 
 function ensureAutoAdsLoaded(pubId) {
+  if (!ADSENSE_ENABLED) return;
   // Skip if the page has no meaningful text content
   const bodyText = (document?.body?.innerText || "").trim();
   if (!bodyText.length) return;
@@ -47,6 +49,7 @@ export default function MyApp({ Component, pageProps }) {
   const { hasContent = true } = pageProps;
 
   useEffect(() => {
+    if (!ADSENSE_ENABLED) return;
     const handle = (url) => {
       const bodyText = (document?.body?.innerText || "").trim();
       const contentPresent =

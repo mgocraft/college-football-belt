@@ -1,6 +1,6 @@
 import React from 'react';
 import NavBar from '../components/NavBar';
-import AdUnit from '../components/AdUnit';
+import AdSlot from '../components/AdSlot';
 import Head from 'next/head';
 import Link from 'next/link';
 import { teamLogoMap, normalizeTeamName } from '../utils/teamUtils';
@@ -104,7 +104,7 @@ export default function RecordBookPage({ data }) {
 
       {/* Safe top ad: only after data is present */}
       <div style={{ margin: '1rem 0' }}>
-        <AdUnit AdSlot="9168138847" enabled={data.length > 0} />
+        <AdSlot AdSlot="9168138847" enabled={data.length > 0} />
       </div>
 
       <h1 style={{ fontSize: '2rem', marginBottom: '1rem', color: '#001f3f' }}>Record Book</h1>
@@ -152,7 +152,7 @@ export default function RecordBookPage({ data }) {
 
       {/* Safe bottom ad: only after data is present */}
       <div style={{ margin: '1.5rem 0' }}>
-      <AdUnit AdSlot="9168138847" enabled={data.length > 0} />
+      <AdSlot AdSlot="9168138847" enabled={data.length > 0} />
       </div>
     </div>
   );

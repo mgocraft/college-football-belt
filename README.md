@@ -34,3 +34,15 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Advertising configuration
+
+This project can display either Google AdSense units or a fallback Amazon affiliate banner.
+
+Set the following environment variable to control which network is used:
+
+```
+NEXT_PUBLIC_ADSENSE_ENABLED="true" # use AdSense; any other value shows the Amazon banner
+```
+
+Enable this flag only after your AdSense account and the site have been approved. Once the flag is set to `"true"`, the AdSense script is injected dynamically and `<AdSlot>` components will render AdSense `<ins class="adsbygoogle">` slots. When the flag is not `"true"`, `<AdSlot>` instead renders the Amazon affiliate banner.
