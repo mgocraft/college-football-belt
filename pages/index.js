@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import NavBar from '../components/NavBar';
 import { teamLogoMap, normalizeTeamName, computeRecord } from '../utils/teamUtils';
 import Head from 'next/head';
-import AdUnit from '../components/AdUnit';
+import AdSlot from '../components/AdSlot';
 import { fetchFromApi } from '../utils/ssr';
 
 // ...inside your component render where the placeholder was:
@@ -132,7 +132,7 @@ export default function HomePage({ data }) {
     <NavBar />
 
     <div style={{ marginBottom: '1.5rem' }}>
-  <AdUnit AdSlot="9168138847" enabled={data.length > 0} />
+  <AdSlot AdSlot="9168138847" enabled={data.length > 0} />
 </div>
 
       <div style={{ textAlign: 'center', marginBottom: '0.25rem' }}>
@@ -271,7 +271,7 @@ export default function HomePage({ data }) {
       <div style={{ marginTop: '1rem' }}>{getPagination()}</div>
 
     <div style={{ marginBottom: '1.5rem' }}>
-  <AdUnit AdSlot="9168138847" enabled={data.length > 0} />
+  <AdSlot AdSlot="9168138847" enabled={data.length > 0} />
 </div>
     </div>
   );

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { teamLogoMap, normalizeTeamName, computeRecord } from '../../utils/teamUtils';
 import NavBar from '../../components/NavBar';
-import AdUnit from '../../components/AdUnit';
+import AdSlot from '../../components/AdSlot';
 import Head from 'next/head';
 import { fetchFromApi } from '../../utils/ssr';
 
@@ -83,7 +83,7 @@ export default function AllTeamsRecords({ data }) {
       <NavBar />
 
       <div style={{ marginBottom: '1.5rem' }}>
-        <AdUnit AdSlot="9168138847" variant="leaderboard" enabled={data.length > 0} />
+        <AdSlot AdSlot="9168138847" variant="leaderboard" enabled={data.length > 0} />
       </div>
 
       <h1 style={{ textAlign: 'center', fontSize: '1.5rem', fontWeight: 'bold' }}>All Teams Records</h1>
@@ -143,7 +143,7 @@ export default function AllTeamsRecords({ data }) {
       })}
 
       <div style={{ margin: '1.5rem 0' }}>
-        <AdUnit AdSlot="9168138847" variant="leaderboard" enabled={data.length > 0} />
+        <AdSlot AdSlot="9168138847" variant="leaderboard" enabled={data.length > 0} />
       </div>
 
       <style jsx>{`

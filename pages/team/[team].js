@@ -5,7 +5,7 @@ import {
   computeRecord,
   debugTeamGames,
 } from '../../utils/teamUtils';
-import AdUnit from '../../components/AdUnit';
+import AdSlot from '../../components/AdSlot';
 import NavBar from '../../components/NavBar';
 import Head from 'next/head';
 import { fetchFromApi } from '../../utils/ssr';
@@ -215,7 +215,7 @@ export default function TeamPage({ data, team }) {
 
       {/* ✅ Gate manual ads on real data */}
       <div style={{ marginBottom: '1.5rem' }}>
-        <AdUnit AdSlot="9168138847" enabled={data.length > 0} />
+        <AdSlot AdSlot="9168138847" enabled={data.length > 0} />
       </div>
 
       <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
@@ -348,7 +348,7 @@ export default function TeamPage({ data, team }) {
       </div>
 
       <div style={{ marginBottom: '1.5rem' }}>
-      <AdUnit AdSlot="9168138847" enabled={data.length > 0} />
+      <AdSlot AdSlot="9168138847" enabled={data.length > 0} />
       </div>
     </div>
   );
