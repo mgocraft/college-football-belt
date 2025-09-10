@@ -1,21 +1,93 @@
 import React from "react";
 
 /**
- * Simple Amazon affiliate banner.
- * Replace the iframe `src` with your own Amazon Associates banner code.
+ * Simple Amazon affiliate banner composed of three ad panels.
+ * Replace the SVG graphics with real images when available.
  */
 export default function AmazonBanner() {
   return (
-    <div style={{ textAlign: "center", margin: "1rem 0" }}>
-      <iframe
-        title="Amazon Banner"
-        src="https://rcm-na.amazon-adsystem.com/e/cm?o=1&p=48&l=ur1&category=sports&banner=1Y0KEQF9WFA8VYHDR8R2&f=ifr&linkID=&t=cfbbelt-20&tracking_id=cfbbelt-20"
-        width="728"
-        height="90"
-        scrolling="no"
-        style={{ border: "none" }}
-        frameBorder="0"
-      />
+    <div className="flex flex-wrap justify-center gap-4 my-4">
+      <a
+        href="https://amzn.to/4gmUa7I"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block"
+      >
+        <svg
+          width="300"
+          height="150"
+          xmlns="http://www.w3.org/2000/svg"
+          className="block max-w-full"
+        >
+          <rect width="300" height="150" fill="#006747" />
+          <text
+            x="50%"
+            y="50%"
+            dominantBaseline="middle"
+            textAnchor="middle"
+            fontFamily="Arial"
+            fontSize="24"
+            fill="#ffffff"
+          >
+            USF Bulls Gear
+          </text>
+        </svg>
+      </a>
+
+      <a
+        href="https://amzn.to/4nrJHu1"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block"
+      >
+        <svg
+          width="300"
+          height="150"
+          xmlns="http://www.w3.org/2000/svg"
+          className="block max-w-full"
+        >
+          <rect width="300" height="150" fill="#c0a16b" />
+          <text
+            x="50%"
+            y="50%"
+            dominantBaseline="middle"
+            textAnchor="middle"
+            fontFamily="Arial"
+            fontSize="24"
+            fill="#000000"
+          >
+            Fantasy Football Belts
+          </text>
+        </svg>
+      </a>
+
+      <a
+        href="https://amzn.to/4nrJHu1"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block"
+      >
+        <svg
+          width="300"
+          height="150"
+          xmlns="http://www.w3.org/2000/svg"
+          className="block max-w-full"
+        >
+          <rect width="300" height="150" fill="#f47321" />
+          <text
+            x="50%"
+            y="50%"
+            dominantBaseline="middle"
+            textAnchor="middle"
+            fontFamily="Arial"
+            fontSize="24"
+            fill="#ffffff"
+          >
+            Miami Hurricanes Gear
+          </text>
+        </svg>
+      </a>
     </div>
   );
 }
+
