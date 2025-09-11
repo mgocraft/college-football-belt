@@ -6,7 +6,7 @@ import React from "react";
  */
 export default function AmazonBanner() {
   return (
-    <div className="flex flex-wrap justify-center gap-2 my-2">
+    <div className="flex flex-wrap justify-center gap-2 mt-8 mb-4">
       <a
         href="https://amzn.to/4gmUa7I"
         target="_blank"
