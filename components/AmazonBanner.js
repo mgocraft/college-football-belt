@@ -6,7 +6,7 @@ import React from "react";
  */
 export default function AmazonBanner() {
   return (
-    <div className="flex flex-wrap justify-center gap-4 my-4">
+    <div className="flex flex-wrap justify-center gap-2 my-2">
       <a
         href="https://amzn.to/4gmUa7I"
         target="_blank"
@@ -15,18 +15,18 @@ export default function AmazonBanner() {
       >
         <svg
           width="300"
-          height="150"
+          height="100"
           xmlns="http://www.w3.org/2000/svg"
           className="block max-w-full"
         >
-          <rect width="300" height="150" fill="#006747" />
+          <rect width="300" height="100" fill="#006747" />
           <text
             x="50%"
             y="50%"
             dominantBaseline="middle"
             textAnchor="middle"
             fontFamily="Arial"
-            fontSize="24"
+            fontSize="20"
             fill="#ffffff"
           >
             USF Bulls Gear
@@ -42,18 +42,18 @@ export default function AmazonBanner() {
       >
         <svg
           width="300"
-          height="150"
+          height="100"
           xmlns="http://www.w3.org/2000/svg"
           className="block max-w-full"
         >
-          <rect width="300" height="150" fill="#c0a16b" />
+          <rect width="300" height="100" fill="#c0a16b" />
           <text
             x="50%"
             y="50%"
             dominantBaseline="middle"
             textAnchor="middle"
             fontFamily="Arial"
-            fontSize="24"
+            fontSize="20"
             fill="#000000"
           >
             Fantasy Football Belts
@@ -69,18 +69,18 @@ export default function AmazonBanner() {
       >
         <svg
           width="300"
-          height="150"
+          height="100"
           xmlns="http://www.w3.org/2000/svg"
           className="block max-w-full"
         >
-          <rect width="300" height="150" fill="#f47321" />
+          <rect width="300" height="100" fill="#f47321" />
           <text
             x="50%"
             y="50%"
             dominantBaseline="middle"
             textAnchor="middle"
             fontFamily="Arial"
-            fontSize="24"
+            fontSize="20"
             fill="#ffffff"
           >
             Miami Hurricanes Gear
