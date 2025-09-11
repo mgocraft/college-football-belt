@@ -32,7 +32,7 @@ export default function NewsletterSignup() {
   return (
     <div style={{ margin: '2rem 0' }}>
       <h2 style={{ fontSize: '1.5rem', marginBottom: '0.75rem', color: '#001f3f' }}>
-        Newsletter Signup
+        Stay on top of which team has the CFB Belt: Sign up for our newsletter!
       </h2>
       <form onSubmit={handleSubmit} style={{ display: 'flex', gap: '0.5rem' }}>
         <input
