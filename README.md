@@ -46,3 +46,15 @@ NEXT_PUBLIC_ADSENSE_ENABLED="true" # use AdSense; any other value shows the Amaz
 ```
 
 Enable this flag only after your AdSense account and the site have been approved. Once the flag is set to `"true"`, the AdSense script is injected dynamically and `<AdSlot>` components will render AdSense `<ins class="adsbygoogle">` slots. When the flag is not `"true"`, `<AdSlot>` instead renders the Amazon affiliate banner.
+
+## Newsletter signup
+
+The site includes an email newsletter powered by [Mailchimp](https://mailchimp.com). To enable the signup form, set the following environment variables:
+
+```
+MAILCHIMP_API_KEY="your_api_key"
+MAILCHIMP_SERVER_PREFIX="usX"      # e.g. us21
+MAILCHIMP_LIST_ID="list_id"
+```
+
+These values allow the `/api/subscribe` endpoint to add addresses to your audience list.

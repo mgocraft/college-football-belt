@@ -5,6 +5,7 @@ import NavBar from '../components/NavBar';
 import { teamLogoMap, normalizeTeamName, computeRecord } from '../utils/teamUtils';
 import Head from 'next/head';
 import AdSlot from '../components/AdSlot';
+import NewsletterSignup from '../components/NewsletterSignup';
 import { fetchFromApi } from '../utils/ssr';
 
 // ...inside your component render where the placeholder was:
@@ -223,6 +224,8 @@ export default function HomePage({ data }) {
           classic reign, the goal is to offer a central hub for the stories and statistics that define the College Football Belt.
         </p>
       </section>
+
+      <NewsletterSignup />
 
       <h2 style={{ fontSize: '1.5rem', marginBottom: '0.75rem', color: '#001f3f' }}>
         Past Belt Reigns
