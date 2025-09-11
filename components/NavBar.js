@@ -1,6 +1,5 @@
 // components/NavBar.js
 import Link from 'next/link';
-import AmazonBanner from './AmazonBanner';
 
 export default function NavBar() {
   const links = [
@@ -31,7 +30,6 @@ export default function NavBar() {
           Buy CFB Belts
         </a>
       </nav>
-      <AmazonBanner />
     </header>
   );
 }
