@@ -19,12 +19,12 @@ export default function NavBar() {
   ];
 
   return (
-    <header className="bg-gradient-to-r from-gray-800 to-gray-900 text-white shadow-lg mb-8">
+    <header className="bg-gray-900 text-white shadow-md mb-8">
       <nav className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
         <Link href="/" className="text-2xl font-semibold">
           College Football Belt
         </Link>
-        <ul className="flex flex-wrap items-center gap-6 text-sm sm:text-base">
+        <ul className="flex items-center space-x-8 text-sm sm:text-base">
           {links.map(({ href, label, external }) => (
             <li key={href}>
               {external ? (
@@ -32,14 +32,14 @@ export default function NavBar() {
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-yellow-400 transition-colors"
+                  className="px-2 py-1 hover:text-blue-300 transition-colors"
                 >
                   {label}
                 </a>
               ) : (
                 <Link
                   href={href}
-                  className="hover:text-yellow-400 transition-colors"
+                  className="px-2 py-1 hover:text-blue-300 transition-colors"
                 >
                   {label}
                 </Link>
