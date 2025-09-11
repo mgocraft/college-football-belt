@@ -1,18 +1,37 @@
 // components/NavBar.js
 import Link from 'next/link';
+import AmazonBanner from './AmazonBanner';
 
 export default function NavBar() {
+  const links = [
+    { href: '/', label: 'Home', className: 'text-xl font-bold' },
+    { href: '/team/allteamsrecords', label: 'All Teams Records' },
+    { href: '/about', label: 'About' },
+    { href: '/record-book', label: 'Record Book' },
+    { href: '/path-to-conference', label: 'Path To Other Conferences' },
+    { href: '/blog', label: 'Blog' },
+  ];
+
   return (
-    <nav className="bg-gray-800 text-white shadow-md px-4 py-3 mb-6">
-      <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center text-sm sm:text-base">
-        <Link href="/" className="text-xl font-bold hover:text-yellow-400">Home</Link>{' '}|
-        {' '}<Link href="/team/allteamsrecords" className="hover:text-yellow-400">All Teams Records</Link>{' '}|
-        {' '}<Link href="/about" className="hover:text-yellow-400">About</Link>{' '}|
-        {' '}<Link href="/record-book" className="hover:text-yellow-400">Record Book</Link>{' '}|
-        {' '}<Link href="/path-to-conference" className="hover:text-yellow-400">Path To Other Conferences</Link>{' '}|
-        {' '}<Link href="/blog" className="hover:text-yellow-400">Blog</Link>{' '}|
-        {' '}<Link href="https://amzn.to/46M42Fs" className="hover:text-yellow-400">Buy CFB Belts</Link>
-      </div>
-    </nav>
+    <header className="bg-gradient-to-r from-gray-800 to-gray-900 text-white shadow-lg mb-6">
+      <nav className="max-w-7xl mx-auto px-4 py-4 flex flex-wrap items-center justify-center gap-6 text-sm sm:text-base">
+        {links.map(({ href, label, className }) => (
+          <Link
+            key={href}
+            href={href}
+            className={`${className || ''} hover:text-yellow-400 transition-colors`}
+          >
+            {label}
+          </Link>
+        ))}
+        <a
+          href="https://amzn.to/46M42Fs"
+          className="hover:text-yellow-400 transition-colors"
+        >
+          Buy CFB Belts
+        </a>
+      </nav>
+      <AmazonBanner />
+    </header>
   );
 }
