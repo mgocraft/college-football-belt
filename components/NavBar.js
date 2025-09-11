@@ -24,7 +24,7 @@ export default function NavBar() {
         <Link href="/" className="text-2xl font-semibold">
           College Football Belt
         </Link>
-        <ul className="flex items-center space-x-8 text-sm sm:text-base">
+        <ul className="flex items-center gap-4 sm:gap-8 text-sm sm:text-base list-none">
           {links.map(({ href, label, external }) => (
             <li key={href}>
               {external ? (
