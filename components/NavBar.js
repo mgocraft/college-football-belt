@@ -19,12 +19,12 @@ export default function NavBar() {
   ];
 
   return (
-    <header className="bg-gray-900 text-white shadow-md mb-8">
+    <header className="bg-gradient-to-r from-red-800 via-red-700 to-red-600 text-white shadow-md mb-8">
       <nav className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
         <Link href="/" className="text-2xl font-semibold">
           College Football Belt
         </Link>
-        <ul className="flex items-center space-x-8 text-sm sm:text-base">
+        <ul className="flex items-center space-x-4 sm:space-x-8 text-sm sm:text-base list-none">
           {links.map(({ href, label, external }) => (
             <li key={href}>
               {external ? (
