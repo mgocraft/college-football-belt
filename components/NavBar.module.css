@@ -1,27 +1,39 @@
 .header {
-  background: linear-gradient(to right, #1e3a8a, #1d4ed8, #2563eb);
-  color: #ffffff;
+  background: linear-gradient(to bottom right, #0f172a, #1e40af);
+  color: #f8fafc;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.navBar {
+  width: 100%;
+  padding: 2rem;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 800;
+  white-space: nowrap;
   margin-bottom: 2rem;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
 .navList {
   display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 1rem;
+  flex-wrap: wrap;
+  gap: 1.5rem;
   list-style: none;
-  font-size: 0.875rem;
-}
-
-@media (min-width: 640px) {
-  .navList {
-    gap: 2rem;
-    font-size: 1rem;
-  }
+  font-size: 1.125rem;
 }
 
 .navLink {
-  padding: 0.25rem 0.5rem;
+  padding: 0.5rem 0.75rem;
   transition: color 0.2s ease;
 }
 

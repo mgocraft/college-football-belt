@@ -19,38 +19,34 @@ export default function NavBar() {
     },
   ];
 
-    return (
-      <header className={styles.header}>
-        <nav className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="/" className="text-2xl font-semibold">
-            College Football Belt
-          </Link>
+  return (
+    <header className={styles.header}>
+      <nav className={styles.navBar}>
+        <Link href="/" className={styles.title}>
+          College Football Belt
+        </Link>
 
-          <ul className={styles.navList}>
-
-            {links.map(({ href, label, external }) => (
-              <li key={href}>
-                {external ? (
-                  <a
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.navLink}
-                  >
-                    {label}
-                  </a>
-                ) : (
-                  <Link
-                    href={href}
-                    className={styles.navLink}
-                  >
-                    {label}
-                  </Link>
-                )}
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </header>
-    );
-  }
+        <ul className={styles.navList}>
+          {links.map(({ href, label, external }) => (
+            <li key={href}>
+              {external ? (
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.navLink}
+                >
+                  {label}
+                </a>
+              ) : (
+                <Link href={href} className={styles.navLink}>
+                  {label}
+                </Link>
+              )}
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </header>
+  );
+}
