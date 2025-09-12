@@ -17,11 +17,11 @@ export default function NavBar() {
 
   return (
     <nav className="w-full bg-white border-b border-gray-200 text-gray-800">
-      <div className="flex h-12 items-center justify-between px-4 sm:px-6">
+      <div className="flex h-12 items-center px-4 sm:px-6">
         <Link href="/" className="text-xl font-semibold">
           College Football Belt
         </Link>
-        <div className="flex space-x-6">
+        <div className="ml-6 flex space-x-6">
           {links.map(({ href, label, external }) => (
             external ? (
               <a
