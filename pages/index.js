@@ -187,7 +187,7 @@ export default function HomePage({ data }) {
         </tbody>
       </table>
       <section className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-900">Next Game Preview</h2>
+        <h2 className="text-2xl font-semibold mb-4" style={{ color: '#001f3f' }}>Next Game Preview</h2>
         <p className="text-gray-900 leading-relaxed">
           South Florida begins its first ever belt reign with a showdown against the Miami Hurricanes. The Bulls seek their first
           defense and aim to extend the surprising College Football Belt reign. Miami was expected to potentially have a shot at
@@ -196,7 +196,7 @@ export default function HomePage({ data }) {
       </section>
 
       <section className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-900">Reign Summary</h2>
+        <h2 className="text-2xl font-semibold mb-4" style={{ color: '#001f3f' }}>Reign Summary</h2>
         <p className="text-gray-900 leading-relaxed">
           {currentReign.beltHolder} captured the College Football Belt on {currentReign.startOfReign} and has defended it{' '}
           {currentReign.numberOfDefenses} time{currentReign.numberOfDefenses === 1 ? '' : 's'}. This marks their{' '}
@@ -207,7 +207,7 @@ export default function HomePage({ data }) {
       </section>
 
       <section className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-900">About The CFB Belt</h2>
+        <h2 className="text-2xl font-semibold mb-4" style={{ color: '#001f3f' }}>About The CFB Belt</h2>
         <div className="text-gray-900 leading-relaxed space-y-4">
           <p>
             The College Football Belt is a lineal championship that traces a single path through the sport's history, rewarding
@@ -227,7 +227,7 @@ export default function HomePage({ data }) {
         </div>
       </section>
 
-      <h2 className="text-2xl font-semibold mb-4 text-blue-900">Past Belt Reigns</h2>
+      <h2 className="text-2xl font-semibold mb-4" style={{ color: '#001f3f' }}>Past Belt Reigns</h2>
 
       <table style={{ width: '100%', borderCollapse: 'collapse' }}>
         <thead>
