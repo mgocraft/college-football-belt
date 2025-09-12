@@ -16,34 +16,37 @@ export default function NavBar() {
   ];
 
   return (
-    <nav className="w-full bg-white border-b border-gray-200 text-gray-800">
-      <div className="flex h-12 items-center justify-between px-4 sm:px-6">
-        <Link href="/" className="text-xl font-semibold">
+    <nav className="w-full border-b border-gray-700 bg-gray-900 text-white">
+      <div className="flex h-14 items-center px-4 sm:px-6">
+        <Link
+          href="/"
+          className="text-2xl font-bold no-underline text-white transition-colors hover:text-gray-300"
+        >
           College Football Belt
         </Link>
-        <div className="flex space-x-6">
+        <ul className="ml-8 flex list-none items-center gap-6 pl-0">
           {links.map(({ href, label, external }) => (
-            external ? (
-              <a
-                key={href}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="transition-colors hover:text-gray-600"
-              >
-                {label}
-              </a>
-            ) : (
-              <Link
-                key={href}
-                href={href}
-                className="transition-colors hover:text-gray-600"
-              >
-                {label}
-              </Link>
-            )
+            <li key={href}>
+              {external ? (
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-md px-3 py-2 text-sm font-medium text-gray-200 no-underline transition-colors hover:bg-gray-800 hover:text-white"
+                >
+                  {label}
+                </a>
+              ) : (
+                <Link
+                  href={href}
+                  className="rounded-md px-3 py-2 text-sm font-medium text-gray-200 no-underline transition-colors hover:bg-gray-800 hover:text-white"
+                >
+                  {label}
+                </Link>
+              )}
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </nav>
   );
