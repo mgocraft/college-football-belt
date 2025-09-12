@@ -1,5 +1,6 @@
 // components/NavBar.js
 import Link from 'next/link';
+import styles from './NavBar.module.css';
 
 export default function NavBar() {
   const links = [
@@ -17,16 +18,12 @@ export default function NavBar() {
 
   return (
 
-    <nav className="w-full border-b border-gray-700 bg-gray-900 text-white">
-      <div className="flex h-14 items-center px-4 sm:px-6">
-        <Link
-          href="/"
-          className="text-2xl font-bold no-underline text-white transition-colors hover:text-gray-300"
-        >
+    <nav className={styles.nav}>
+      <div className={styles.container}>
+        <Link href="/" className={styles.logo}>
           College Football Belt
         </Link>
-        <ul className="ml-8 flex list-none items-center gap-6 pl-0">
-
+        <ul className={styles.links}>
           {links.map(({ href, label, external }) => (
             <li key={href}>
               {external ? (
@@ -34,15 +31,12 @@ export default function NavBar() {
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-md px-3 py-2 text-sm font-medium text-gray-200 no-underline transition-colors hover:bg-gray-800 hover:text-white"
+                  className={styles.link}
                 >
                   {label}
                 </a>
               ) : (
-                <Link
-                  href={href}
-                  className="rounded-md px-3 py-2 text-sm font-medium text-gray-200 no-underline transition-colors hover:bg-gray-800 hover:text-white"
-                >
+                <Link href={href} className={styles.link}>
                   {label}
                 </Link>
               )}
