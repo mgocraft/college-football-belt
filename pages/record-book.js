@@ -20,15 +20,17 @@ export default function RecordBookPage({ data }) {
 
   if (!data.length)
     return (
-      <div style={{ maxWidth: '800px', margin: 'auto', padding: '1rem', fontFamily: 'Arial, sans-serif', color: '#111' }}>
-        {head}
+      <>
         <NavBar />
-        <h1 style={{ fontSize: '2rem', marginBottom: '1rem', color: '#001f3f' }}>Record Book</h1>
-        <p style={{ marginBottom: '1rem' }}>
-          Historical highlights and statistical leaders from every College Football Belt game.
-        </p>
-        <p>No data available.</p>
-      </div>
+        <div style={{ maxWidth: '800px', margin: 'auto', padding: '1rem', fontFamily: 'Arial, sans-serif', color: '#111' }}>
+          {head}
+          <h1 style={{ fontSize: '2rem', marginBottom: '1rem', color: '#001f3f' }}>Record Book</h1>
+          <p style={{ marginBottom: '1rem' }}>
+            Historical highlights and statistical leaders from every College Football Belt game.
+          </p>
+          <p>No data available.</p>
+        </div>
+      </>
     );
 
   const teamStats = {};
@@ -98,16 +100,17 @@ export default function RecordBookPage({ data }) {
   };
 
   return (
-    <div style={{ maxWidth: '800px', margin: 'auto', padding: '1rem', fontFamily: 'Arial, sans-serif', color: '#111' }}>
-      {head}
+    <>
       <NavBar />
+      <div style={{ maxWidth: '800px', margin: 'auto', padding: '1rem', fontFamily: 'Arial, sans-serif', color: '#111' }}>
+        {head}
 
-      {/* Safe top ad: only after data is present */}
-      <div style={{ margin: '1rem 0' }}>
-        <AdSlot AdSlot="9168138847" enabled={data.length > 0} />
-      </div>
+        {/* Safe top ad: only after data is present */}
+        <div style={{ margin: '1rem 0' }}>
+          <AdSlot AdSlot="9168138847" enabled={data.length > 0} />
+        </div>
 
-      <h1 style={{ fontSize: '2rem', marginBottom: '1rem', color: '#001f3f' }}>Record Book</h1>
+        <h1 style={{ fontSize: '2rem', marginBottom: '1rem', color: '#001f3f' }}>Record Book</h1>
       <h2 style={{ fontSize: '1.25rem', marginBottom: '0.75rem', color: '#001f3f' }}>About the Record Book</h2>
       <p style={{ marginBottom: '1rem' }}>
         College Football Belt’s record book distills more than a century of championship lineage into a quick
@@ -151,10 +154,11 @@ export default function RecordBookPage({ data }) {
       </div>
 
       {/* Safe bottom ad: only after data is present */}
-      <div style={{ margin: '1.5rem 0' }}>
-      <AdSlot AdSlot="9168138847" enabled={data.length > 0} />
+        <div style={{ margin: '1.5rem 0' }}>
+          <AdSlot AdSlot="9168138847" enabled={data.length > 0} />
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

@@ -32,19 +32,21 @@ export default function HomePage({ data }) {
 
   if (!data.length) {
     return (
-      <div
-        style={{
-          maxWidth: 700,
-          margin: '2rem auto',
-          padding: '1rem',
-          fontFamily: 'Arial, sans-serif',
-          textAlign: 'center',
-        }}
-      >
+      <>
         <NavBar />
-        <p style={{ marginTop: '2rem' }}>No data available.</p>
-        <p>Please check back later for updated belt information.</p>
-      </div>
+        <div
+          style={{
+            maxWidth: 700,
+            margin: '2rem auto',
+            padding: '1rem',
+            fontFamily: 'Arial, sans-serif',
+            textAlign: 'center',
+          }}
+        >
+          <p style={{ marginTop: '2rem' }}>No data available.</p>
+          <p>Please check back later for updated belt information.</p>
+        </div>
+      </>
     );
   }
 
@@ -117,24 +119,25 @@ export default function HomePage({ data }) {
   return (
     
     
-    <div style={{ maxWidth: 900, margin: 'auto', padding: '1rem', fontFamily: 'Arial, sans-serif', color: '#111' }}>
-       <Head>
-      <title>College Football Belt – The Lineal Title Tracker</title>
-      <meta
-        name="description"
-        content="Track the history, reigns, and future path of the College Football Belt – the lineal championship of college football."
-      />
-      <meta property="og:title" content="College Football Belt – CFB Lineal Championship" />
-      <meta property="og:description" content="See which team holds the College Football Belt, explore historical reigns, and follow its potential path." />
-      <meta property="og:image" content="/images/fallback-helmet.png" />
-      <meta property="og:url" content="https://your-domain.com" />
-      <meta name="twitter:card" content="summary_large_image" />
-    </Head>
-    <NavBar />
+    <>
+      <NavBar />
+      <div style={{ maxWidth: 900, margin: 'auto', padding: '1rem', fontFamily: 'Arial, sans-serif', color: '#111' }}>
+         <Head>
+        <title>College Football Belt – The Lineal Title Tracker</title>
+        <meta
+          name="description"
+          content="Track the history, reigns, and future path of the College Football Belt – the lineal championship of college football."
+        />
+        <meta property="og:title" content="College Football Belt – CFB Lineal Championship" />
+        <meta property="og:description" content="See which team holds the College Football Belt, explore historical reigns, and follow its potential path." />
+        <meta property="og:image" content="/images/fallback-helmet.png" />
+        <meta property="og:url" content="https://your-domain.com" />
+        <meta name="twitter:card" content="summary_large_image" />
+      </Head>
 
-    <div style={{ marginBottom: '1.5rem' }}>
-  <AdSlot AdSlot="9168138847" enabled={data.length > 0} />
-</div>
+      <div style={{ marginBottom: '1.5rem' }}>
+        <AdSlot AdSlot="9168138847" enabled={data.length > 0} />
+      </div>
 
       <NewsletterSignup />
 
@@ -272,9 +275,10 @@ export default function HomePage({ data }) {
       <div style={{ marginTop: '1rem' }}>{getPagination()}</div>
 
     <div style={{ marginBottom: '1.5rem' }}>
-  <AdSlot AdSlot="9168138847" enabled={data.length > 0} />
-</div>
+      <AdSlot AdSlot="9168138847" enabled={data.length > 0} />
     </div>
+      </div>
+    </>
   );
 }
 

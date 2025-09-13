@@ -4,16 +4,16 @@ import Head from 'next/head';
 
 export default function Blog() {
   return (
-    <div style={{ maxWidth: '800px', margin: '0 auto', padding: '1rem' }}>
-      <Head>
-        <title>CFB Belt Blog</title>
-        <meta name="description" content="Follow the latest updates and insights about the College Football Belt." />
-        <meta property="og:image" content="/images/2025week1.png" />
-      </Head>
-
+    <>
       <NavBar />
+      <div style={{ maxWidth: '800px', margin: '0 auto', padding: '1rem' }}>
+        <Head>
+          <title>CFB Belt Blog</title>
+          <meta name="description" content="Follow the latest updates and insights about the College Football Belt." />
+          <meta property="og:image" content="/images/2025week1.png" />
+        </Head>
 
-      <h1 style={{ fontSize: '2rem', marginBottom: '1rem', color: '#001f3f' }}>College Football Belt Blog</h1>
+        <h1 style={{ fontSize: '2rem', marginBottom: '1rem', color: '#001f3f' }}>College Football Belt Blog</h1>
 
       {/* Most recent post first */}
       <article style={{ marginBottom: '3rem' }}>
@@ -127,6 +127,7 @@ export default function Blog() {
 
       
       </article>
-    </div>
+      </div>
+    </>
   );
 }

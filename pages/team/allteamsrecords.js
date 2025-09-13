@@ -27,20 +27,22 @@ export default function AllTeamsRecords({ data }) {
 
   if (!data.length) {
     return (
-      <div
-        style={{
-          maxWidth: '700px',
-          margin: '2rem auto',
-          padding: '1rem',
-          fontFamily: 'Arial, sans-serif',
-          textAlign: 'center',
-        }}
-      >
-        {head}
+      <>
         <NavBar />
-        <p style={{ marginTop: '2rem' }}>No data available.</p>
-        <p>Try again later.</p>
-      </div>
+        <div
+          style={{
+            maxWidth: '700px',
+            margin: '2rem auto',
+            padding: '1rem',
+            fontFamily: 'Arial, sans-serif',
+            textAlign: 'center',
+          }}
+        >
+          {head}
+          <p style={{ marginTop: '2rem' }}>No data available.</p>
+          <p>Try again later.</p>
+        </div>
+      </>
     );
   }
 
@@ -78,13 +80,14 @@ export default function AllTeamsRecords({ data }) {
   };
 
   return (
-    <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '1rem' }}>
-      {head}
+    <>
       <NavBar />
+      <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '1rem' }}>
+        {head}
 
-      <div style={{ marginBottom: '1.5rem' }}>
-        <AdSlot AdSlot="9168138847" variant="leaderboard" enabled={data.length > 0} />
-      </div>
+        <div style={{ marginBottom: '1.5rem' }}>
+          <AdSlot AdSlot="9168138847" variant="leaderboard" enabled={data.length > 0} />
+        </div>
 
       <h1 style={{ textAlign: 'center', fontSize: '1.5rem', fontWeight: 'bold' }}>All Teams Records</h1>
       <h2 style={{ textAlign: 'center', fontSize: '1.25rem', margin: '0.5rem 0', color: '#001f3f' }}>About These Team Records</h2>
@@ -142,11 +145,11 @@ export default function AllTeamsRecords({ data }) {
         );
       })}
 
-      <div style={{ margin: '1.5rem 0' }}>
-        <AdSlot AdSlot="9168138847" variant="leaderboard" enabled={data.length > 0} />
-      </div>
+        <div style={{ margin: '1.5rem 0' }}>
+          <AdSlot AdSlot="9168138847" variant="leaderboard" enabled={data.length > 0} />
+        </div>
 
-      <style jsx>{`
+        <style jsx>{`
         .rowLink { text-decoration: none; color: inherit; }
         .gridRow {
           display: grid;
@@ -187,7 +190,8 @@ export default function AllTeamsRecords({ data }) {
           .gridRow > :nth-child(8) { display: none; }
         }
       `}</style>
-    </div>
+      </div>
+    </>
   );
 }
 

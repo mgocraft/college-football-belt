@@ -49,20 +49,22 @@ export default function TeamPage({ data, team }) {
 
   if (!data.length || !team) {
     return (
-      <div
-        style={{
-          maxWidth: 700,
-          margin: '2rem auto',
-          padding: '1.5rem',
-          fontFamily: 'Arial, sans-serif',
-          textAlign: 'center',
-        }}
-      >
-        {defaultHead}
+      <>
         <NavBar />
-        <p style={{ marginTop: '2rem' }}>No data available.</p>
-        <p>Please check back later.</p>
-      </div>
+        <div
+          style={{
+            maxWidth: 700,
+            margin: '2rem auto',
+            padding: '1.5rem',
+            fontFamily: 'Arial, sans-serif',
+            textAlign: 'center',
+          }}
+        >
+          {defaultHead}
+          <p style={{ marginTop: '2rem' }}>No data available.</p>
+          <p>Please check back later.</p>
+        </div>
+      </>
     );
   }
 
@@ -87,27 +89,29 @@ export default function TeamPage({ data, team }) {
   if (!teamExists) {
     // 🚫 No ads here, just a message
     return (
-      <div
-        style={{
-          maxWidth: 700,
-          margin: '2rem auto',
-          padding: '1.5rem',
-          fontFamily: 'Arial, sans-serif',
-          backgroundColor: '#fff',
-          borderRadius: '8px',
-          boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
-          textAlign: 'center',
-        }}
-      >
-        {defaultHead}
+      <>
         <NavBar />
-        <h1 style={{ fontSize: '2rem', color: '#001f3f', marginTop: '1rem' }}>
-          Team not found
-        </h1>
-        <p style={{ fontSize: '1.1rem', marginTop: '1rem' }}>
-          The team <strong>{team}</strong> is not in the College Football Belt history.
-        </p>
-      </div>
+        <div
+          style={{
+            maxWidth: 700,
+            margin: '2rem auto',
+            padding: '1.5rem',
+            fontFamily: 'Arial, sans-serif',
+            backgroundColor: '#fff',
+            borderRadius: '8px',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
+            textAlign: 'center',
+          }}
+        >
+          {defaultHead}
+          <h1 style={{ fontSize: '2rem', color: '#001f3f', marginTop: '1rem' }}>
+            Team not found
+          </h1>
+          <p style={{ fontSize: '1.1rem', marginTop: '1rem' }}>
+            The team <strong>{team}</strong> is not in the College Football Belt history.
+          </p>
+        </div>
+      </>
     );
   }
 
@@ -198,36 +202,37 @@ export default function TeamPage({ data, team }) {
   };
 
   return (
-    <div
-      style={{
-        maxWidth: 900,
-        margin: '2rem auto',
-        padding: '1.5rem',
-        fontFamily: 'Arial, sans-serif',
-        color: '#111',
-        backgroundColor: '#fff',
-        boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
-        borderRadius: '8px',
-      }}
-    >
-      {head}
+    <>
       <NavBar />
+      <div
+        style={{
+          maxWidth: 900,
+          margin: '2rem auto',
+          padding: '1.5rem',
+          fontFamily: 'Arial, sans-serif',
+          color: '#111',
+          backgroundColor: '#fff',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
+          borderRadius: '8px',
+        }}
+      >
+        {head}
 
-      {/* ✅ Gate manual ads on real data */}
-      <div style={{ marginBottom: '1.5rem' }}>
-        <AdSlot AdSlot="9168138847" enabled={data.length > 0} />
-      </div>
+        {/* ✅ Gate manual ads on real data */}
+        <div style={{ marginBottom: '1.5rem' }}>
+          <AdSlot AdSlot="9168138847" enabled={data.length > 0} />
+        </div>
 
-      <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
-        {logoUrl && (
-          <img
-            src={logoUrl}
-            alt={`${team} logo`}
-            style={{ height: 100 }}
-          />
-        )}
-        <h1 style={{ fontSize: '2rem', color: '#001f3f' }}>{team}</h1>
-      </div>
+        <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
+          {logoUrl && (
+            <img
+              src={logoUrl}
+              alt={`${team} logo`}
+              style={{ height: 100 }}
+            />
+          )}
+          <h1 style={{ fontSize: '2rem', color: '#001f3f' }}>{team}</h1>
+        </div>
 
       <p
         style={{
@@ -347,10 +352,11 @@ export default function TeamPage({ data, team }) {
         </table>
       </div>
 
-      <div style={{ marginBottom: '1.5rem' }}>
-      <AdSlot AdSlot="9168138847" enabled={data.length > 0} />
+        <div style={{ marginBottom: '1.5rem' }}>
+          <AdSlot AdSlot="9168138847" enabled={data.length > 0} />
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
