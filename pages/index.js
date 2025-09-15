@@ -28,7 +28,7 @@ export default function HomePage({ data }) {
   const router = useRouter();
   const page = parseInt(router.query.page || '1', 10);
   const itemsPerPage = 10;
-  const nextOpponent = 'Miami';
+  const nextOpponent = 'Florida';
 
   if (!data.length) {
     return (
@@ -192,9 +192,7 @@ export default function HomePage({ data }) {
       <section className="mb-8">
         <h2 className="text-2xl font-semibold mb-4" style={{ color: '#001f3f' }}>Next Game Preview</h2>
         <p className="text-gray-900 leading-relaxed">
-          South Florida begins its first ever belt reign with a showdown against the Miami Hurricanes. The Bulls seek their first
-          defense and aim to extend the surprising College Football Belt reign. Miami was expected to potentially have a shot at
-          the belt against an in-state team preseason, but it was not expected to be USF.
+          Miami seized the College Football Belt with a commanding 49–12 home win over South Florida. The Hurricanes now prepare for their first defense as they host the Florida Gators in a heated in-state clash. Florida entered the season with the belt, lost it to USF, and already has a chance to win it back one week later. 
         </p>
       </section>
 
