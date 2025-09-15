@@ -93,6 +93,23 @@ export const normalizeTeamName = (name) => {
   return name.replace(/\s|\.|\(|\)|'|\-|&/g, '');
 };
 
+const parseDateToTimestamp = (value) => {
+  if (!value) return null;
+
+  const parts = value.split('/');
+  if (parts.length !== 3) return null;
+
+  const [monthStr, dayStr, yearStr] = parts;
+  const month = Number.parseInt(monthStr, 10) - 1;
+  const day = Number.parseInt(dayStr, 10);
+  const year = Number.parseInt(yearStr, 10);
+
+  if ([month, day, year].some((num) => Number.isNaN(num))) return null;
+
+  const timestamp = new Date(year, month, day).getTime();
+  return Number.isNaN(timestamp) ? null : timestamp;
+};
+
 
 export function computeRecord(teamOrObj, beltData = []) {
   // Case 1: Object with .games (used by AllTeamsRecords)
@@ -104,7 +121,16 @@ export function computeRecord(teamOrObj, beltData = []) {
     const ties = games.filter(g => g.result === 'T').length;
     const winPct = wins + losses > 0 ? Number(((wins / (wins + losses)) * 100).toFixed(1)) : 0;
 
-    return { wins, losses, ties, winPct, reigns: games.filter(g => g.result === 'W' && !g.opponent).length };
+    return {
+      wins,
+      losses,
+      ties,
+      winPct,
+      reigns: games.filter(g => g.result === 'W' && !g.opponent).length,
+      lastReignStart: null,
+      lastReignTimestamp: null,
+      longestReign: 0,
+    };
   }
 
   // Case 2: string team name and full beltData
@@ -112,6 +138,25 @@ export function computeRecord(teamOrObj, beltData = []) {
   const normalizedTeam = normalizeTeamName(teamName);
   const games = [];
   const reigns = beltData.filter(r => normalizeTeamName(r.beltHolder) === normalizedTeam);
+  const reignsMetadata = reigns.map((reign) => {
+    const defenses = Number.isFinite(reign.numberOfDefenses) ? reign.numberOfDefenses : 0;
+    return {
+      start: reign.startOfReign,
+      startTimestamp: parseDateToTimestamp(reign.startOfReign),
+      defenses,
+    };
+  });
+
+  const lastReignMeta = reignsMetadata.reduce((latest, current) => {
+    if (current.startTimestamp == null) return latest;
+    if (!latest || current.startTimestamp > latest.startTimestamp) return current;
+    return latest;
+  }, null);
+
+  const longestReign = reignsMetadata.reduce((max, current) => {
+    const defenses = Number.isFinite(current.defenses) ? current.defenses : 0;
+    return defenses > max ? defenses : max;
+  }, 0);
 
   beltData.forEach((reign, i) => {
     const holder = normalizeTeamName(reign.beltHolder);
@@ -145,7 +190,16 @@ export function computeRecord(teamOrObj, beltData = []) {
   const ties = games.filter(g => g.result === 'T').length;
   const winPct = wins + losses > 0 ? Number(((wins / (wins + losses)) * 100).toFixed(1)) : 0;
 
-  return { wins, losses, ties, winPct, reigns: reigns.length };
+  return {
+    wins,
+    losses,
+    ties,
+    winPct,
+    reigns: reigns.length,
+    lastReignStart: lastReignMeta ? lastReignMeta.start : null,
+    lastReignTimestamp: lastReignMeta ? lastReignMeta.startTimestamp : null,
+    longestReign,
+  };
 }
 
 
