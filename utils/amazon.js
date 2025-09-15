@@ -92,7 +92,19 @@ export async function searchItems(keywords) {
     body: payload,
   });
   if (!response.ok) {
-    throw new Error(`Amazon API error: ${response.status}`);
+    let errorMessage = response.statusText;
+    try {
+      const errorText = await response.text();
+      if (errorText) {
+        errorMessage = `${errorMessage ? `${errorMessage} - ` : ""}${errorText}`;
+      }
+    } catch (readError) {
+      // If reading the error body fails, fall back to the status text.
+      errorMessage = errorMessage || "Unable to read error body";
+    }
+    throw new Error(`Amazon API error: ${response.status}${
+      errorMessage ? ` ${errorMessage}` : ""
+    }`);
   }
   return response.json();
 }

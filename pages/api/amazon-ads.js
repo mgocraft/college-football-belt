@@ -12,7 +12,9 @@ export default async function handler(req, res) {
     }));
     res.status(200).json({ items });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Failed to fetch Amazon products" });
+    const message =
+      err instanceof Error ? err.message : "Failed to fetch Amazon products";
+    console.error("Amazon ads API error:", err);
+    res.status(500).json({ error: message });
   }
 }
