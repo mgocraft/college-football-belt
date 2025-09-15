@@ -1,0 +1,95 @@
+import crypto from "crypto";
+
+const host = "webservices.amazon.com";
+const region = "us-east-1";
+const service = "ProductAdvertisingAPI";
+const endpoint = "/paapi5/searchitems";
+
+function sign(payload, accessKey, secretKey) {
+  const amzDate = new Date().toISOString().replace(/[-:]|\..*/g, "") + "Z";
+  const dateStamp = amzDate.slice(0, 8);
+  const canonicalHeaders =
+    "content-encoding:amz-1.0\n" +
+    "content-type:application/json; charset=UTF-8\n" +
+    `host:${host}\n` +
+    `x-amz-date:${amzDate}\n`;
+  const signedHeaders =
+    "content-encoding;content-type;host;x-amz-date";
+  const payloadHash = crypto
+    .createHash("sha256")
+    .update(payload, "utf8")
+    .digest("hex");
+  const canonicalRequest = [
+    "POST",
+    endpoint,
+    "",
+    canonicalHeaders,
+    signedHeaders,
+    payloadHash,
+  ].join("\n");
+  const algorithm = "AWS4-HMAC-SHA256";
+  const credentialScope = `${dateStamp}/${region}/${service}/aws4_request`;
+  const stringToSign = [
+    algorithm,
+    amzDate,
+    credentialScope,
+    crypto
+      .createHash("sha256")
+      .update(canonicalRequest, "utf8")
+      .digest("hex"),
+  ].join("\n");
+  const kDate = crypto
+    .createHmac("sha256", "AWS4" + secretKey)
+    .update(dateStamp)
+    .digest();
+  const kRegion = crypto.createHmac("sha256", kDate).update(region).digest();
+  const kService = crypto.createHmac("sha256", kRegion).update(service).digest();
+  const kSigning = crypto
+    .createHmac("sha256", kService)
+    .update("aws4_request")
+    .digest();
+  const signature = crypto
+    .createHmac("sha256", kSigning)
+    .update(stringToSign)
+    .digest("hex");
+  const authorizationHeader =
+    `${algorithm} Credential=${accessKey}/${credentialScope}, SignedHeaders=${signedHeaders}, Signature=${signature}`;
+  return { amzDate, authorizationHeader };
+}
+
+export async function searchItems(keywords) {
+  const accessKey = process.env.AMAZON_ACCESS_KEY;
+  const secretKey = process.env.AMAZON_SECRET_KEY;
+  const associateTag = process.env.AMAZON_ASSOCIATE_TAG;
+  if (!accessKey || !secretKey || !associateTag) {
+    throw new Error("Missing Amazon API credentials");
+  }
+  const payload = JSON.stringify({
+    Keywords: keywords,
+    Marketplace: "www.amazon.com",
+    PartnerTag: associateTag,
+    PartnerType: "Associates",
+    Resources: [
+      "Images.Primary.Large",
+      "ItemInfo.Title",
+      "ItemInfo.ProductInfo",
+      "Offers.Listings.Price",
+    ],
+  });
+  const { amzDate, authorizationHeader } = sign(payload, accessKey, secretKey);
+  const response = await fetch(`https://${host}${endpoint}`, {
+    method: "POST",
+    headers: {
+      "Content-Encoding": "amz-1.0",
+      "Content-Type": "application/json; charset=UTF-8",
+      Host: host,
+      "X-Amz-Date": amzDate,
+      Authorization: authorizationHeader,
+    },
+    body: payload,
+  });
+  if (!response.ok) {
+    throw new Error(`Amazon API error: ${response.status}`);
+  }
+  return response.json();
+}
