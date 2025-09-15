@@ -19,9 +19,12 @@ export default function Footer() {
 
   return (
     <footer style={styles.footer}>
+      <div style={styles.disclosure}>
+        As an Amazon Associate I earn from qualifying purchases.
+      </div>
       {lastUpdated && (
         <div style={styles.lastUpdated}>
-          Last updated:{' '}
+          Last updated{' '}
           {new Date(lastUpdated).toLocaleDateString(undefined, {
             year: 'numeric',
             month: 'long',
@@ -72,5 +75,10 @@ const styles = {
   lastUpdated: {
     fontSize: '0.8rem',
     color: '#555',
+  },
+  disclosure: {
+    fontSize: '0.9rem',
+    color: '#555',
+    textAlign: 'center',
   },
 };
