@@ -12,9 +12,10 @@ function sign(payload, accessKey, secretKey) {
     "content-encoding:amz-1.0\n" +
     "content-type:application/json; charset=UTF-8\n" +
     `host:${host}\n` +
-    `x-amz-date:${amzDate}\n`;
+    `x-amz-date:${amzDate}\n` +
+    "x-amz-target:com.amazon.paapi5.v1.ProductAdvertisingAPIv1.SearchItems\n";
   const signedHeaders =
-    "content-encoding;content-type;host;x-amz-date";
+    "content-encoding;content-type;host;x-amz-date;x-amz-target";
   const payloadHash = crypto
     .createHash("sha256")
     .update(payload, "utf8")
@@ -84,6 +85,8 @@ export async function searchItems(keywords) {
       "Content-Type": "application/json; charset=UTF-8",
       Host: host,
       "X-Amz-Date": amzDate,
+      "X-Amz-Target":
+        "com.amazon.paapi5.v1.ProductAdvertisingAPIv1.SearchItems",
       Authorization: authorizationHeader,
     },
     body: payload,
