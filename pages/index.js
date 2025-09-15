@@ -192,7 +192,7 @@ export default function HomePage({ data }) {
       <section className="mb-8">
         <h2 className="text-2xl font-semibold mb-4" style={{ color: '#001f3f' }}>Next Game Preview</h2>
         <p className="text-gray-900 leading-relaxed">
-          Miami seized the College Football Belt with a commanding 49–12 home win over South Florida. The Hurricanes now prepare for their first defense as they host the Florida Gators in a heated in-state clash.
+          Miami seized the College Football Belt with a commanding 49–12 home win over South Florida. The Hurricanes now prepare for their first defense as they host the Florida Gators in a heated in-state clash. Florida entered the season with the belt, lost it to USF, and already has a chance to win it back one week later. 
         </p>
       </section>
 
