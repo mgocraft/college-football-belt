@@ -47,6 +47,18 @@ NEXT_PUBLIC_ADSENSE_ENABLED="true" # use AdSense; any other value shows the Amaz
 
 Enable this flag only after your AdSense account and the site have been approved. Once the flag is set to `"true"`, the AdSense script is injected dynamically and `<AdSlot>` components will render AdSense `<ins class="adsbygoogle">` slots. When the flag is not `"true"`, `<AdSlot>` instead renders the Amazon affiliate banner.
 
+### Amazon Product Advertising API
+
+The Amazon banner uses the Product Advertising API to fetch product details. Provide the following credentials in your environment for the `/api/amazon-ads` endpoint:
+
+```
+AMAZON_ACCESS_KEY="your_access_key"
+AMAZON_SECRET_KEY="your_secret_key"
+AMAZON_ASSOCIATE_TAG="yourtag-20"
+```
+
+`components/AmazonBanner.js` displays up to three products for the query `college football gear` and falls back to static SVG panels when the API request fails.
+
 ## Newsletter signup
 
 The site includes an email newsletter powered by [Mailchimp](https://mailchimp.com). To enable the signup form, set the following environment variables:
