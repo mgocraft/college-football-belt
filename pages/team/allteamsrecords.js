@@ -9,6 +9,30 @@ import { fetchFromApi } from '../../utils/ssr';
 const cleanTeamName = (name = '') =>
   name.replace(/^#\d+\s*/, '').split('(')[0].trim();
 
+const MONTH_LABELS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const NO_VALUE = '—';
+
+const formatDateLabel = (value) => {
+  if (!value) return NO_VALUE;
+
+  const parts = value.split('/');
+  if (parts.length !== 3) return value;
+
+  const [monthStr, dayStr, yearStr] = parts;
+  const monthIndex = Number.parseInt(monthStr, 10) - 1;
+  const day = Number.parseInt(dayStr, 10);
+  const year = Number.parseInt(yearStr, 10);
+
+  if (
+    monthIndex < 0 || monthIndex >= MONTH_LABELS.length ||
+    [day, year].some((num) => Number.isNaN(num))
+  ) {
+    return value;
+  }
+
+  return `${MONTH_LABELS[monthIndex]} ${day}, ${year}`;
+};
+
 export default function AllTeamsRecords({ data }) {
   const [filter, setFilter] = useState('');
   const [sortKey, setSortKey] = useState('wins');
@@ -69,6 +93,15 @@ export default function AllTeamsRecords({ data }) {
     .sort((a, b) => {
       const aVal = a[sortKey];
       const bVal = b[sortKey];
+
+      if (aVal == null && bVal == null) return 0;
+      if (aVal == null) return sortAsc ? 1 : -1;
+      if (bVal == null) return sortAsc ? -1 : 1;
+
+      if (typeof aVal === 'string' && typeof bVal === 'string') {
+        return sortAsc ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+      }
+
       return sortAsc ? aVal - bVal : bVal - aVal;
     });
 
@@ -119,6 +152,8 @@ export default function AllTeamsRecords({ data }) {
         <div className="num" onClick={() => handleSort('ties')}>T</div>
         <div className="num" onClick={() => handleSort('winPct')}>Win%</div>
         <div className="num" onClick={() => handleSort('reigns')}>Reigns</div>
+        <div onClick={() => handleSort('lastReignTimestamp')}>Last Reign</div>
+        <div className="num" onClick={() => handleSort('longestReign')}>Longest Reign</div>
       </div>
 
       {sortedTeams.map((row, idx) => {
@@ -139,10 +174,12 @@ export default function AllTeamsRecords({ data }) {
                 <div className="num">{row.ties}</div>
                 <div className="num">{row.winPct.toFixed(1)}%</div>
                 <div className="num">{row.reigns}</div>
+                <div className="dateCell">{formatDateLabel(row.lastReignStart)}</div>
+                <div className="num">{row.reigns > 0 ? row.longestReign : NO_VALUE}</div>
               </div>
             </a>
           </Link>
-        );
+      );
       })}
 
         <div style={{ margin: '1.5rem 0' }}>
@@ -153,7 +190,7 @@ export default function AllTeamsRecords({ data }) {
         .rowLink { text-decoration: none; color: inherit; }
         .gridRow {
           display: grid;
-          grid-template-columns: 40px 60px 1fr 60px 60px 60px 60px 80px;
+          grid-template-columns: 40px 60px minmax(0, 1fr) 60px 60px 60px 60px 80px 140px 120px;
           align-items: center;
           padding: 0.5rem 0;
           border-bottom: 1px solid #ddd;
@@ -169,10 +206,11 @@ export default function AllTeamsRecords({ data }) {
           min-width: 0;
         }
         .num { text-align: right; white-space: nowrap; }
+        .dateCell { white-space: nowrap; }
 
         @media (max-width: 640px) {
           .gridRow {
-            grid-template-columns: 24px 40px minmax(0, 1fr) 48px 48px 44px 56px 56px;
+            grid-template-columns: 24px 40px minmax(0, 1fr) 48px 48px 44px 56px 56px 120px 80px;
             column-gap: 8px;
             padding: 0.35rem 0;
           }
@@ -187,7 +225,11 @@ export default function AllTeamsRecords({ data }) {
         }
         @media (max-width: 400px) {
           .gridRow { grid-template-columns: 24px 36px minmax(0, 1fr) 44px 44px 40px 56px; }
-          .gridRow > :nth-child(8) { display: none; }
+          .gridRow > :nth-child(8),
+          .gridRow > :nth-child(9),
+          .gridRow > :nth-child(10) {
+            display: none;
+          }
         }
       `}</style>
       </div>
