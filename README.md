@@ -49,16 +49,23 @@ Enable this flag only after your AdSense account and the site have been approved
 
 ### Amazon Product Advertising API
 
-The Amazon banner uses the Product Advertising API to fetch product details. Provide the following credentials in your environment for the `/api/amazon-ads` endpoint:
+The Amazon banner now renders a curated carousel defined in [`data/amazonProducts.js`](data/amazonProducts.js). Each entry can include your full affiliate link, a fallback title, an enticing tagline, and an optional call-to-action line. When the component mounts it derives the ASIN for every active product (either from the `asin` field or from the `/dp/` segment of the URL) and calls the `/api/amazon-ads` route with that list. The API then invokes Amazon's `GetItems` endpoint so the banner pulls back fresh hero imagery and pricing every time a visitor loads the page—keeping you compliant with Amazon's 24-hour pricing policy while letting you swap in a new set of up to six products each week. If the API is temporarily unavailable the cards still render with your copy so the slot never goes blank.
+
+Provide the following credentials in your environment so `/api/amazon-ads` can sign requests:
 
 ```
 AMAZON_ACCESS_KEY="your_access_key"
 AMAZON_SECRET_KEY="your_secret_key"
 AMAZON_ASSOCIATE_TAG="yourtag-20"
-AMAZON_ASINS="B0D8KTKMQW,B00W5VNB80,B07QYCVT29,XXXXXXXXXX"
 ```
 
-Set `AMAZON_ASINS` to a comma-separated list of ASINs you want to feature. The example above uses the ASINs for the Florida Gators wall art, Miami Hurricanes necklace, and fantasy football belt links that ship with this project—replace `XXXXXXXXXX` with the ASIN behind your shortened URL. The banner calls Amazon's `GetItems` endpoint to retrieve the latest product title, hero image, and price for each ASIN so the creative stays compliant with Amazon's 24-hour pricing freshness requirement. If the API request fails or no ASINs are configured, the banner falls back to static SVG panels.
+Optionally set `AMAZON_ASINS` to the same comma-separated ASIN list if you want the API to have a default when called without query parameters:
+
+```
+AMAZON_ASINS="B0D8KTKMQW,B00W5VNB80,B07QYCVT29,REPLACE_WITH_REAL_ASIN"
+```
+
+Edit `data/amazonProducts.js` whenever you want to rotate the featured picks. The repo ships with entries for the Florida Gators wall art, Miami Hurricanes necklace, fantasy football championship belt, and a placeholder slot for your shortened Amazon link—replace `REPLACE_WITH_REAL_ASIN` with the ASIN behind that link so the banner can populate the live price and image automatically. Add or remove objects in this file to keep the banner stocked with up to six curated products.
 
 ## Newsletter signup
 
