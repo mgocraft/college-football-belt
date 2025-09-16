@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import amazonProducts from "../data/amazonProducts";
+import styles from "./AmazonBanner.module.css";
 
 const asinPattern = /^[A-Z0-9]{10}$/;
 
@@ -143,39 +144,39 @@ export default function AmazonBanner() {
       : primaryCards;
 
   return (
-    <div className="mt-8 mb-4">
+    <div className={styles.wrapper}>
       {hasError && (
-        <p className="mb-4 text-center text-sm text-red-600">
+        <p className={styles.errorMessage}>
           We couldn&apos;t refresh today&apos;s Amazon picks. Tap through to see the
           latest price on Amazon.
         </p>
       )}
-      <div className="mx-auto grid max-w-5xl grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className={styles.grid}>
         {cards.map((card) => (
           <a
             key={card.key}
             href={card.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex h-full flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-md"
+            className={styles.card}
           >
             {card.image ? (
               <img
                 src={card.image}
                 alt={card.title}
                 loading="lazy"
-                className="block h-32 w-full object-cover"
+                className={styles.cardImage}
               />
             ) : (
-              <div className="flex h-32 w-full items-center justify-center bg-gray-100 text-xs font-semibold uppercase tracking-wide text-gray-500">
+              <div className={styles.cardPlaceholder}>
                 View on Amazon
               </div>
             )}
-            <div className="flex h-full flex-col p-3">
-              <p className="text-sm font-semibold leading-snug text-gray-900">
+            <div className={styles.cardBody}>
+              <p className={styles.cardTitle}>
                 {card.title}
               </p>
-              <p className="mt-2 text-sm font-bold text-emerald-700">
+              <p className={styles.cardPrice}>
                 {card.price
                   ? card.price
                   : loading
@@ -183,12 +184,12 @@ export default function AmazonBanner() {
                   : "See today's price on Amazon"}
               </p>
               {card.tagline && (
-                <p className="mt-3 text-sm text-gray-700">{card.tagline}</p>
+                <p className={styles.cardTagline}>{card.tagline}</p>
               )}
-              <span className="mt-4 inline-flex items-center text-sm font-semibold text-emerald-700">
+              <span className={styles.cardCta}>
                 {card.cta}
                 <svg
-                  className="ml-1 h-4 w-4"
+                  className={styles.cardCtaIcon}
                   viewBox="0 0 20 20"
                   fill="currentColor"
                   aria-hidden="true"

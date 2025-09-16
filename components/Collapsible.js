@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import styles from './Collapsible.module.css';
 
 export function Collapsible({ children }) {
   return <div>{children}</div>;
@@ -6,7 +6,7 @@ export function Collapsible({ children }) {
 
 export function CollapsibleTrigger({ children, onClick }) {
   return (
-    <button onClick={onClick} className="text-blue-600 underline text-sm">
+    <button onClick={onClick} className={styles.trigger}>
       {children}
     </button>
   );

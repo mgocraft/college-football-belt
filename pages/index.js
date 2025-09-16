@@ -9,10 +9,11 @@ import NewsletterSignup from '../components/NewsletterSignup';
 import BeltBookBanner from '../components/BeltBookBanner';
 import { beltBookSpotlight } from '../data/beltBookSpotlight';
 import { fetchFromApi } from '../utils/ssr';
+import homeStyles from '../styles/HomePage.module.css';
 
 // ...inside your component render where the placeholder was:
 
-const styles = {
+const tableStyles = {
   tableHeader: {
     textAlign: 'left',
     padding: '10px 12px',
@@ -133,12 +134,9 @@ export default function HomePage({ data }) {
         <meta property="og:url" content="https://your-domain.com" />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
-      <div
-        className="mx-auto w-full max-w-7xl px-4 py-6"
-        style={{ fontFamily: 'Arial, sans-serif', color: '#111' }}
-      >
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-start">
-          <main className="flex-1 min-w-0">
+      <div className={homeStyles.pageContainer}>
+        <div className={homeStyles.layout}>
+          <main className={homeStyles.mainContent}>
             <div style={{ maxWidth: 900, margin: '0 auto', width: '100%' }}>
               <div style={{ marginBottom: '1.5rem' }}>
                 <AdSlot AdSlot="9168138847" enabled={data.length > 0} />
@@ -169,10 +167,10 @@ export default function HomePage({ data }) {
               <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '1rem' }}>
                 <thead>
                   <tr>
-                    <th style={styles.tableHeader}>Team</th>
-                    <th style={styles.tableHeader}>Reigns</th>
-                    <th style={styles.tableHeader}>Record</th>
-                    <th style={styles.tableHeader}>Win %</th>
+                    <th style={tableStyles.tableHeader}>Team</th>
+                    <th style={tableStyles.tableHeader}>Reigns</th>
+                    <th style={tableStyles.tableHeader}>Record</th>
+                    <th style={tableStyles.tableHeader}>Win %</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -181,29 +179,29 @@ export default function HomePage({ data }) {
                     const reignsCount = countReigns(team);
                     return (
                       <tr key={team}>
-                        <td style={styles.tableCell}>
+                        <td style={tableStyles.tableCell}>
                           <Link href={`/team/${encodeURIComponent(team)}`} legacyBehavior>
                             <a>{team}</a>
                           </Link>
                         </td>
-                        <td style={styles.tableCell}>{reignsCount}</td>
-                        <td style={styles.tableCell}>{record.wins} - {record.losses} - {record.ties}</td>
-                        <td style={styles.tableCell}>{record.winPct}</td>
+                        <td style={tableStyles.tableCell}>{reignsCount}</td>
+                        <td style={tableStyles.tableCell}>{record.wins} - {record.losses} - {record.ties}</td>
+                        <td style={tableStyles.tableCell}>{record.winPct}</td>
                       </tr>
                     );
                   })}
                 </tbody>
               </table>
-              <section className="mb-8">
-                <h2 className="text-2xl font-semibold mb-4" style={{ color: '#001f3f' }}>Next Game Preview</h2>
-                <p className="text-gray-900 leading-relaxed">
+              <section className={homeStyles.section}>
+                <h2 className={homeStyles.sectionTitle}>Next Game Preview</h2>
+                <p className={homeStyles.bodyText}>
                   Miami seized the College Football Belt with a commanding 49–12 home win over South Florida. The Hurricanes now prepare for their first defense as they host the Florida Gators in a heated in-state clash. Florida entered the season with the belt, lost it to USF, and already has a chance to win it back one week later.
                 </p>
               </section>
 
-              <section className="mb-8">
-                <h2 className="text-2xl font-semibold mb-4" style={{ color: '#001f3f' }}>Reign Summary</h2>
-                <p className="text-gray-900 leading-relaxed">
+              <section className={homeStyles.section}>
+                <h2 className={homeStyles.sectionTitle}>Reign Summary</h2>
+                <p className={homeStyles.bodyText}>
                   {currentReign.beltHolder} captured the College Football Belt on {currentReign.startOfReign} and has defended it{' '}
                   {currentReign.numberOfDefenses} time{currentReign.numberOfDefenses === 1 ? '' : 's'}. This marks their{' '}
                   {countReigns(currentReign.beltHolder)} reign{countReigns(currentReign.beltHolder) === 1 ? '' : 's'} with an overall belt
@@ -212,9 +210,9 @@ export default function HomePage({ data }) {
                 </p>
               </section>
 
-              <section className="mb-8">
-                <h2 className="text-2xl font-semibold mb-4" style={{ color: '#001f3f' }}>About The CFB Belt</h2>
-                <div className="text-gray-900 leading-relaxed space-y-4">
+              <section className={homeStyles.section}>
+                <h2 className={homeStyles.sectionTitle}>About The CFB Belt</h2>
+                <div className={homeStyles.bodyTextGroup}>
                   <p>
                     The College Football Belt is a lineal championship that traces a single path through the sport's history, rewarding
                     each program that manages to topple the reigning holder on the field. Much like boxing’s legendary belts, ownership is
@@ -233,15 +231,15 @@ export default function HomePage({ data }) {
                 </div>
               </section>
 
-              <h2 className="text-2xl font-semibold mb-4" style={{ color: '#001f3f' }}>Past Belt Reigns</h2>
+              <h2 className={homeStyles.sectionTitle}>Past Belt Reigns</h2>
 
               <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                 <thead>
                   <tr>
-                    <th style={styles.tableHeader}>Team</th>
-                    <th style={styles.tableHeader}>Start</th>
-                    <th style={styles.tableHeader}>End</th>
-                    <th style={styles.tableHeader}>Defenses</th>
+                    <th style={tableStyles.tableHeader}>Team</th>
+                    <th style={tableStyles.tableHeader}>Start</th>
+                    <th style={tableStyles.tableHeader}>End</th>
+                    <th style={tableStyles.tableHeader}>Defenses</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -252,7 +250,7 @@ export default function HomePage({ data }) {
                       : '';
                     return (
                       <tr key={idx} style={{ backgroundColor: idx % 2 === 0 ? '#f5f7fa' : 'white' }}>
-                        <td style={styles.tableCell}>
+                        <td style={tableStyles.tableCell}>
                           <div style={{ display: 'flex', alignItems: 'center' }}>
                             {logoUrl && (
                               <img
@@ -266,9 +264,9 @@ export default function HomePage({ data }) {
                             </Link>
                           </div>
                         </td>
-                        <td style={styles.tableCell}>{reign.startOfReign}</td>
-                        <td style={styles.tableCell}>{reign.endOfReign}</td>
-                        <td style={styles.tableCell}>{reign.numberOfDefenses}</td>
+                        <td style={tableStyles.tableCell}>{reign.startOfReign}</td>
+                        <td style={tableStyles.tableCell}>{reign.endOfReign}</td>
+                        <td style={tableStyles.tableCell}>{reign.numberOfDefenses}</td>
                       </tr>
                     );
                   })}
@@ -282,7 +280,7 @@ export default function HomePage({ data }) {
               </div>
             </div>
           </main>
-          <aside className="w-full flex-shrink-0 lg:w-80">
+          <aside className={homeStyles.sidebar}>
             <BeltBookBanner {...beltBookSpotlight} />
           </aside>
         </div>

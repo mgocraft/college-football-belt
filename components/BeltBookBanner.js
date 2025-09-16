@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "./BeltBookBanner.module.css";
 
 const FALLBACK_IMAGE = "/images/book-placeholder.svg";
 
@@ -11,10 +12,7 @@ function Badge({ team, badgeColor, badgeTextColor }) {
   };
 
   return (
-    <span
-      className="inline-flex items-center rounded-full px-2 py-1 text-xs font-semibold uppercase tracking-wide"
-      style={style}
-    >
+    <span className={styles.badge} style={style}>
       {team}
     </span>
   );
@@ -41,25 +39,25 @@ function BookCard({ book }) {
     : `Placeholder book cover for ${title}`;
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-emerald-100 bg-emerald-50/60 p-3 shadow-sm">
-      <div className="flex gap-3">
-        <div className="relative h-24 w-20 flex-shrink-0 overflow-hidden rounded-xl bg-white ring-1 ring-emerald-100">
+    <div className={styles.bookCard}>
+      <div className={styles.bookCardContent}>
+        <div className={styles.bookImageWrapper}>
           <img
             src={imageSrc}
             alt={altText}
             loading="lazy"
-            className="h-full w-full object-cover"
+            className={styles.bookImage}
           />
         </div>
-        <div className="min-w-0 flex-1">
+        <div className={styles.bookDetails}>
           <Badge team={team} badgeColor={badgeColor} badgeTextColor={badgeTextColor} />
-          <h3 className="mt-1 text-base font-semibold text-slate-900">{title}</h3>
-          {author && <p className="text-sm text-slate-600">{author}</p>}
+          <h3 className={styles.bookTitle}>{title}</h3>
+          {author && <p className={styles.bookAuthor}>{author}</p>}
           {description && (
-            <p className="mt-2 text-sm leading-snug text-slate-700">{description}</p>
+            <p className={styles.bookDescription}>{description}</p>
           )}
           {note && (
-            <p className="mt-2 text-xs font-medium uppercase tracking-wide text-emerald-700">
+            <p className={styles.bookNote}>
               {note}
             </p>
           )}
@@ -68,7 +66,7 @@ function BookCard({ book }) {
               href={link}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-emerald-700 transition-colors hover:text-emerald-800"
+              className={styles.bookLink}
               aria-label={`View ${title} on Amazon (opens in a new tab)`}
             >
               {cta || "View on Amazon"}
@@ -91,29 +89,27 @@ export default function BeltBookBanner({
   const hasBooks = Array.isArray(books) && books.length > 0;
 
   return (
-    <div className="lg:sticky lg:top-6">
-      <div className="rounded-3xl border border-emerald-200 bg-white/90 p-5 shadow-md backdrop-blur">
-        <div className="flex flex-col gap-1">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-600">
-            Weekly Spotlight
-          </p>
-          {title && <h2 className="text-xl font-bold text-emerald-900">{title}</h2>}
-          {subtitle && <p className="text-sm font-semibold text-emerald-700">{subtitle}</p>}
+    <div className={styles.stickyWrapper}>
+      <div className={styles.banner}>
+        <div className={styles.header}>
+          <p className={styles.headerLabel}>Weekly Spotlight</p>
+          {title && <h2 className={styles.headerTitle}>{title}</h2>}
+          {subtitle && <p className={styles.headerSubtitle}>{subtitle}</p>}
         </div>
 
         {description && (
-          <p className="mt-3 text-sm leading-relaxed text-slate-700">{description}</p>
+          <p className={styles.description}>{description}</p>
         )}
 
-        <div className="mt-4 space-y-4">
+        <div className={styles.bookList}>
           {hasBooks ? (
             books.map((book, index) => (
               <BookCard key={`${book.title}-${index}`} book={book} />
             ))
           ) : (
-            <p className="text-sm text-slate-600">
+            <p className={styles.emptyMessage}>
               Add this week&apos;s selections in
-              <code className="mx-1 rounded bg-slate-100 px-1 py-0.5 text-xs text-slate-700">
+              <code className={styles.codeInline}>
                 data/beltBookSpotlight.js
               </code>
               to feature matchup-specific reads.
@@ -122,7 +118,7 @@ export default function BeltBookBanner({
         </div>
 
         {disclosure && (
-          <p className="mt-5 text-xs leading-relaxed text-slate-500">{disclosure}</p>
+          <p className={styles.disclosure}>{disclosure}</p>
         )}
       </div>
     </div>
