@@ -93,7 +93,7 @@ export default function AmazonBanner() {
     };
   }, []);
 
-  const cards = amazonProducts
+  const mappedCards = amazonProducts
     .map((product, index) => {
       const asin = deriveAsin(product);
       const details = asin ? productMap[asin] : undefined;
@@ -125,9 +125,22 @@ export default function AmazonBanner() {
     })
     .filter(Boolean);
 
-  if (cards.length === 0) {
+  const primaryCards = mappedCards.slice(0, 3);
+
+  if (primaryCards.length === 0) {
     return null;
   }
+
+  const cards =
+    primaryCards.length === 3
+      ? [
+          ...primaryCards,
+          ...primaryCards.map((card, index) => ({
+            ...card,
+            key: `${card.key}-repeat-${index}`,
+          })),
+        ]
+      : primaryCards;
 
   return (
     <div className="mt-8 mb-4">
@@ -137,58 +150,56 @@ export default function AmazonBanner() {
           latest price on Amazon.
         </p>
       )}
-      <div className="flex flex-wrap justify-center gap-4">
+      <div className="mx-auto grid max-w-5xl grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {cards.map((card) => (
           <a
             key={card.key}
             href={card.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="block w-72 transition-shadow hover:shadow-md"
+            className="flex h-full flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-md"
           >
-            <div className="flex h-full flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
-              {card.image ? (
-                <img
-                  src={card.image}
-                  alt={card.title}
-                  loading="lazy"
-                  className="block h-36 w-full object-cover"
-                />
-              ) : (
-                <div className="flex h-36 w-full items-center justify-center bg-gray-100 text-xs font-semibold uppercase tracking-wide text-gray-500">
-                  View on Amazon
-                </div>
-              )}
-              <div className="flex h-full flex-col p-3">
-                <p className="text-sm font-semibold leading-snug text-gray-900">
-                  {card.title}
-                </p>
-                <p className="mt-2 text-sm font-bold text-emerald-700">
-                  {card.price
-                    ? card.price
-                    : loading
-                    ? "Checking today's price..."
-                    : "See today's price on Amazon"}
-                </p>
-                {card.tagline && (
-                  <p className="mt-3 text-sm text-gray-700">{card.tagline}</p>
-                )}
-                <span className="mt-4 inline-flex items-center text-sm font-semibold text-emerald-700">
-                  {card.cta}
-                  <svg
-                    className="ml-1 h-4 w-4"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </span>
+            {card.image ? (
+              <img
+                src={card.image}
+                alt={card.title}
+                loading="lazy"
+                className="block h-32 w-full object-cover"
+              />
+            ) : (
+              <div className="flex h-32 w-full items-center justify-center bg-gray-100 text-xs font-semibold uppercase tracking-wide text-gray-500">
+                View on Amazon
               </div>
+            )}
+            <div className="flex h-full flex-col p-3">
+              <p className="text-sm font-semibold leading-snug text-gray-900">
+                {card.title}
+              </p>
+              <p className="mt-2 text-sm font-bold text-emerald-700">
+                {card.price
+                  ? card.price
+                  : loading
+                  ? "Checking today's price..."
+                  : "See today's price on Amazon"}
+              </p>
+              {card.tagline && (
+                <p className="mt-3 text-sm text-gray-700">{card.tagline}</p>
+              )}
+              <span className="mt-4 inline-flex items-center text-sm font-semibold text-emerald-700">
+                {card.cta}
+                <svg
+                  className="ml-1 h-4 w-4"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </span>
             </div>
           </a>
         ))}

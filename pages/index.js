@@ -134,12 +134,12 @@ export default function HomePage({ data }) {
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <div
-        className="mx-auto w-full max-w-6xl px-4 py-6"
+        className="mx-auto w-full max-w-7xl px-4 py-6"
         style={{ fontFamily: 'Arial, sans-serif', color: '#111' }}
       >
-        <div className="flex flex-col gap-8 lg:flex-row">
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-start">
           <main className="flex-1 min-w-0">
-            <div style={{ maxWidth: 900, margin: '0 auto' }}>
+            <div style={{ maxWidth: 900, margin: '0 auto', width: '100%' }}>
               <div style={{ marginBottom: '1.5rem' }}>
                 <AdSlot AdSlot="9168138847" enabled={data.length > 0} />
               </div>
