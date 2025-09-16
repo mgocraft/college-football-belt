@@ -6,6 +6,8 @@ import { teamLogoMap, normalizeTeamName, computeRecord } from '../utils/teamUtil
 import Head from 'next/head';
 import AdSlot from '../components/AdSlot';
 import NewsletterSignup from '../components/NewsletterSignup';
+import BeltBookBanner from '../components/BeltBookBanner';
+import { beltBookSpotlight } from '../data/beltBookSpotlight';
 import { fetchFromApi } from '../utils/ssr';
 
 // ...inside your component render where the placeholder was:
@@ -117,12 +119,9 @@ export default function HomePage({ data }) {
   };
 
   return (
-    
-    
     <>
       <NavBar />
-      <div style={{ maxWidth: 900, margin: 'auto', padding: '1rem', fontFamily: 'Arial, sans-serif', color: '#111' }}>
-         <Head>
+      <Head>
         <title>College Football Belt – The Lineal Title Tracker</title>
         <meta
           name="description"
@@ -134,147 +133,159 @@ export default function HomePage({ data }) {
         <meta property="og:url" content="https://your-domain.com" />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
+      <div
+        className="mx-auto w-full max-w-6xl px-4 py-6"
+        style={{ fontFamily: 'Arial, sans-serif', color: '#111' }}
+      >
+        <div className="flex flex-col gap-8 lg:flex-row">
+          <main className="flex-1 min-w-0">
+            <div style={{ maxWidth: 900, margin: '0 auto' }}>
+              <div style={{ marginBottom: '1.5rem' }}>
+                <AdSlot AdSlot="9168138847" enabled={data.length > 0} />
+              </div>
 
-      <div style={{ marginBottom: '1.5rem' }}>
-        <AdSlot AdSlot="9168138847" enabled={data.length > 0} />
-      </div>
+              <NewsletterSignup />
 
-      <NewsletterSignup />
+              <div style={{ textAlign: 'center', marginBottom: '0.25rem' }}>
+                <h1 style={{ fontSize: '2rem', margin: 0, color: '#001f3f' }}>The College Football Belt</h1>
+                <div style={{ fontSize: '1.5rem', fontStyle: 'italic', color: '#666', marginTop: '0.5rem' }}>Next Game</div>
+              </div>
 
-      <div style={{ textAlign: 'center', marginBottom: '0.25rem' }}>
-        <h1 style={{ fontSize: '2rem', margin: 0, color: '#001f3f' }}>The College Football Belt</h1>
-        <div style={{ fontSize: '1.5rem', fontStyle: 'italic', color: '#666', marginTop: '0.5rem' }}>Next Game</div>
-      </div>
-
-      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '1.5rem', gap: '2rem', justifyContent: 'center' }}>
-        {[{ name: currentReign.beltHolder, logo: currentLogoUrl }, { name: nextOpponent, logo: opponentLogoUrl }].map((team, idx) => (
-          <div key={idx} style={{ textAlign: 'center' }}>
-            <Link href={`/team/${encodeURIComponent(team.name)}`} legacyBehavior>
-              <a>
-                {team.logo && (
-                  <img src={team.logo} alt={`${team.name} logo`} style={{ height: 100, cursor: 'pointer' }} />
-                )}
-              </a>
-            </Link>
-            <div style={{ marginTop: 4, fontWeight: 600 }}>{team.name}</div>
-          </div>
-        ))}
-      </div>
-
-      <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '1rem' }}>
-        <thead>
-          <tr>
-            <th style={styles.tableHeader}>Team</th>
-            <th style={styles.tableHeader}>Reigns</th>
-            <th style={styles.tableHeader}>Record</th>
-            <th style={styles.tableHeader}>Win %</th>
-          </tr>
-        </thead>
-        <tbody>
-          {[currentReign.beltHolder, nextOpponent].map((team) => {
-            const record = computeRecord(team, data);
-            const reignsCount = countReigns(team);
-            return (
-              <tr key={team}>
-                <td style={styles.tableCell}>
-                  <Link href={`/team/${encodeURIComponent(team)}`} legacyBehavior>
-                    <a>{team}</a>
-                  </Link>
-                </td>
-                <td style={styles.tableCell}>{reignsCount}</td>
-                <td style={styles.tableCell}>{record.wins} - {record.losses} - {record.ties}</td>
-                <td style={styles.tableCell}>{record.winPct}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-      <section className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4" style={{ color: '#001f3f' }}>Next Game Preview</h2>
-        <p className="text-gray-900 leading-relaxed">
-          Miami seized the College Football Belt with a commanding 49–12 home win over South Florida. The Hurricanes now prepare for their first defense as they host the Florida Gators in a heated in-state clash. Florida entered the season with the belt, lost it to USF, and already has a chance to win it back one week later. 
-        </p>
-      </section>
-
-      <section className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4" style={{ color: '#001f3f' }}>Reign Summary</h2>
-        <p className="text-gray-900 leading-relaxed">
-          {currentReign.beltHolder} captured the College Football Belt on {currentReign.startOfReign} and has defended it{' '}
-          {currentReign.numberOfDefenses} time{currentReign.numberOfDefenses === 1 ? '' : 's'}. This marks their{' '}
-          {countReigns(currentReign.beltHolder)} reign{countReigns(currentReign.beltHolder) === 1 ? '' : 's'} with an overall belt
-          record of {currentRecord.wins}-{currentRecord.losses}-{currentRecord.ties} ({currentRecord.winPct}). The upcoming clash
-          with {nextOpponent} offers a chance to extend the streak and further cement their lineal legacy.
-        </p>
-      </section>
-
-      <section className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4" style={{ color: '#001f3f' }}>About The CFB Belt</h2>
-        <div className="text-gray-900 leading-relaxed space-y-4">
-          <p>
-            The College Football Belt is a lineal championship that traces a single path through the sport's history, rewarding
-            each program that manages to topple the reigning holder on the field. Much like boxing’s legendary belts, ownership is
-            determined solely by results: beat the champion and the prize is yours. The tradition begins with first ever football game where Rutgers defeated Princeton 6-4 in 1869. Every subsequent game featuring the belt holder creates a
-            potential transfer of power, making the belt a colorful thread that connects eras, conferences, and generations of
-            players.
-          </p>
-
-          <p>
-            This site exists to make the belt’s journey easy to follow for casual fans and diehards alike. By combining a
-            historical database with up-to-date matchup previews, it highlights the ongoing drama of college football’s most
-            unofficial prize. Visitors can explore past reigns, gauge the significance of upcoming games, or trace how their
-            favorite team might seize the title. Whether you are discovering the concept for the first time or reminiscing about a
-            classic reign, the goal is to offer a central hub for the stories and statistics that define the College Football Belt.
-          </p>
-        </div>
-      </section>
-
-      <h2 className="text-2xl font-semibold mb-4" style={{ color: '#001f3f' }}>Past Belt Reigns</h2>
-
-      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-        <thead>
-          <tr>
-            <th style={styles.tableHeader}>Team</th>
-            <th style={styles.tableHeader}>Start</th>
-            <th style={styles.tableHeader}>End</th>
-            <th style={styles.tableHeader}>Defenses</th>
-          </tr>
-        </thead>
-        <tbody>
-          {paginatedReigns.map((reign, idx) => {
-            const logoId = teamLogoMap[normalizeTeamName(reign.beltHolder)];
-            const logoUrl = logoId
-              ? `https://a.espncdn.com/i/teamlogos/ncaa/500/${logoId}.png`
-              : '';
-            return (
-              <tr key={idx} style={{ backgroundColor: idx % 2 === 0 ? '#f5f7fa' : 'white' }}>
-                <td style={styles.tableCell}>
-                  <div style={{ display: 'flex', alignItems: 'center' }}>
-                    {logoUrl && (
-                      <img
-                        src={logoUrl}
-                        alt={`${reign.beltHolder} logo`}
-                        style={{ height: 24, marginRight: 8 }}
-                      />
-                    )}
-                    <Link href={`/team/${encodeURIComponent(reign.beltHolder)}`} legacyBehavior>
-                      <a>{reign.beltHolder}</a>
+              <div style={{ display: 'flex', alignItems: 'center', marginBottom: '1.5rem', gap: '2rem', justifyContent: 'center' }}>
+                {[{ name: currentReign.beltHolder, logo: currentLogoUrl }, { name: nextOpponent, logo: opponentLogoUrl }].map((team, idx) => (
+                  <div key={idx} style={{ textAlign: 'center' }}>
+                    <Link href={`/team/${encodeURIComponent(team.name)}`} legacyBehavior>
+                      <a>
+                        {team.logo && (
+                          <img src={team.logo} alt={`${team.name} logo`} style={{ height: 100, cursor: 'pointer' }} />
+                        )}
+                      </a>
                     </Link>
+                    <div style={{ marginTop: 4, fontWeight: 600 }}>{team.name}</div>
                   </div>
-                </td>
-                <td style={styles.tableCell}>{reign.startOfReign}</td>
-                <td style={styles.tableCell}>{reign.endOfReign}</td>
-                <td style={styles.tableCell}>{reign.numberOfDefenses}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+                ))}
+              </div>
 
-      <div style={{ marginTop: '1rem' }}>{getPagination()}</div>
+              <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '1rem' }}>
+                <thead>
+                  <tr>
+                    <th style={styles.tableHeader}>Team</th>
+                    <th style={styles.tableHeader}>Reigns</th>
+                    <th style={styles.tableHeader}>Record</th>
+                    <th style={styles.tableHeader}>Win %</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[currentReign.beltHolder, nextOpponent].map((team) => {
+                    const record = computeRecord(team, data);
+                    const reignsCount = countReigns(team);
+                    return (
+                      <tr key={team}>
+                        <td style={styles.tableCell}>
+                          <Link href={`/team/${encodeURIComponent(team)}`} legacyBehavior>
+                            <a>{team}</a>
+                          </Link>
+                        </td>
+                        <td style={styles.tableCell}>{reignsCount}</td>
+                        <td style={styles.tableCell}>{record.wins} - {record.losses} - {record.ties}</td>
+                        <td style={styles.tableCell}>{record.winPct}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+              <section className="mb-8">
+                <h2 className="text-2xl font-semibold mb-4" style={{ color: '#001f3f' }}>Next Game Preview</h2>
+                <p className="text-gray-900 leading-relaxed">
+                  Miami seized the College Football Belt with a commanding 49–12 home win over South Florida. The Hurricanes now prepare for their first defense as they host the Florida Gators in a heated in-state clash. Florida entered the season with the belt, lost it to USF, and already has a chance to win it back one week later.
+                </p>
+              </section>
 
-    <div style={{ marginBottom: '1.5rem' }}>
-      <AdSlot AdSlot="9168138847" enabled={data.length > 0} />
-    </div>
+              <section className="mb-8">
+                <h2 className="text-2xl font-semibold mb-4" style={{ color: '#001f3f' }}>Reign Summary</h2>
+                <p className="text-gray-900 leading-relaxed">
+                  {currentReign.beltHolder} captured the College Football Belt on {currentReign.startOfReign} and has defended it{' '}
+                  {currentReign.numberOfDefenses} time{currentReign.numberOfDefenses === 1 ? '' : 's'}. This marks their{' '}
+                  {countReigns(currentReign.beltHolder)} reign{countReigns(currentReign.beltHolder) === 1 ? '' : 's'} with an overall belt
+                  record of {currentRecord.wins}-{currentRecord.losses}-{currentRecord.ties} ({currentRecord.winPct}). The upcoming clash
+                  with {nextOpponent} offers a chance to extend the streak and further cement their lineal legacy.
+                </p>
+              </section>
+
+              <section className="mb-8">
+                <h2 className="text-2xl font-semibold mb-4" style={{ color: '#001f3f' }}>About The CFB Belt</h2>
+                <div className="text-gray-900 leading-relaxed space-y-4">
+                  <p>
+                    The College Football Belt is a lineal championship that traces a single path through the sport's history, rewarding
+                    each program that manages to topple the reigning holder on the field. Much like boxing’s legendary belts, ownership is
+                    determined solely by results: beat the champion and the prize is yours. The tradition begins with first ever football game where Rutgers defeated Princeton 6-4 in 1869. Every subsequent game featuring the belt holder creates a
+                    potential transfer of power, making the belt a colorful thread that connects eras, conferences, and generations of
+                    players.
+                  </p>
+
+                  <p>
+                    This site exists to make the belt’s journey easy to follow for casual fans and diehards alike. By combining a
+                    historical database with up-to-date matchup previews, it highlights the ongoing drama of college football’s most
+                    unofficial prize. Visitors can explore past reigns, gauge the significance of upcoming games, or trace how their
+                    favorite team might seize the title. Whether you are discovering the concept for the first time or reminiscing about a
+                    classic reign, the goal is to offer a central hub for the stories and statistics that define the College Football Belt.
+                  </p>
+                </div>
+              </section>
+
+              <h2 className="text-2xl font-semibold mb-4" style={{ color: '#001f3f' }}>Past Belt Reigns</h2>
+
+              <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                <thead>
+                  <tr>
+                    <th style={styles.tableHeader}>Team</th>
+                    <th style={styles.tableHeader}>Start</th>
+                    <th style={styles.tableHeader}>End</th>
+                    <th style={styles.tableHeader}>Defenses</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {paginatedReigns.map((reign, idx) => {
+                    const logoId = teamLogoMap[normalizeTeamName(reign.beltHolder)];
+                    const logoUrl = logoId
+                      ? `https://a.espncdn.com/i/teamlogos/ncaa/500/${logoId}.png`
+                      : '';
+                    return (
+                      <tr key={idx} style={{ backgroundColor: idx % 2 === 0 ? '#f5f7fa' : 'white' }}>
+                        <td style={styles.tableCell}>
+                          <div style={{ display: 'flex', alignItems: 'center' }}>
+                            {logoUrl && (
+                              <img
+                                src={logoUrl}
+                                alt={`${reign.beltHolder} logo`}
+                                style={{ height: 24, marginRight: 8 }}
+                              />
+                            )}
+                            <Link href={`/team/${encodeURIComponent(reign.beltHolder)}`} legacyBehavior>
+                              <a>{reign.beltHolder}</a>
+                            </Link>
+                          </div>
+                        </td>
+                        <td style={styles.tableCell}>{reign.startOfReign}</td>
+                        <td style={styles.tableCell}>{reign.endOfReign}</td>
+                        <td style={styles.tableCell}>{reign.numberOfDefenses}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+
+              <div style={{ marginTop: '1rem' }}>{getPagination()}</div>
+
+              <div style={{ marginBottom: '1.5rem' }}>
+                <AdSlot AdSlot="9168138847" enabled={data.length > 0} />
+              </div>
+            </div>
+          </main>
+          <aside className="w-full flex-shrink-0 lg:w-80">
+            <BeltBookBanner {...beltBookSpotlight} />
+          </aside>
+        </div>
       </div>
     </>
   );

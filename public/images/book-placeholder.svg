@@ -1,0 +1,10 @@
+<svg width="96" height="128" viewBox="0 0 96 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <title>Book cover placeholder</title>
+  <desc>A stylized outline of an open book used when no cover art is provided.</desc>
+  <rect x="8" y="8" width="80" height="112" rx="10" fill="#ECFDF5" stroke="#34D399" stroke-width="2"/>
+  <path d="M24 32H72" stroke="#059669" stroke-width="4" stroke-linecap="round"/>
+  <path d="M24 48H72" stroke="#34D399" stroke-width="3" stroke-linecap="round"/>
+  <path d="M24 64H56" stroke="#34D399" stroke-width="3" stroke-linecap="round"/>
+  <path d="M24 80H60" stroke="#34D399" stroke-width="3" stroke-linecap="round"/>
+  <path d="M24 96H52" stroke="#A7F3D0" stroke-width="3" stroke-linecap="round"/>
+</svg>
