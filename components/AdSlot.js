@@ -10,5 +10,9 @@ import AmazonBanner from "./AmazonBanner";
 export default function AdSlot(props) {
   const adsenseEnabled =
     process.env.NEXT_PUBLIC_ADSENSE_ENABLED === "true";
-  return adsenseEnabled ? <AdUnit {...props} /> : <AmazonBanner />;
+  return adsenseEnabled ? (
+    <AdUnit {...props} />
+  ) : (
+    <AmazonBanner {...props} />
+  );
 }

@@ -23,13 +23,11 @@ function BookCard({ book }) {
     title,
     author,
     team,
-    description,
     link,
     image,
     imageAlt,
     badgeColor,
     badgeTextColor,
-    cta,
     note,
   } = book;
 
@@ -38,55 +36,53 @@ function BookCard({ book }) {
     ? imageAlt || `Cover of ${title}`
     : `Placeholder book cover for ${title}`;
 
-  return (
-    <div className={styles.bookCard}>
-      <div className={styles.bookCardContent}>
-        <div className={styles.bookImageWrapper}>
-          <img
-            src={imageSrc}
-            alt={altText}
-            loading="lazy"
-            className={styles.bookImage}
-          />
-        </div>
-        <div className={styles.bookDetails}>
-          <Badge team={team} badgeColor={badgeColor} badgeTextColor={badgeTextColor} />
-          <h3 className={styles.bookTitle}>{title}</h3>
-          {author && <p className={styles.bookAuthor}>{author}</p>}
-          {description && (
-            <p className={styles.bookDescription}>{description}</p>
-          )}
-          {note && (
-            <p className={styles.bookNote}>
-              {note}
-            </p>
-          )}
-          {link && (
-            <a
-              href={link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.bookLink}
-              aria-label={`View ${title} on Amazon (opens in a new tab)`}
-            >
-              {cta || "View on Amazon"}
-              <span aria-hidden="true">→</span>
-            </a>
-          )}
-        </div>
+  const cardContent = (
+    <div className={styles.bookCardContent}>
+      <div className={styles.bookImageWrapper}>
+        <img
+          src={imageSrc}
+          alt={altText}
+          loading="lazy"
+          className={styles.bookImage}
+        />
+      </div>
+      <div className={styles.bookDetails}>
+        <Badge team={team} badgeColor={badgeColor} badgeTextColor={badgeTextColor} />
+        <h3 className={styles.bookTitle}>{title}</h3>
+        {author && <p className={styles.bookAuthor}>{author}</p>}
+        {note && (
+          <p className={styles.bookNote}>
+            {note}
+          </p>
+        )}
       </div>
     </div>
   );
+
+  if (link) {
+    return (
+      <a
+        href={link}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={`${styles.bookCard} ${styles.bookCardLink}`}
+        aria-label={`View ${title} on Amazon (opens in a new tab)`}
+      >
+        {cardContent}
+      </a>
+    );
+  }
+
+  return <div className={styles.bookCard}>{cardContent}</div>;
 }
 
 export default function BeltBookBanner({
   title = "Belt Book of the Week",
   subtitle,
-  description,
   books = [],
-  disclosure,
 }) {
   const hasBooks = Array.isArray(books) && books.length > 0;
+  const displayedBooks = hasBooks ? books.slice(0, 6) : [];
 
   return (
     <div className={styles.stickyWrapper}>
@@ -97,13 +93,9 @@ export default function BeltBookBanner({
           {subtitle && <p className={styles.headerSubtitle}>{subtitle}</p>}
         </div>
 
-        {description && (
-          <p className={styles.description}>{description}</p>
-        )}
-
         <div className={styles.bookList}>
           {hasBooks ? (
-            books.map((book, index) => (
+            displayedBooks.map((book, index) => (
               <BookCard key={`${book.title}-${index}`} book={book} />
             ))
           ) : (
@@ -116,10 +108,6 @@ export default function BeltBookBanner({
             </p>
           )}
         </div>
-
-        {disclosure && (
-          <p className={styles.disclosure}>{disclosure}</p>
-        )}
       </div>
     </div>
   );
