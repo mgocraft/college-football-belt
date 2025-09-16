@@ -1,121 +1,198 @@
 import React, { useEffect, useState } from "react";
+import amazonProducts from "../data/amazonProducts";
+
+const asinPattern = /^[A-Z0-9]{10}$/;
+
+function deriveAsin(product) {
+  if (!product) {
+    return undefined;
+  }
+  if (typeof product.asin === "string") {
+    const trimmed = product.asin.trim().toUpperCase();
+    if (asinPattern.test(trimmed)) {
+      return trimmed;
+    }
+  }
+  if (typeof product.link === "string") {
+    const match = product.link.match(/\/dp\/([A-Z0-9]{10})/i);
+    if (match) {
+      return match[1].toUpperCase();
+    }
+  }
+  return undefined;
+}
+
+function buildProductMap(items) {
+  const map = Object.create(null);
+  for (const item of Array.isArray(items) ? items : []) {
+    const asin = item?.asin ? item.asin.toUpperCase() : undefined;
+    if (asin) {
+      map[asin] = item;
+    }
+  }
+  return map;
+}
 
 /**
- * Renders Amazon affiliate ads using the Product Advertising API.
- * Falls back to static SVG panels when the API is unavailable.
+ * Renders curated Amazon affiliate products with live details from
+ * the Product Advertising API. Pricing and imagery refresh on every
+ * request to comply with Amazon's 24-hour freshness policy.
  */
 export default function AmazonBanner() {
-  const [items, setItems] = useState(null);
-  const fallbackProducts = [
-    {
-      href: "https://www.amazon.com/PILOYINDE-Basketball-gators-Bedroom-Florida/dp/B0D8KTKMQW?crid=AHXD6SCISDXA&dib=eyJ2IjoiMSJ9.pk6LKRJrWyC7tifXE2tQbN2UHnVHAwrlI4IPwD53yX2X4rStgfTuv1E_gHFBJRWrYYNyzek8UgroFTHJ2qfBC9oFmhWiy6wCjPYdM_XIc9ixmGdf9mpDyNYY6kFC2lvq9Q-RouPS3N-7afPhlf5A8xbgqwmjs6dGSCNuwfl6LoHCn4NcQk-KFNeveGhubv6-mgtvtFedK9ZOKUEb78pPxg-PyAS1yWzmtKb2Cgn0K0PxHLRP3ELlvTId2RxRFpUWmn2XddGhIf56XIk9eMrKX-Nzb6rvOrDJpD8Tt9d6Ncw.c6dWX31Ia5o_cu0xK9xQRP160sau0_kFYXJ94CuoEl4&dib_tag=se&keywords=florida%2Bgators%2Bgear&qid=1758030266&sprefix=florida%2Bgators%2Bgrea%2Caps%2C196&sr=8-2-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&th=1&linkCode=ll1&tag=cfbbelt-20&linkId=038c37e92c6cfc6ad877d0ab0bbdf5d0&language=en_US&ref_=as_li_ss_tl",
-      label: "Florida Gators Wall Art",
-      fill: "#0021A5",
-      textColor: "#ffffff",
-    },
-    {
-      href: "https://www.amazon.com/Siskiyou-Miami-Hurricanes-Necklace-Pendant/dp/B00W5VNB80?crid=2JFJ68NWBB0NX&dib=eyJ2IjoiMSJ9.8JZNSm2ose3w2zaLqSd3PBZhCJ-vKRa68bFQC3LPRjgyVZ1NXG-QHYgY8kWt1ATtbrGSzEaY9IuZgACKQMgCy0La7mQzsa9ePeLeJm_YJ3S19do2X48i5kgFKqabrgPsWFjtv7XfN649imR0HHbahJWZLMi_kIaq-vr9papqFqiQZEQVP0dCljv6GgCHPehr5_9ufKPHbB-gzzq_3VOS9yDq44haNznBuNq8TRCYTK61npO2iEG_cQRDsS6HiwKf.0oqJ84BnenLzEa1sL8JwWJfu10NveksJa9PeMblZyRc&dib_tag=se&keywords=umiami%2Bgear&qid=1758030358&sprefix=umiami%2Bgear%2Caps%2C134&sr=8-8&th=1&linkCode=ll1&tag=cfbbelt-20&linkId=d5d97882d4d124be5d5f50200f486d04&language=en_US&ref_=as_li_ss_tl",
-      label: "Miami Hurricanes Necklace",
-      fill: "#F47321",
-      textColor: "#ffffff",
-    },
-    {
-      href: "https://www.amazon.com/Fantasy-Football-Championship-Belt-Customizable/dp/B07QYCVT29?crid=Q7YY7RE6H763&dib=eyJ2IjoiMSJ9.kwrLnnk6Djg0nFGBOv06n0Po5_hZjoaR-8Y3eBKS7At15wfR7JVGcdnuA6wg0jRDuePBB0gd9Dq77v8rHb5UDF2qnY3U6rcPLJLDg27HDzgPVC9Uq_4yIDLX_YALbnAdPF9Tstf-XS2QrqQyZQa63iY4x8rPVXA2tSdvlzYTLsZBye6JsR_aWH7q3HVWWqlhzP7ZlqDvzxXAe4OccreHLGt_eurivWY6pZB8MYscCOJMjAwgWG5GzBBtWwCdu79pBkcsOfvSbo8NRGxdjvDk8GqCtxQpxS3jLelakOPrgAs.FzhlfvbA3ygxTp0pooYXuj378S2he05Y6CjQoZgls-I&dib_tag=se&keywords=fantasy%2Bfootball%2Bbelt&qid=1758030444&sprefix=fantasy%2Bfootball%2Bbelt%2Caps%2C136&sr=8-1-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&th=1&linkCode=ll1&tag=cfbbelt-20&linkId=6fab320414a8b06b3008c4b4df84b9a9&language=en_US&ref_=as_li_ss_tl",
-      label: "Fantasy Football Championship Belt",
-      fill: "#C0A16B",
-      textColor: "#000000",
-    },
-    {
-      href: "https://amzn.to/3IaxStf",
-      label: "Featured Amazon Pick",
-      fill: "#006747",
-      textColor: "#ffffff",
-    },
-  ];
+  const [productMap, setProductMap] = useState(() => Object.create(null));
+  const [loading, setLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
+    const asins = amazonProducts.map(deriveAsin).filter(Boolean);
+
+    if (asins.length === 0) {
+      setLoading(false);
+      return undefined;
+    }
+
+    const controller = new AbortController();
+    let isActive = true;
+
     async function load() {
       try {
-        const res = await fetch("/api/amazon-ads");
-        if (res.ok) {
-          const data = await res.json();
-          setItems(data.items);
+        const params = new URLSearchParams({
+          asins: asins.join(","),
+        });
+        const response = await fetch(`/api/amazon-ads?${params.toString()}`, {
+          signal: controller.signal,
+        });
+        if (!response.ok) {
+          throw new Error(`Amazon ads request failed (${response.status})`);
         }
-      } catch (err) {
-        console.error(err);
+        const data = await response.json();
+        if (!isActive) {
+          return;
+        }
+        setProductMap(buildProductMap(data?.items));
+        setHasError(false);
+      } catch (error) {
+        if (!isActive || error?.name === "AbortError") {
+          return;
+        }
+        console.error(error);
+        setHasError(true);
+        setProductMap(Object.create(null));
+      } finally {
+        if (isActive) {
+          setLoading(false);
+        }
       }
     }
+
     load();
+
+    return () => {
+      isActive = false;
+      controller.abort();
+    };
   }, []);
 
-  if (!items || items.length === 0) {
-    return (
-      <div className="flex flex-wrap justify-center gap-2 mt-8 mb-4">
-        {fallbackProducts.map((product) => (
-          <a
-            key={product.href}
-            href={product.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block"
-          >
-            <svg
-              width="300"
-              height="100"
-              xmlns="http://www.w3.org/2000/svg"
-              className="block max-w-full"
-            >
-              <rect width="300" height="100" fill={product.fill} />
-              <text
-                x="50%"
-                y="50%"
-                dominantBaseline="middle"
-                textAnchor="middle"
-                fontFamily="Arial"
-                fontSize="18"
-                fill={product.textColor}
-              >
-                {product.label}
-              </text>
-            </svg>
-          </a>
-        ))}
-      </div>
-    );
+  const cards = amazonProducts
+    .map((product, index) => {
+      const asin = deriveAsin(product);
+      const details = asin ? productMap[asin] : undefined;
+      const link = product.link || details?.link;
+      const title =
+        details?.title ||
+        product.fallbackTitle ||
+        product.tagline ||
+        "Amazon pick";
+      const image = details?.image || product.fallbackImage || null;
+      const price = details?.price;
+      const tagline = product.tagline;
+      const cta = product.cta || "See it on Amazon →";
+      const key = asin || `${link || "amazon-product"}-${index}`;
+
+      if (!link || !title) {
+        return null;
+      }
+
+      return {
+        key,
+        link,
+        title,
+        image,
+        price,
+        tagline,
+        cta,
+      };
+    })
+    .filter(Boolean);
+
+  if (cards.length === 0) {
+    return null;
   }
 
   return (
-    <div className="flex flex-wrap justify-center gap-4 mt-8 mb-4">
-      {items.map((item) => (
-        <a
-          key={item.asin}
-          href={item.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block w-72 transition-shadow hover:shadow-md"
-        >
-          <div className="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
-            {item.image && (
-              <img
-                src={item.image}
-                alt={item.title}
-                loading="lazy"
-                className="block h-36 w-full object-cover"
-              />
-            )}
-            <div className="p-3">
-              <p className="text-sm font-semibold text-gray-900 leading-snug">
-                {item.title}
-              </p>
-              {item.price && (
-                <p className="mt-2 text-sm font-bold text-emerald-700">
-                  {item.price}
-                </p>
+    <div className="mt-8 mb-4">
+      {hasError && (
+        <p className="mb-4 text-center text-sm text-red-600">
+          We couldn&apos;t refresh today&apos;s Amazon picks. Tap through to see the
+          latest price on Amazon.
+        </p>
+      )}
+      <div className="flex flex-wrap justify-center gap-4">
+        {cards.map((card) => (
+          <a
+            key={card.key}
+            href={card.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block w-72 transition-shadow hover:shadow-md"
+          >
+            <div className="flex h-full flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
+              {card.image ? (
+                <img
+                  src={card.image}
+                  alt={card.title}
+                  loading="lazy"
+                  className="block h-36 w-full object-cover"
+                />
+              ) : (
+                <div className="flex h-36 w-full items-center justify-center bg-gray-100 text-xs font-semibold uppercase tracking-wide text-gray-500">
+                  View on Amazon
+                </div>
               )}
+              <div className="flex h-full flex-col p-3">
+                <p className="text-sm font-semibold leading-snug text-gray-900">
+                  {card.title}
+                </p>
+                <p className="mt-2 text-sm font-bold text-emerald-700">
+                  {card.price
+                    ? card.price
+                    : loading
+                    ? "Checking today's price..."
+                    : "See today's price on Amazon"}
+                </p>
+                {card.tagline && (
+                  <p className="mt-3 text-sm text-gray-700">{card.tagline}</p>
+                )}
+                <span className="mt-4 inline-flex items-center text-sm font-semibold text-emerald-700">
+                  {card.cta}
+                  <svg
+                    className="ml-1 h-4 w-4"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </div>
             </div>
-          </div>
-        </a>
-      ))}
+          </a>
+        ))}
+      </div>
     </div>
   );
 }
