@@ -3,9 +3,8 @@ import crypto from "crypto";
 const host = "webservices.amazon.com";
 const region = "us-east-1";
 const service = "ProductAdvertisingAPI";
-const endpoint = "/paapi5/searchitems";
 
-function sign(payload, accessKey, secretKey) {
+function sign(payload, accessKey, secretKey, endpoint, target) {
   const amzDate = new Date().toISOString().replace(/[-:]|\..*/g, "") + "Z";
   const dateStamp = amzDate.slice(0, 8);
   const canonicalHeaders =
@@ -13,7 +12,7 @@ function sign(payload, accessKey, secretKey) {
     "content-type:application/json; charset=UTF-8\n" +
     `host:${host}\n` +
     `x-amz-date:${amzDate}\n` +
-    "x-amz-target:com.amazon.paapi5.v1.ProductAdvertisingAPIv1.SearchItems\n";
+    `x-amz-target:${target}\n`;
   const signedHeaders =
     "content-encoding;content-type;host;x-amz-date;x-amz-target";
   const payloadHash = crypto
@@ -58,26 +57,25 @@ function sign(payload, accessKey, secretKey) {
   return { amzDate, authorizationHeader };
 }
 
-export async function searchItems(keywords) {
+function getCredentials() {
   const accessKey = process.env.AMAZON_ACCESS_KEY;
   const secretKey = process.env.AMAZON_SECRET_KEY;
   const associateTag = process.env.AMAZON_ASSOCIATE_TAG;
   if (!accessKey || !secretKey || !associateTag) {
     throw new Error("Missing Amazon API credentials");
   }
-  const payload = JSON.stringify({
-    Keywords: keywords,
-    Marketplace: "www.amazon.com",
-    PartnerTag: associateTag,
-    PartnerType: "Associates",
-    Resources: [
-      "Images.Primary.Large",
-      "ItemInfo.Title",
-      "ItemInfo.ProductInfo",
-      "Offers.Listings.Price",
-    ],
-  });
-  const { amzDate, authorizationHeader } = sign(payload, accessKey, secretKey);
+  return { accessKey, secretKey, associateTag };
+}
+
+async function callAmazon(endpoint, target, payload) {
+  const { accessKey, secretKey } = getCredentials();
+  const { amzDate, authorizationHeader } = sign(
+    payload,
+    accessKey,
+    secretKey,
+    endpoint,
+    target
+  );
   const response = await fetch(`https://${host}${endpoint}`, {
     method: "POST",
     headers: {
@@ -85,8 +83,7 @@ export async function searchItems(keywords) {
       "Content-Type": "application/json; charset=UTF-8",
       Host: host,
       "X-Amz-Date": amzDate,
-      "X-Amz-Target":
-        "com.amazon.paapi5.v1.ProductAdvertisingAPIv1.SearchItems",
+      "X-Amz-Target": target,
       Authorization: authorizationHeader,
     },
     body: payload,
@@ -107,4 +104,51 @@ export async function searchItems(keywords) {
     }`);
   }
   return response.json();
+}
+
+export async function searchItems(keywords) {
+  const { associateTag } = getCredentials();
+  const payload = JSON.stringify({
+    Keywords: keywords,
+    Marketplace: "www.amazon.com",
+    PartnerTag: associateTag,
+    PartnerType: "Associates",
+    Resources: [
+      "Images.Primary.Large",
+      "ItemInfo.Title",
+      "ItemInfo.ProductInfo",
+      "Offers.Listings.Price",
+      "Offers.Summaries.LowestPrice",
+    ],
+  });
+  return callAmazon(
+    "/paapi5/searchitems",
+    "com.amazon.paapi5.v1.ProductAdvertisingAPIv1.SearchItems",
+    payload
+  );
+}
+
+export async function getItems(asins) {
+  if (!Array.isArray(asins) || asins.length === 0) {
+    throw new Error("ASIN list is required for GetItems");
+  }
+  const { associateTag } = getCredentials();
+  const payload = JSON.stringify({
+    ItemIds: asins,
+    Marketplace: "www.amazon.com",
+    PartnerTag: associateTag,
+    PartnerType: "Associates",
+    Resources: [
+      "Images.Primary.Large",
+      "ItemInfo.Title",
+      "ItemInfo.Features",
+      "Offers.Listings.Price",
+      "Offers.Summaries.LowestPrice",
+    ],
+  });
+  return callAmazon(
+    "/paapi5/getitems",
+    "com.amazon.paapi5.v1.ProductAdvertisingAPIv1.GetItems",
+    payload
+  );
 }
