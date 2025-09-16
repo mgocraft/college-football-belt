@@ -48,14 +48,12 @@ export default function AmazonBanner({ count = 3, startIndex = 0 } = {}) {
     : 0;
 
   const [productMap, setProductMap] = useState(() => Object.create(null));
-  const [loading, setLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     const asins = amazonProducts.map(deriveAsin).filter(Boolean);
 
     if (asins.length === 0) {
-      setLoading(false);
       return undefined;
     }
 
@@ -86,10 +84,6 @@ export default function AmazonBanner({ count = 3, startIndex = 0 } = {}) {
         console.error(error);
         setHasError(true);
         setProductMap(Object.create(null));
-      } finally {
-        if (isActive) {
-          setLoading(false);
-        }
       }
     }
 
@@ -112,9 +106,11 @@ export default function AmazonBanner({ count = 3, startIndex = 0 } = {}) {
         product.tagline ||
         "Amazon pick";
       const image = details?.image || product.fallbackImage || null;
-      const price = details?.price;
-      const tagline = product.tagline;
-      const cta = product.cta || "See it on Amazon →";
+      const description =
+        product.tagline ||
+        product.fallbackTitle ||
+        details?.title ||
+        title;
       const key = asin || `${link || "amazon-product"}-${index}`;
 
       if (!link || !title) {
@@ -126,9 +122,7 @@ export default function AmazonBanner({ count = 3, startIndex = 0 } = {}) {
         link,
         title,
         image,
-        price,
-        tagline,
-        cta,
+        description,
       };
     })
     .filter(Boolean);
@@ -162,6 +156,7 @@ export default function AmazonBanner({ count = 3, startIndex = 0 } = {}) {
             target="_blank"
             rel="noopener noreferrer"
             className={styles.card}
+            title={card.title}
           >
             {card.image ? (
               <img
@@ -176,34 +171,9 @@ export default function AmazonBanner({ count = 3, startIndex = 0 } = {}) {
               </div>
             )}
             <div className={styles.cardBody}>
-              <p className={styles.cardTitle}>
-                {card.title}
-              </p>
-              <p className={styles.cardPrice}>
-                {card.price
-                  ? card.price
-                  : loading
-                  ? "Checking today's price..."
-                  : "See today's price on Amazon"}
-              </p>
-              {card.tagline && (
-                <p className={styles.cardTagline}>{card.tagline}</p>
+              {card.description && (
+                <p className={styles.cardDescription}>{card.description}</p>
               )}
-              <span className={styles.cardCta}>
-                {card.cta}
-                <svg
-                  className={styles.cardCtaIcon}
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </span>
             </div>
           </a>
         ))}
