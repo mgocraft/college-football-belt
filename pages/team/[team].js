@@ -220,7 +220,11 @@ export default function TeamPage({ data, team }) {
 
         {/* ✅ Gate manual ads on real data */}
         <div style={{ marginBottom: '1.5rem' }}>
-          <AdSlot AdSlot="9168138847" enabled={data.length > 0} />
+          <AdSlot
+            AdSlot="9168138847"
+            enabled={data.length > 0}
+            startIndex={3}
+          />
         </div>
 
         <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>

@@ -39,7 +39,14 @@ function buildProductMap(items) {
  * the Product Advertising API. Pricing and imagery refresh on every
  * request to comply with Amazon's 24-hour freshness policy.
  */
-export default function AmazonBanner() {
+export default function AmazonBanner({ count = 3, startIndex = 0 } = {}) {
+  const normalizedCount = Number.isFinite(count) && count > 0
+    ? Math.floor(count)
+    : 3;
+  const normalizedStart = Number.isFinite(startIndex) && startIndex > 0
+    ? Math.floor(startIndex)
+    : 0;
+
   const [productMap, setProductMap] = useState(() => Object.create(null));
   const [loading, setLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
@@ -126,22 +133,18 @@ export default function AmazonBanner() {
     })
     .filter(Boolean);
 
-  const primaryCards = mappedCards.slice(0, 3);
+  let cards = mappedCards.slice(
+    normalizedStart,
+    normalizedStart + normalizedCount
+  );
 
-  if (primaryCards.length === 0) {
-    return null;
+  if (cards.length === 0 && normalizedStart !== 0) {
+    cards = mappedCards.slice(0, normalizedCount);
   }
 
-  const cards =
-    primaryCards.length === 3
-      ? [
-          ...primaryCards,
-          ...primaryCards.map((card, index) => ({
-            ...card,
-            key: `${card.key}-repeat-${index}`,
-          })),
-        ]
-      : primaryCards;
+  if (cards.length === 0) {
+    return null;
+  }
 
   return (
     <div className={styles.wrapper}>

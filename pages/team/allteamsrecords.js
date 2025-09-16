@@ -183,7 +183,12 @@ export default function AllTeamsRecords({ data }) {
       })}
 
         <div style={{ margin: '1.5rem 0' }}>
-          <AdSlot AdSlot="9168138847" variant="leaderboard" enabled={data.length > 0} />
+          <AdSlot
+            AdSlot="9168138847"
+            variant="leaderboard"
+            enabled={data.length > 0}
+            startIndex={3}
+          />
         </div>
 
         <style jsx>{`

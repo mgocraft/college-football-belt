@@ -14,6 +14,16 @@
   align-items: stretch;
 }
 
+.preContent {
+  width: 100%;
+  max-width: 56.25rem;
+  margin: 0 auto 2rem;
+}
+
+.adWrapper {
+  margin-bottom: 1.5rem;
+}
+
 .mainContent {
   flex: 1;
   min-width: 0;

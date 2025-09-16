@@ -155,7 +155,11 @@ export default function RecordBookPage({ data }) {
 
       {/* Safe bottom ad: only after data is present */}
         <div style={{ margin: '1.5rem 0' }}>
-          <AdSlot AdSlot="9168138847" enabled={data.length > 0} />
+          <AdSlot
+            AdSlot="9168138847"
+            enabled={data.length > 0}
+            startIndex={3}
+          />
         </div>
       </div>
     </>
