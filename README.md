@@ -55,9 +55,10 @@ The Amazon banner uses the Product Advertising API to fetch product details. Pro
 AMAZON_ACCESS_KEY="your_access_key"
 AMAZON_SECRET_KEY="your_secret_key"
 AMAZON_ASSOCIATE_TAG="yourtag-20"
+AMAZON_ASINS="B0D8KTKMQW,B00W5VNB80,B07QYCVT29,XXXXXXXXXX"
 ```
 
-`components/AmazonBanner.js` displays up to three products for the query `college football gear` and falls back to static SVG panels when the API request fails.
+Set `AMAZON_ASINS` to a comma-separated list of ASINs you want to feature. The example above uses the ASINs for the Florida Gators wall art, Miami Hurricanes necklace, and fantasy football belt links that ship with this project—replace `XXXXXXXXXX` with the ASIN behind your shortened URL. The banner calls Amazon's `GetItems` endpoint to retrieve the latest product title, hero image, and price for each ASIN so the creative stays compliant with Amazon's 24-hour pricing freshness requirement. If the API request fails or no ASINs are configured, the banner falls back to static SVG panels.
 
 ## Newsletter signup
 
