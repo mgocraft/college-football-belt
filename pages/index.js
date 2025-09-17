@@ -135,16 +135,17 @@ export default function HomePage({ data }) {
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <div className={homeStyles.pageContainer}>
+        <div
+          className={`${homeStyles.fullWidthAd} ${homeStyles.topFullWidthAd}`}
+        >
+          <AdSlot AdSlot="9168138847" enabled={data.length > 0} />
+        </div>
         <div className={homeStyles.preContent}>
-          <div className={homeStyles.adWrapper}>
-            <AdSlot AdSlot="9168138847" enabled={data.length > 0} />
-          </div>
-
           <NewsletterSignup />
         </div>
         <div className={homeStyles.layout}>
           <main className={homeStyles.mainContent}>
-            <div style={{ maxWidth: 900, margin: '0 auto', width: '100%' }}>
+            <div className={homeStyles.mainInner}>
               <div style={{ textAlign: 'center', marginBottom: '0.25rem' }}>
                 <h1 style={{ fontSize: '2rem', margin: 0, color: '#001f3f' }}>The College Football Belt</h1>
                 <div style={{ fontSize: '1.5rem', fontStyle: 'italic', color: '#666', marginTop: '0.5rem' }}>Next Game</div>
@@ -275,14 +276,15 @@ export default function HomePage({ data }) {
               </table>
 
               <div style={{ marginTop: '1rem' }}>{getPagination()}</div>
-
-              <div style={{ marginBottom: '1.5rem' }}>
-                <AdSlot
-                  AdSlot="9168138847"
-                  enabled={data.length > 0}
-                  startIndex={3}
-                />
-              </div>
+            </div>
+            <div
+              className={`${homeStyles.fullWidthAd} ${homeStyles.bottomFullWidthAd}`}
+            >
+              <AdSlot
+                AdSlot="9168138847"
+                enabled={data.length > 0}
+                startIndex={3}
+              />
             </div>
           </main>
           <aside className={homeStyles.sidebar}>

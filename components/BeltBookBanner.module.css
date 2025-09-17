@@ -1,12 +1,17 @@
 .stickyWrapper {
   position: static;
+  display: flex;
+  justify-content: center;
 }
 
 .banner {
   border: 1px solid #a7f3d0;
   background-color: rgba(255, 255, 255, 0.9);
   border-radius: 1.5rem;
-  padding: 1.25rem;
+  width: 100%;
+  max-width: 18rem;
+  margin: 0 auto;
+  padding: 1rem;
   box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
   backdrop-filter: blur(8px);
 }
@@ -42,9 +47,9 @@
 
 .bookList {
   margin-top: 1rem;
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 1rem;
-  grid-template-columns: 1fr;
 }
 
 .emptyMessage {
@@ -164,18 +169,6 @@
 
   .bookDetails {
     width: 100%;
-  }
-}
-
-@media (min-width: 640px) {
-  .bookList {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (min-width: 1024px) {
-  .bookList {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 

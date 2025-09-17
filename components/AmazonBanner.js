@@ -100,17 +100,16 @@ export default function AmazonBanner({ count = 3, startIndex = 0 } = {}) {
       const asin = deriveAsin(product);
       const details = asin ? productMap[asin] : undefined;
       const link = product.link || details?.link;
-      const title =
-        details?.title ||
+      const fallbackTitle =
         product.fallbackTitle ||
-        product.tagline ||
         "Amazon pick";
+      const title = details?.title || fallbackTitle;
       const image = details?.image || product.fallbackImage || null;
-      const description =
-        product.tagline ||
-        product.fallbackTitle ||
+      const displayTitle =
         details?.title ||
-        title;
+        product.fallbackTitle ||
+        fallbackTitle;
+      const price = details?.price || null;
       const key = asin || `${link || "amazon-product"}-${index}`;
 
       if (!link || !title) {
@@ -122,7 +121,8 @@ export default function AmazonBanner({ count = 3, startIndex = 0 } = {}) {
         link,
         title,
         image,
-        description,
+        displayTitle,
+        price,
       };
     })
     .filter(Boolean);
@@ -171,8 +171,9 @@ export default function AmazonBanner({ count = 3, startIndex = 0 } = {}) {
               </div>
             )}
             <div className={styles.cardBody}>
-              {card.description && (
-                <p className={styles.cardDescription}>{card.description}</p>
+              <p className={styles.cardTitle}>{card.displayTitle}</p>
+              {card.price && (
+                <p className={styles.cardPrice}>{card.price}</p>
               )}
             </div>
           </a>
