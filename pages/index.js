@@ -10,6 +10,7 @@ import BeltBookBanner from '../components/BeltBookBanner';
 import { beltBookSpotlight } from '../data/beltBookSpotlight';
 import { fetchFromApi } from '../utils/ssr';
 import homeStyles from '../styles/HomePage.module.css';
+import adStyles from '../styles/FullWidthAd.module.css';
 
 // ...inside your component render where the placeholder was:
 
@@ -135,10 +136,10 @@ export default function HomePage({ data }) {
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <div className={homeStyles.pageContainer}>
-        <div
-          className={`${homeStyles.fullWidthAd} ${homeStyles.topFullWidthAd}`}
-        >
-          <AdSlot AdSlot="9168138847" enabled={data.length > 0} />
+        <div className={`${adStyles.fullWidthAd} ${adStyles.tightTop}`}>
+          <div className={adStyles.inner}>
+            <AdSlot AdSlot="9168138847" enabled={data.length > 0} />
+          </div>
         </div>
         <div className={homeStyles.preContent}>
           <NewsletterSignup />
@@ -277,14 +278,14 @@ export default function HomePage({ data }) {
 
               <div style={{ marginTop: '1rem' }}>{getPagination()}</div>
             </div>
-            <div
-              className={`${homeStyles.fullWidthAd} ${homeStyles.bottomFullWidthAd}`}
-            >
-              <AdSlot
-                AdSlot="9168138847"
-                enabled={data.length > 0}
-                startIndex={3}
-              />
+            <div className={`${adStyles.fullWidthAd} ${adStyles.looseBottom}`}>
+              <div className={adStyles.inner}>
+                <AdSlot
+                  AdSlot="9168138847"
+                  enabled={data.length > 0}
+                  startIndex={3}
+                />
+              </div>
             </div>
           </main>
           <aside className={homeStyles.sidebar}>

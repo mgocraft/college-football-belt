@@ -6,6 +6,7 @@ import {
   debugTeamGames,
 } from '../../utils/teamUtils';
 import AdSlot from '../../components/AdSlot';
+import adStyles from '../../styles/FullWidthAd.module.css';
 import NavBar from '../../components/NavBar';
 import Head from 'next/head';
 import { fetchFromApi } from '../../utils/ssr';
@@ -219,12 +220,14 @@ export default function TeamPage({ data, team }) {
         {head}
 
         {/* ✅ Gate manual ads on real data */}
-        <div style={{ marginBottom: '1.5rem' }}>
-          <AdSlot
-            AdSlot="9168138847"
-            enabled={data.length > 0}
-            startIndex={3}
-          />
+        <div className={adStyles.fullWidthAd}>
+          <div className={adStyles.inner}>
+            <AdSlot
+              AdSlot="9168138847"
+              enabled={data.length > 0}
+              startIndex={3}
+            />
+          </div>
         </div>
 
         <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
@@ -356,8 +359,10 @@ export default function TeamPage({ data, team }) {
         </table>
       </div>
 
-        <div style={{ marginBottom: '1.5rem' }}>
-          <AdSlot AdSlot="9168138847" enabled={data.length > 0} />
+        <div className={`${adStyles.fullWidthAd} ${adStyles.spaced}`}>
+          <div className={adStyles.inner}>
+            <AdSlot AdSlot="9168138847" enabled={data.length > 0} />
+          </div>
         </div>
       </div>
     </>

@@ -19,36 +19,38 @@ export default function Footer() {
 
   return (
     <footer style={styles.footer}>
-      <div style={styles.disclosure}>
-        As an Amazon Associate I earn from qualifying purchases.
-      </div>
-      {lastUpdated && (
-        <div style={styles.lastUpdated}>
-          Last updated{' '}
-          {new Date(lastUpdated).toLocaleDateString(undefined, {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-          })}
+      <div style={styles.inner}>
+        <div style={styles.disclosure}>
+          As an Amazon Associate I earn from qualifying purchases.
         </div>
-      )}
-      <div style={styles.iconRow}>
-        <a
-          href="https://instagram.com/thecollegefootballbelt"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={styles.iconLink}
-        >
-          <FaInstagram size={24} />
-        </a>
-        <a
-          href="https://x.com/CFBBelt"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={styles.iconLink}
-        >
-          <FaXTwitter size={24} />
-        </a>
+        {lastUpdated && (
+          <div style={styles.lastUpdated}>
+            Last updated{' '}
+            {new Date(lastUpdated).toLocaleDateString(undefined, {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            })}
+          </div>
+        )}
+        <div style={styles.iconRow}>
+          <a
+            href="https://instagram.com/thecollegefootballbelt"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={styles.iconLink}
+          >
+            <FaInstagram size={24} />
+          </a>
+          <a
+            href="https://x.com/CFBBelt"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={styles.iconLink}
+          >
+            <FaXTwitter size={24} />
+          </a>
+        </div>
       </div>
     </footer>
   );
@@ -56,13 +58,22 @@ export default function Footer() {
 
 const styles = {
   footer: {
+    width: '100%',
+    boxSizing: 'border-box',
+    display: 'flex',
+    justifyContent: 'center',
+    padding: '20px 0',
+    backgroundColor: '#f5f5f5',
+    borderTop: '1px solid #ddd',
+  },
+  inner: {
+    width: '100%',
+    maxWidth: '80rem',
+    padding: '0 1rem',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     gap: '8px',
-    padding: '20px 0',
-    backgroundColor: '#f5f5f5',
-    borderTop: '1px solid #ddd',
   },
   iconRow: {
     display: 'flex',
