@@ -15,6 +15,12 @@ const amazonProducts = [
     cta: "Grab the Canes necklace →",
   },
   {
+    link: "https://amzn.to/3KfWkKh",
+    fallbackTitle: "Featured Tailgate Upgrade",
+    tagline: "Tap through for our latest belt-country tailgate pick.",
+    cta: "Check the featured pick →",
+  },
+  {
     asin: "B07QYCVT29",
     link: "https://www.amazon.com/Fantasy-Football-Championship-Belt-Customizable/dp/B07QYCVT29?crid=Q7YY7RE6H763&dib=eyJ2IjoiMSJ9.kwrLnnk6Djg0nFGBOv06n0Po5_hZjoaR-8Y3eBKS7At15wfR7JVGcdnuA6wg0jRDuePBB0gd9Dq77v8rHb5UDF2qnY3U6rcPLJLDg27HDzgPVC9Uq_4yIDLX_YALbnAdPF9Tstf-XS2QrqQyZQa63iY4x8rPVXA2tSdvlzYTLsZBye6JsR_aWH7q3HVWWqlhzP7ZlqDvzxXAe4OccreHLGt_eurivWY6pZB8MYscCOJMjAwgWG5GzBBtWwCdu79pBkcsOfvSbo8NRGxdjvDk8GqCtxQpxS3jLelakOPrgAs.FzhlfvbA3ygxTp0pooYXuj378S2he05Y6CjQoZgls-I&dib_tag=se&keywords=fantasy%2Bfootball%2Bbelt&qid=1758030444&sprefix=fantasy%2Bfootball%2Bbelt%2Caps%2C136&sr=8-1-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&th=1&linkCode=ll1&tag=cfbbelt-20&linkId=6fab320414a8b06b3008c4b4df84b9a9&language=en_US&ref_=as_li_ss_tl",
     fallbackTitle: "Fantasy Football Championship Belt",
@@ -23,12 +29,17 @@ const amazonProducts = [
     cta: "Crown your champion →",
   },
   {
-    asin: "REPLACE_WITH_REAL_ASIN",
-    link: "https://amzn.to/3IaxStf",
+    link: "https://amzn.to/48jxLpO",
+    fallbackTitle: "Fan Cave Must-Have",
+    tagline: "Give your watch party a fresh focal point with this Amazon find.",
+    cta: "Upgrade your fan cave →",
+  },
+  {
+    link: "https://amzn.to/4mjjkW3",
     fallbackTitle: "Weekly Amazon Spotlight",
     tagline:
-      "Update this entry with the product's ASIN to surface live pricing and imagery.",
-    cta: "See this week's deal →",
+      "See what caught our eye around the belt this week and snag it before it's gone.",
+    cta: "See the full details →",
   },
 ];
 
