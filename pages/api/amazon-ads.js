@@ -1,4 +1,4 @@
-import { getItems, searchItems } from "../../utils/amazon.js";
+import { getCredentials, getItems, searchItems } from "../../utils/amazon.js";
 
 const asinPattern = /^[A-Z0-9]{10}$/;
 
@@ -210,12 +210,18 @@ export default async function handler(req, res) {
   }
 
   try {
+    const credentials = getCredentials();
+    if (!credentials) {
+      res.status(200).json({ items: [] });
+      return;
+    }
+
     if (products.length === 0) {
       const fallbackKeywords =
         typeof keywords === "string" && keywords.trim().length > 0
           ? keywords
           : "college football gear";
-      const data = await searchItems(fallbackKeywords);
+      const data = await searchItems(fallbackKeywords, credentials);
       if (Array.isArray(data?.Errors) && data.Errors.length > 0) {
         const errorMessage = data.Errors.map((error) => error.Message || error.Code)
           .filter(Boolean)
@@ -245,7 +251,7 @@ export default async function handler(req, res) {
 
     let detailsByAsin = new Map();
     if (uniqueAsins.length > 0) {
-      const data = await getItems(uniqueAsins);
+      const data = await getItems(uniqueAsins, credentials);
       if (Array.isArray(data?.Errors) && data.Errors.length > 0) {
         const errorMessage = data.Errors.map((error) => error.Message || error.Code)
           .filter(Boolean)
