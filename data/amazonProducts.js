@@ -15,6 +15,7 @@ const amazonProducts = [
     cta: "Grab the Canes necklace →",
   },
   {
+    asin: "B0FC3781XV",
     link: "https://amzn.to/3KfWkKh",
     fallbackTitle: "Zep-Pro NCAA Florida Gators Belt",
     tagline: "Lock in gameday outfits with this leather belt stamped for the Gators.",
@@ -29,8 +30,8 @@ const amazonProducts = [
     cta: "Crown your champion →",
   },
   {
-    asin: "B07TTFJGJC",
-    link: "https://www.amazon.com/YouTheFan-Spirit-Coasters-Florida-Gators/dp/B07TTFJGJC?tag=cfbbelt-20&linkCode=ll1&language=en_US&ref_=as_li_ss_tl",
+    asin: "B01MQD11ZG",
+    link: "https://amzn.to/4nlTv92",
     fallbackTitle: "YouTheFan NCAA Team Spirit Coasters",
     fallbackImage: "/images/sport-fan-coasters.svg",
     tagline:
