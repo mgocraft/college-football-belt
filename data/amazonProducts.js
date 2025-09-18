@@ -15,10 +15,12 @@ const amazonProducts = [
     cta: "Grab the Canes necklace →",
   },
   {
-    link: "https://amzn.to/3KfWkKh",
-    fallbackTitle: "Featured Tailgate Upgrade",
-    tagline: "Tap through for our latest belt-country tailgate pick.",
-    cta: "Check the featured pick →",
+    link: "https://amzn.to/3K9vyDt",
+    fallbackTitle: "YouTheFan NCAA Team Spirit Coasters",
+    fallbackImage: "/images/sport-fan-coasters.svg",
+    tagline:
+      "Set out these layered team coasters to keep your tailgate surfaces spotless.",
+    cta: "Dress up the drink table →",
   },
   {
     asin: "B07QYCVT29",
