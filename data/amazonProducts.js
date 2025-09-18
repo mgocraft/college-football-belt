@@ -15,12 +15,10 @@ const amazonProducts = [
     cta: "Grab the Canes necklace →",
   },
   {
-    link: "https://amzn.to/3K9vyDt",
-    fallbackTitle: "YouTheFan NCAA Team Spirit Coasters",
-    fallbackImage: "/images/sport-fan-coasters.svg",
-    tagline:
-      "Set out these layered team coasters to keep your tailgate surfaces spotless.",
-    cta: "Dress up the drink table →",
+    link: "https://amzn.to/3KfWkKh",
+    fallbackTitle: "Zep-Pro NCAA Florida Gators Belt",
+    tagline: "Lock in gameday outfits with this leather belt stamped for the Gators.",
+    cta: "Strap on the Gators belt →",
   },
   {
     asin: "B07QYCVT29",
@@ -31,17 +29,21 @@ const amazonProducts = [
     cta: "Crown your champion →",
   },
   {
-    link: "https://amzn.to/48jxLpO",
-    fallbackTitle: "Fan Cave Must-Have",
-    tagline: "Give your watch party a fresh focal point with this Amazon find.",
-    cta: "Upgrade your fan cave →",
+    asin: "B07TTFJGJC",
+    link: "https://www.amazon.com/YouTheFan-Spirit-Coasters-Florida-Gators/dp/B07TTFJGJC?tag=cfbbelt-20&linkCode=ll1&language=en_US&ref_=as_li_ss_tl",
+    fallbackTitle: "YouTheFan NCAA Team Spirit Coasters",
+    fallbackImage: "/images/sport-fan-coasters.svg",
+    tagline:
+      "Set out these layered team coasters to keep your tailgate surfaces spotless.",
+    cta: "Dress up the drink table →",
   },
   {
-    link: "https://amzn.to/4mjjkW3",
-    fallbackTitle: "Weekly Amazon Spotlight",
+    asin: "B0DGFW36YX",
+    link: "https://www.amazon.com/Football-Players-School-Birthday-Classroom/dp/B0DGFW36YX/ref=sxin_17_pa_sp_search_thematic_sspa?content-id=amzn1.sym.af2622b9-f19b-41dc-b23f-021a373653f2%3Aamzn1.sym.af2622b9-f19b-41dc-b23f-021a373653f2&crid=334CLJXJECYO9&cv_ct_cx=football%2Bgame&keywords=football%2Bgame&pd_rd_i=B0DGFW36YX&pd_rd_r=cc8f2030-5884-4897-8611-644aa300c6b9&pd_rd_w=0usRs&pd_rd_wg=3jVPb&pf_rd_p=af2622b9-f19b-41dc-b23f-021a373653f2&pf_rd_r=G35GZ28DDVBRNGZJT4KW&qid=1758215960&sbo=RZvfv%2F%2FHxDF%2BO5021pAnSA%3D%3D&sprefix=football%2Bgame%2Caps%2C157&sr=1-2-7efdef4d-9875-47e1-927f-8c2c1c47ed49-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9zZWFyY2hfdGhlbWF0aWM&th=1#:~:text=https%3A//amzn.to/4881Mcj",
+    fallbackTitle: "Football Board Game for Kids",
     tagline:
-      "See what caught our eye around the belt this week and snag it before it's gone.",
-    cta: "See the full details →",
+      "Football Board Game for Kids",
+    cta: "Football Board Game for Kids →",
   },
 ];
 
