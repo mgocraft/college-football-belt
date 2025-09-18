@@ -15,12 +15,10 @@ const amazonProducts = [
     cta: "Grab the Canes necklace →",
   },
   {
-    link: "https://amzn.to/3K9vyDt",
-    fallbackTitle: "YouTheFan NCAA Team Spirit Coasters",
-    fallbackImage: "/images/sport-fan-coasters.svg",
-    tagline:
-      "Set out these layered team coasters to keep your tailgate surfaces spotless.",
-    cta: "Dress up the drink table →",
+    link: "https://amzn.to/3KfWkKh",
+    fallbackTitle: "Zep-Pro NCAA Florida Gators Belt",
+    tagline: "Lock in gameday outfits with this leather belt stamped for the Gators.",
+    cta: "Strap on the Gators belt →",
   },
   {
     asin: "B07QYCVT29",
@@ -31,17 +29,21 @@ const amazonProducts = [
     cta: "Crown your champion →",
   },
   {
-    link: "https://amzn.to/48jxLpO",
-    fallbackTitle: "Fan Cave Must-Have",
-    tagline: "Give your watch party a fresh focal point with this Amazon find.",
-    cta: "Upgrade your fan cave →",
+    asin: "B07TTFJGJC",
+    link: "https://www.amazon.com/YouTheFan-Spirit-Coasters-Florida-Gators/dp/B07TTFJGJC?tag=cfbbelt-20&linkCode=ll1&language=en_US&ref_=as_li_ss_tl",
+    fallbackTitle: "YouTheFan NCAA Team Spirit Coasters",
+    fallbackImage: "/images/sport-fan-coasters.svg",
+    tagline:
+      "Set out these layered team coasters to keep your tailgate surfaces spotless.",
+    cta: "Dress up the drink table →",
   },
   {
-    link: "https://amzn.to/4mjjkW3",
-    fallbackTitle: "Weekly Amazon Spotlight",
+    asin: "B0B7QPYZVP",
+    link: "https://www.amazon.com/LEGO-Ideas-Table-Football-Building/dp/B0B7QPYZVP?tag=cfbbelt-20&linkCode=ll1&language=en_US&ref_=as_li_ss_tl",
+    fallbackTitle: "LEGO Ideas Table Football (21337)",
     tagline:
-      "See what caught our eye around the belt this week and snag it before it's gone.",
-    cta: "See the full details →",
+      "Brick a tabletop football match and run your own belt defenses at home.",
+    cta: "Kick off the LEGO build →",
   },
 ];
 
