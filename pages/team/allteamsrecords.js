@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { teamLogoMap, normalizeTeamName, computeRecord } from '../../utils/teamUtils';
 import NavBar from '../../components/NavBar';
 import AdSlot from '../../components/AdSlot';
+import adStyles from '../../styles/FullWidthAd.module.css';
 import Head from 'next/head';
 import { fetchFromApi } from '../../utils/ssr';
 
@@ -118,8 +119,14 @@ export default function AllTeamsRecords({ data }) {
       <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '1rem' }}>
         {head}
 
-        <div style={{ marginBottom: '1.5rem' }}>
-          <AdSlot AdSlot="9168138847" variant="leaderboard" enabled={data.length > 0} />
+        <div className={`${adStyles.fullWidthAd} ${adStyles.spaced}`}>
+          <div className={adStyles.inner}>
+            <AdSlot
+              AdSlot="9168138847"
+              variant="leaderboard"
+              enabled={data.length > 0}
+            />
+          </div>
         </div>
 
       <h1 style={{ textAlign: 'center', fontSize: '1.5rem', fontWeight: 'bold' }}>All Teams Records</h1>
@@ -182,13 +189,15 @@ export default function AllTeamsRecords({ data }) {
       );
       })}
 
-        <div style={{ margin: '1.5rem 0' }}>
-          <AdSlot
-            AdSlot="9168138847"
-            variant="leaderboard"
-            enabled={data.length > 0}
-            startIndex={3}
-          />
+        <div className={`${adStyles.fullWidthAd} ${adStyles.spaced}`}>
+          <div className={adStyles.inner}>
+            <AdSlot
+              AdSlot="9168138847"
+              variant="leaderboard"
+              enabled={data.length > 0}
+              startIndex={3}
+            />
+          </div>
         </div>
 
         <style jsx>{`

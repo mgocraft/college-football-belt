@@ -23,17 +23,6 @@ function deriveAsin(product) {
   return undefined;
 }
 
-function buildProductMap(items) {
-  const map = Object.create(null);
-  for (const item of Array.isArray(items) ? items : []) {
-    const asin = item?.asin ? item.asin.toUpperCase() : undefined;
-    if (asin) {
-      map[asin] = item;
-    }
-  }
-  return map;
-}
-
 /**
  * Renders curated Amazon affiliate products with live details from
  * the Product Advertising API. Pricing and imagery refresh on every
@@ -47,13 +36,11 @@ export default function AmazonBanner({ count = 3, startIndex = 0 } = {}) {
     ? Math.floor(startIndex)
     : 0;
 
-  const [productMap, setProductMap] = useState(() => Object.create(null));
+  const [productDetails, setProductDetails] = useState(() => []);
   const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
-    const asins = amazonProducts.map(deriveAsin).filter(Boolean);
-
-    if (asins.length === 0) {
+    if (amazonProducts.length === 0) {
       return undefined;
     }
 
@@ -62,10 +49,24 @@ export default function AmazonBanner({ count = 3, startIndex = 0 } = {}) {
 
     async function load() {
       try {
-        const params = new URLSearchParams({
-          asins: asins.join(","),
-        });
-        const response = await fetch(`/api/amazon-ads?${params.toString()}`, {
+        const payload = {
+          products: amazonProducts.map((product) => ({
+            asin:
+              typeof product.asin === "string"
+                ? product.asin.trim()
+                : undefined,
+            link:
+              typeof product.link === "string"
+                ? product.link.trim()
+                : undefined,
+          })),
+        };
+        const response = await fetch(`/api/amazon-ads`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
           signal: controller.signal,
         });
         if (!response.ok) {
@@ -75,7 +76,8 @@ export default function AmazonBanner({ count = 3, startIndex = 0 } = {}) {
         if (!isActive) {
           return;
         }
-        setProductMap(buildProductMap(data?.items));
+        const items = Array.isArray(data?.items) ? data.items : [];
+        setProductDetails(items);
         setHasError(false);
       } catch (error) {
         if (!isActive || error?.name === "AbortError") {
@@ -83,7 +85,7 @@ export default function AmazonBanner({ count = 3, startIndex = 0 } = {}) {
         }
         console.error(error);
         setHasError(true);
-        setProductMap(Object.create(null));
+        setProductDetails([]);
       }
     }
 
@@ -97,19 +99,19 @@ export default function AmazonBanner({ count = 3, startIndex = 0 } = {}) {
 
   const mappedCards = amazonProducts
     .map((product, index) => {
-      const asin = deriveAsin(product);
-      const details = asin ? productMap[asin] : undefined;
-      const link = product.link || details?.link;
+      const details = productDetails[index] || null;
+      const link = details?.link || product.link;
       const fallbackTitle =
         product.fallbackTitle ||
         "Amazon pick";
       const title = details?.title || fallbackTitle;
       const image = details?.image || product.fallbackImage || null;
-      const displayTitle =
-        details?.title ||
-        product.fallbackTitle ||
-        fallbackTitle;
+      const description =
+        typeof details?.description === "string" && details.description.trim().length > 0
+          ? details.description.trim()
+          : null;
       const price = details?.price || null;
+      const asin = details?.asin || deriveAsin(product);
       const key = asin || `${link || "amazon-product"}-${index}`;
 
       if (!link || !title) {
@@ -121,7 +123,7 @@ export default function AmazonBanner({ count = 3, startIndex = 0 } = {}) {
         link,
         title,
         image,
-        displayTitle,
+        description,
         price,
       };
     })
@@ -171,7 +173,10 @@ export default function AmazonBanner({ count = 3, startIndex = 0 } = {}) {
               </div>
             )}
             <div className={styles.cardBody}>
-              <p className={styles.cardTitle}>{card.displayTitle}</p>
+              <p className={styles.cardTitle}>{card.title}</p>
+              {card.description && (
+                <p className={styles.cardDescription}>{card.description}</p>
+              )}
               {card.price && (
                 <p className={styles.cardPrice}>{card.price}</p>
               )}

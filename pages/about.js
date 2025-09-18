@@ -2,6 +2,7 @@ import React from 'react';
 import NavBar from '../components/NavBar';
 import Head from 'next/head';
 import AdSlot from '../components/AdSlot';
+import adStyles from '../styles/FullWidthAd.module.css';
 
 export default function AboutPage() {
   return (
@@ -55,8 +56,10 @@ export default function AboutPage() {
   <p style={{ marginTop: '2rem', fontSize: '0.9rem', color: '#555' }}>
     <strong>FTC Disclosure:</strong> As an Amazon Associate, I earn from qualifying purchases. This means that if you click on a link to a product on Amazon and make a purchase, I may receive a small commission at no additional cost to you.
   </p>
-        <div style={{ margin: '1.5rem 0' }}>
-          <AdSlot AdSlot="9168138847" />
+        <div className={`${adStyles.fullWidthAd} ${adStyles.spaced}`}>
+          <div className={adStyles.inner}>
+            <AdSlot AdSlot="9168138847" />
+          </div>
         </div>
       </div>
     </>

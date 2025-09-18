@@ -116,6 +116,7 @@ export async function searchItems(keywords) {
     Resources: [
       "Images.Primary.Large",
       "ItemInfo.Title",
+      "ItemInfo.Features",
       "ItemInfo.ProductInfo",
       "Offers.Listings.Price",
       "Offers.Summaries.LowestPrice",

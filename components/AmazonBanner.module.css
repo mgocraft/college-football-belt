@@ -77,6 +77,18 @@
   text-align: center;
 }
 
+.cardDescription {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #4b5563;
+  text-align: center;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 .cardPrice {
   margin: 0;
   font-size: 0.875rem;

@@ -1,0 +1,28 @@
+.fullWidthAd {
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  margin-bottom: 1.5rem;
+  padding: 0 1rem;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+}
+
+.inner {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.spaced {
+  margin-top: 1.5rem;
+}
+
+.tightTop {
+  margin-top: 1rem;
+}
+
+.looseBottom {
+  margin-top: 2rem;
+}
