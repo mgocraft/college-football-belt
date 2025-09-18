@@ -57,18 +57,21 @@ function sign(payload, accessKey, secretKey, endpoint, target) {
   return { amzDate, authorizationHeader };
 }
 
-function getCredentials() {
+export function getCredentials() {
   const accessKey = process.env.AMAZON_ACCESS_KEY;
   const secretKey = process.env.AMAZON_SECRET_KEY;
   const associateTag = process.env.AMAZON_ASSOCIATE_TAG;
   if (!accessKey || !secretKey || !associateTag) {
-    throw new Error("Missing Amazon API credentials");
+    return null;
   }
   return { accessKey, secretKey, associateTag };
 }
 
-async function callAmazon(endpoint, target, payload) {
-  const { accessKey, secretKey } = getCredentials();
+async function callAmazon(endpoint, target, payload, credentials = getCredentials()) {
+  if (!credentials) {
+    return null;
+  }
+  const { accessKey, secretKey } = credentials;
   const { amzDate, authorizationHeader } = sign(
     payload,
     accessKey,
@@ -106,8 +109,11 @@ async function callAmazon(endpoint, target, payload) {
   return response.json();
 }
 
-export async function searchItems(keywords) {
-  const { associateTag } = getCredentials();
+export async function searchItems(keywords, credentials = getCredentials()) {
+  if (!credentials) {
+    return null;
+  }
+  const { associateTag } = credentials;
   const payload = JSON.stringify({
     Keywords: keywords,
     Marketplace: "www.amazon.com",
@@ -125,15 +131,19 @@ export async function searchItems(keywords) {
   return callAmazon(
     "/paapi5/searchitems",
     "com.amazon.paapi5.v1.ProductAdvertisingAPIv1.SearchItems",
-    payload
+    payload,
+    credentials
   );
 }
 
-export async function getItems(asins) {
+export async function getItems(asins, credentials = getCredentials()) {
   if (!Array.isArray(asins) || asins.length === 0) {
     throw new Error("ASIN list is required for GetItems");
   }
-  const { associateTag } = getCredentials();
+  if (!credentials) {
+    return null;
+  }
+  const { associateTag } = credentials;
   const payload = JSON.stringify({
     ItemIds: asins,
     Marketplace: "www.amazon.com",
@@ -150,6 +160,7 @@ export async function getItems(asins) {
   return callAmazon(
     "/paapi5/getitems",
     "com.amazon.paapi5.v1.ProductAdvertisingAPIv1.GetItems",
-    payload
+    payload,
+    credentials
   );
 }
