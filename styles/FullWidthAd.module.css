@@ -1,29 +1,30 @@
 .fullWidthAd {
   width: 100%;
-  margin: 0 auto 1.5rem;
+  margin: 0 0 1rem;
   padding: 0;
   box-sizing: border-box;
-  display: flex;
-  justify-content: center;
 }
 
 .inner {
-  flex: 1 1 0;
-  min-width: 0;
   width: 100%;
-  max-width: 56.25rem;
-  padding: 0 1rem;
+  padding: 0;
   box-sizing: border-box;
 }
 
-.spaced {
-  margin-top: 1.5rem;
+.inner :global(.adsbygoogle) {
+  display: block;
+  width: 100%;
+  margin: 0;
 }
 
-.tightTop {
+.spaced {
   margin-top: 1rem;
 }
 
+.tightTop {
+  margin-top: 0.5rem;
+}
+
 .looseBottom {
-  margin-top: 2rem;
+  margin-top: 1.5rem;
 }
