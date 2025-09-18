@@ -38,12 +38,12 @@ const amazonProducts = [
     cta: "Dress up the drink table →",
   },
   {
-    asin: "B0B7QPYZVP",
-    link: "https://www.amazon.com/LEGO-Ideas-Table-Football-Building/dp/B0B7QPYZVP?tag=cfbbelt-20&linkCode=ll1&language=en_US&ref_=as_li_ss_tl",
-    fallbackTitle: "LEGO Ideas Table Football (21337)",
+    asin: "B0DGFW36YX",
+    link: "https://www.amazon.com/Football-Players-School-Birthday-Classroom/dp/B0DGFW36YX/ref=sxin_17_pa_sp_search_thematic_sspa?content-id=amzn1.sym.af2622b9-f19b-41dc-b23f-021a373653f2%3Aamzn1.sym.af2622b9-f19b-41dc-b23f-021a373653f2&crid=334CLJXJECYO9&cv_ct_cx=football%2Bgame&keywords=football%2Bgame&pd_rd_i=B0DGFW36YX&pd_rd_r=cc8f2030-5884-4897-8611-644aa300c6b9&pd_rd_w=0usRs&pd_rd_wg=3jVPb&pf_rd_p=af2622b9-f19b-41dc-b23f-021a373653f2&pf_rd_r=G35GZ28DDVBRNGZJT4KW&qid=1758215960&sbo=RZvfv%2F%2FHxDF%2BO5021pAnSA%3D%3D&sprefix=football%2Bgame%2Caps%2C157&sr=1-2-7efdef4d-9875-47e1-927f-8c2c1c47ed49-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9zZWFyY2hfdGhlbWF0aWM&th=1#:~:text=https%3A//amzn.to/4881Mcj",
+    fallbackTitle: "Football Board Game for Kids",
     tagline:
-      "Brick a tabletop football match and run your own belt defenses at home.",
-    cta: "Kick off the LEGO build →",
+      "Football Board Game for Kids",
+    cta: "Football Board Game for Kids →",
   },
 ];
 
