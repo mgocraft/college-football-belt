@@ -23,6 +23,56 @@ function deriveAsin(product) {
   return undefined;
 }
 
+function deriveAssociateTag(product) {
+  if (!product) {
+    return undefined;
+  }
+  if (typeof product.associateTag === "string") {
+    const trimmed = product.associateTag.trim();
+    if (trimmed.length > 0) {
+      return trimmed;
+    }
+  }
+  if (typeof product.link === "string") {
+    try {
+      const url = new URL(product.link);
+      const tag = url.searchParams.get("tag");
+      if (tag) {
+        const trimmed = tag.trim();
+        if (trimmed.length > 0) {
+          return trimmed;
+        }
+      }
+    } catch (error) {
+      // Ignore invalid URLs.
+    }
+  }
+  return undefined;
+}
+
+function deriveFallbackImage(asin, product) {
+  if (product?.fallbackImage) {
+    return product.fallbackImage;
+  }
+  if (!asin) {
+    return null;
+  }
+  const params = new URLSearchParams({
+    _encoding: "UTF8",
+    ASIN: asin,
+    ServiceVersion: "20070822",
+    WS: "1",
+    Format: "SL250",
+    ID: "AsinImage",
+    MarketPlace: "US",
+  });
+  const tag = deriveAssociateTag(product);
+  if (tag) {
+    params.set("tag", tag);
+  }
+  return `https://ws-na.amazon-adsystem.com/widgets/q?${params.toString()}`;
+}
+
 /**
  * Renders curated Amazon affiliate products with live details from
  * the Product Advertising API. Pricing and imagery refresh on every
@@ -105,13 +155,9 @@ export default function AmazonBanner({ count = 3, startIndex = 0 } = {}) {
         product.fallbackTitle ||
         "Amazon pick";
       const title = details?.title || fallbackTitle;
-      const image = details?.image || product.fallbackImage || null;
-      const description =
-        typeof details?.description === "string" && details.description.trim().length > 0
-          ? details.description.trim()
-          : null;
-      const price = details?.price || null;
       const asin = details?.asin || deriveAsin(product);
+      const image =
+        details?.image || deriveFallbackImage(asin, product);
       const key = asin || `${link || "amazon-product"}-${index}`;
 
       if (!link || !title) {
@@ -123,8 +169,6 @@ export default function AmazonBanner({ count = 3, startIndex = 0 } = {}) {
         link,
         title,
         image,
-        description,
-        price,
       };
     })
     .filter(Boolean);
@@ -174,12 +218,6 @@ export default function AmazonBanner({ count = 3, startIndex = 0 } = {}) {
             )}
             <div className={styles.cardBody}>
               <p className={styles.cardTitle}>{card.title}</p>
-              {card.description && (
-                <p className={styles.cardDescription}>{card.description}</p>
-              )}
-              {card.price && (
-                <p className={styles.cardPrice}>{card.price}</p>
-              )}
             </div>
           </a>
         ))}
