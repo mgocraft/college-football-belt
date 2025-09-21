@@ -1,6 +1,6 @@
 export const beltBookSpotlight = {
   title: "Belt Book of the Week",
-  subtitle: "Miami vs. Florida Matchup Picks",
+  subtitle: "Miami at Florida State Matchup Picks",
   books: [
     {
       title: "Cane Mutiny: How the Miami Hurricanes Overturned the Football Establishment",
@@ -13,14 +13,14 @@ export const beltBookSpotlight = {
       badgeTextColor: "#ffffff",
     },
     {
-      title: "The Boys from Old Florida: Inside the Gators' Greatest Teams",
-      author: "Buddy Martin",
-      team: "Florida Gators",
-      link: "https://www.amazon.com/Boys-Old-Florida-Gators-Greatest/dp/0345509595?tag=cfbbelt-20&linkCode=ll1&language=en_US&ref_=as_li_ss_tl",
-      image: "https://m.media-amazon.com/images/P/0345509595.01._SCLZZZZZZZ_.jpg",
-      imageAlt: "Cover of The Boys from Old Florida by Buddy Martin",
-      badgeColor: "#0021A5",
-      badgeTextColor: "#f8fafc",
+      title: "Seminoles!: The First 50 Years of Florida State Football",
+      author: "Bill McGrotha",
+      team: "Florida State Seminoles",
+      link: "https://www.amazon.com/Seminoles-First-Florida-State-Football/dp/1561643315?tag=cfbbelt-20&linkCode=ll1&language=en_US&ref_=as_li_ss_tl",
+      image: "https://m.media-amazon.com/images/P/1561643315.01._SCLZZZZZZZ_.jpg",
+      imageAlt: "Cover of Seminoles!: The First 50 Years of Florida State Football by Bill McGrotha",
+      badgeColor: "#782F40",
+      badgeTextColor: "#CEB888",
     },
   ],
 };

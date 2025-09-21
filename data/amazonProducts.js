@@ -1,11 +1,11 @@
 const amazonProducts = [
   {
-    asin: "B0D8KTKMQW",
-    link: "https://www.amazon.com/PILOYINDE-Basketball-gators-Bedroom-Florida/dp/B0D8KTKMQW?crid=AHXD6SCISDXA&dib=eyJ2IjoiMSJ9.pk6LKRJrWyC7tifXE2tQbN2UHnVHAwrlI4IPwD53yX2X4rStgfTuv1E_gHFBJRWrYYNyzek8UgroFTHJ2qfBC9oFmhWiy6wCjPYdM_XIc9ixmGdf9mpDyNYY6kFC2lvq9Q-RouPS3N-7afPhlf5A8xbgqwmjs6dGSCNuwfl6LoHCn4NcQk-KFNeveGhubv6-mgtvtFedK9ZOKUEb78pPxg-PyAS1yWzmtKb2Cgn0K0PxHLRP3ELlvTId2RxRFpUWmn2XddGhIf56XIk9eMrKX-Nzb6rvOrDJpD8Tt9d6Ncw.c6dWX31Ia5o_cu0xK9xQRP160sau0_kFYXJ94CuoEl4&dib_tag=se&keywords=florida%2Bgators%2Bgear&qid=1758030266&sprefix=florida%2Bgators%2Bgrea%2Caps%2C196&sr=8-2-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&th=1&linkCode=ll1&tag=cfbbelt-20&linkId=038c37e92c6cfc6ad877d0ab0bbdf5d0&language=en_US&ref_=as_li_ss_tl",
-    fallbackTitle: "Florida Gators Wall Art",
+    asin: "B00KAQBZQQ",
+    link: "https://www.amazon.com/Florida-State-Seminoles-2-Sided-Flag/dp/B00KAQBZQQ?tag=cfbbelt-20&linkCode=ll1&language=en_US&ref_=as_li_ss_tl",
+    fallbackTitle: "Florida State Seminoles Garden Flag",
     tagline:
-      "Turn your fan cave into the Swamp with this bold Gators wall print.",
-    cta: "Shop Florida gear →",
+      "Fly garnet and gold outside your tailgate spot before the showdown in Tallahassee.",
+    cta: "Shop Florida State gear →",
   },
   {
     asin: "B00W5VNB80",

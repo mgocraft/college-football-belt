@@ -32,7 +32,7 @@ export default function HomePage({ data }) {
   const router = useRouter();
   const page = parseInt(router.query.page || '1', 10);
   const itemsPerPage = 10;
-  const nextOpponent = 'Florida';
+  const nextOpponent = 'Florida State';
   const homepageStructuredData = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
@@ -219,7 +219,7 @@ export default function HomePage({ data }) {
               <section className={homeStyles.section}>
                 <h2 className={homeStyles.sectionTitle}>Next Game Preview</h2>
                 <p className={homeStyles.bodyText}>
-                  Miami seized the College Football Belt with a commanding 49–12 home win over South Florida. The Hurricanes now prepare for their first defense as they host the Florida Gators in a heated in-state clash. Florida entered the season with the belt, lost it to USF, and already has a chance to win it back one week later.
+                  Miami throttled Florida 26–7 to post its first defense since reclaiming the College Football Belt from South Florida. Next up is a prime-time trip to Tallahassee on October 4 at 7 p.m. ET, where rival Florida State will try to rip the belt away on its home field.
                 </p>
               </section>
 
