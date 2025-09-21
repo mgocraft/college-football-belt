@@ -88,6 +88,7 @@ export default function AmazonBanner({ count = 3, startIndex = 0 } = {}) {
 
   const [productDetails, setProductDetails] = useState(() => []);
   const [hasError, setHasError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     if (amazonProducts.length === 0) {
@@ -127,14 +128,22 @@ export default function AmazonBanner({ count = 3, startIndex = 0 } = {}) {
           return;
         }
         const items = Array.isArray(data?.items) ? data.items : [];
+        const message =
+          typeof data?.error === "string" ? data.error.trim() : "";
         setProductDetails(items);
-        setHasError(false);
+        setHasError(message.length > 0);
+        setErrorMessage(message);
       } catch (error) {
         if (!isActive || error?.name === "AbortError") {
           return;
         }
         console.error(error);
         setHasError(true);
+        setErrorMessage(
+          error instanceof Error
+            ? error.message
+            : "Unable to refresh Amazon picks."
+        );
         setProductDetails([]);
       }
     }
@@ -190,8 +199,8 @@ export default function AmazonBanner({ count = 3, startIndex = 0 } = {}) {
     <div className={styles.wrapper}>
       {hasError && (
         <p className={styles.errorMessage}>
-          We couldn&apos;t refresh today&apos;s Amazon picks. Tap through to see the
-          latest price on Amazon.
+          {errorMessage ||
+            "We couldn&apos;t refresh today&apos;s Amazon picks. Tap through to see the latest price on Amazon."}
         </p>
       )}
       <div className={styles.grid}>

@@ -1,4 +1,8 @@
-import { getItems, searchItems } from "../../utils/amazon.js";
+import {
+  getItems,
+  searchItems,
+  hasAmazonCredentials,
+} from "../../utils/amazon.js";
 
 const asinPattern = /^[A-Z0-9]{10}$/;
 
@@ -148,6 +152,30 @@ function normalizeProducts(input) {
     .filter(Boolean);
 }
 
+function buildPlaceholderItems(products) {
+  if (!Array.isArray(products) || products.length === 0) {
+    return [];
+  }
+  return products.map((product) => {
+    const asin = normalizeAsin(product?.asin);
+    if (asin) {
+      return { asin };
+    }
+    const derived = extractAsinFromString(
+      typeof product?.link === "string" ? product.link : ""
+    );
+    return derived ? { asin: derived } : null;
+  });
+}
+
+function respondWithFallback(res, products, message) {
+  const response = { items: buildPlaceholderItems(products) };
+  if (typeof message === "string" && message.trim().length > 0) {
+    response.error = message.trim();
+  }
+  res.status(200).json(response);
+}
+
 function formatPrice(listing, summary) {
   const display =
     listing?.Price?.DisplayAmount || summary?.LowestPrice?.DisplayAmount;
@@ -207,6 +235,15 @@ export default async function handler(req, res) {
       asinList = parseAsins(process.env.AMAZON_ASINS || "");
     }
     products = asinList.map((asin) => ({ asin }));
+  }
+
+  if (!hasAmazonCredentials()) {
+    respondWithFallback(
+      res,
+      products,
+      "Live Amazon pricing is disabled until affiliate credentials are configured. Showing curated picks instead."
+    );
+    return;
   }
 
   try {
@@ -274,9 +311,11 @@ export default async function handler(req, res) {
 
     res.status(200).json({ items });
   } catch (err) {
-    const message =
-      err instanceof Error ? err.message : "Failed to fetch Amazon products";
     console.error("Amazon ads API error:", err);
-    res.status(500).json({ error: message });
+    respondWithFallback(
+      res,
+      products,
+      "Live Amazon pricing is currently unavailable. Showing curated picks instead."
+    );
   }
 }

@@ -15,12 +15,18 @@ export default function NewsletterSignup() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),
       });
-      if (res.ok) {
+      let data = null;
+      try {
+        data = await res.json();
+      } catch (jsonError) {
+        data = null;
+      }
+
+      if (res.ok && !(data && data.error)) {
         setEmail('');
-        setMessage('Thanks for subscribing!');
+        setMessage((data && data.message) || 'Thanks for subscribing!');
       } else {
-        const data = await res.json();
-        setMessage(data.error || 'Subscription failed.');
+        setMessage((data && data.error) || 'Subscription failed.');
       }
     } catch (err) {
       setMessage('Subscription failed.');
