@@ -1,17 +1,27 @@
 // pages/blog.js
 import NavBar from '../components/NavBar';
-import Head from 'next/head';
+import Seo, { SITE_URL } from '../components/Seo';
 
 export default function Blog() {
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'Blog',
+    name: 'College Football Belt Blog',
+    url: `${SITE_URL}/blog`,
+    description: 'Latest stories, analysis, and history notes from the College Football Belt.',
+  };
+
   return (
     <>
+      <Seo
+        title="Blog"
+        description="Follow the latest updates and insights about the College Football Belt."
+        canonicalPath="/blog"
+        image="/images/2025week1.png"
+        structuredData={structuredData}
+      />
       <NavBar />
       <div style={{ maxWidth: '800px', margin: '0 auto', padding: '1rem' }}>
-        <Head>
-          <title>CFB Belt Blog</title>
-          <meta name="description" content="Follow the latest updates and insights about the College Football Belt." />
-          <meta property="og:image" content="/images/2025week1.png" />
-        </Head>
 
         <h1 style={{ fontSize: '2rem', marginBottom: '1rem', color: '#001f3f' }}>College Football Belt Blog</h1>
 

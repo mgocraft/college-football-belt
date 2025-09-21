@@ -4,7 +4,7 @@ import { teamLogoMap, normalizeTeamName, computeRecord } from '../../utils/teamU
 import NavBar from '../../components/NavBar';
 import AdSlot from '../../components/AdSlot';
 import adStyles from '../../styles/FullWidthAd.module.css';
-import Head from 'next/head';
+import Seo, { SITE_URL } from '../../components/Seo';
 import { fetchFromApi } from '../../utils/ssr';
 
 const cleanTeamName = (name = '') =>
@@ -39,20 +39,28 @@ export default function AllTeamsRecords({ data }) {
   const [sortKey, setSortKey] = useState('wins');
   const [sortAsc, setSortAsc] = useState(false);
 
-  const head = (
-    <Head>
-      <title>All Teams Records - College Football Belt</title>
-      <meta
-        name="description"
-        content="Search and sort every program's performance in College Football Belt history."
-      />
-      <meta property="og:image" content="/images/fallback-helmet.png" />
-    </Head>
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: 'College Football Belt – All Teams Records',
+    url: `${SITE_URL}/team/allteamsrecords`,
+    description:
+      "Sortable records showing every program's wins, losses, ties, and reigns in College Football Belt history.",
+  };
+
+  const seo = (
+    <Seo
+      title="All Teams Records"
+      description="Search and sort every program's performance in College Football Belt history."
+      canonicalPath="/team/allteamsrecords"
+      structuredData={structuredData}
+    />
   );
 
   if (!data.length) {
     return (
       <>
+        {seo}
         <NavBar />
         <div
           style={{
@@ -63,7 +71,6 @@ export default function AllTeamsRecords({ data }) {
             textAlign: 'center',
           }}
         >
-          {head}
           <p style={{ marginTop: '2rem' }}>No data available.</p>
           <p>Try again later.</p>
         </div>
@@ -115,10 +122,9 @@ export default function AllTeamsRecords({ data }) {
 
   return (
     <>
+      {seo}
       <NavBar />
       <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '1rem' }}>
-        {head}
-
         <div className={`${adStyles.fullWidthAd} ${adStyles.spaced}`}>
           <div className={adStyles.inner}>
             <AdSlot

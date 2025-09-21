@@ -2,3 +2,5 @@ User-agent: *
 Allow: /ads.txt
 Disallow:
 
+Sitemap: https://collegefootballbelt.com/sitemap.xml
+

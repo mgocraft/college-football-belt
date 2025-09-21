@@ -2,29 +2,36 @@ import React from 'react';
 import NavBar from '../components/NavBar';
 import AdSlot from '../components/AdSlot';
 import adStyles from '../styles/FullWidthAd.module.css';
-import Head from 'next/head';
+import Seo, { SITE_URL } from '../components/Seo';
 import Link from 'next/link';
 import { teamLogoMap, normalizeTeamName } from '../utils/teamUtils';
 import { fetchFromApi } from '../utils/ssr';
 
 export default function RecordBookPage({ data }) {
-  const head = (
-    <Head>
-      <title>Record Book - College Football Belt</title>
-      <meta
-        name="description"
-        content="Historical highlights and statistical leaders from every College Football Belt game."
-      />
-      <meta property="og:image" content="/images/fallback-helmet.png" />
-    </Head>
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'College Football Belt Record Book',
+    url: `${SITE_URL}/record-book`,
+    description:
+      'Historical highlights and statistical leaders from every College Football Belt game.',
+  };
+
+  const seo = (
+    <Seo
+      title="Record Book"
+      description="Historical highlights and statistical leaders from every College Football Belt game."
+      canonicalPath="/record-book"
+      structuredData={structuredData}
+    />
   );
 
   if (!data.length)
     return (
       <>
+        {seo}
         <NavBar />
         <div style={{ maxWidth: '800px', margin: 'auto', padding: '1rem', fontFamily: 'Arial, sans-serif', color: '#111' }}>
-          {head}
           <h1 style={{ fontSize: '2rem', marginBottom: '1rem', color: '#001f3f' }}>Record Book</h1>
           <p style={{ marginBottom: '1rem' }}>
             Historical highlights and statistical leaders from every College Football Belt game.
@@ -102,10 +109,9 @@ export default function RecordBookPage({ data }) {
 
   return (
     <>
+      {seo}
       <NavBar />
       <div style={{ maxWidth: '800px', margin: 'auto', padding: '1rem', fontFamily: 'Arial, sans-serif', color: '#111' }}>
-        {head}
-
         {/* Safe top ad: only after data is present */}
         <div className={`${adStyles.fullWidthAd} ${adStyles.tightTop}`}>
           <div className={adStyles.inner}>

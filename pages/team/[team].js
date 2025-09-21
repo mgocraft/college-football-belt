@@ -8,7 +8,7 @@ import {
 import AdSlot from '../../components/AdSlot';
 import adStyles from '../../styles/FullWidthAd.module.css';
 import NavBar from '../../components/NavBar';
-import Head from 'next/head';
+import Seo, { SITE_URL } from '../../components/Seo';
 import { fetchFromApi } from '../../utils/ssr';
 
 const styles = {
@@ -27,20 +27,7 @@ const styles = {
 
 export default function TeamPage({ data, team }) {
   const [expandedRows, setExpandedRows] = useState({});
-  const defaultHead = (
-    <Head>
-      <title>{team ? `${team} - College Football Belt History` : 'College Football Belt Team'}</title>
-      <meta
-        name="description"
-        content={
-          team
-            ? `Explore ${team}'s history with the College Football Belt.`
-            : 'Team information for the College Football Belt.'
-        }
-      />
-      <meta property="og:image" content="/images/fallback-helmet.png" />
-    </Head>
-  );
+  const canonicalPath = team ? `/team/${encodeURIComponent(team)}` : '/team';
 
   useEffect(() => {
     if (typeof window !== 'undefined' && team) {
@@ -51,6 +38,16 @@ export default function TeamPage({ data, team }) {
   if (!data.length || !team) {
     return (
       <>
+        <Seo
+          title={team ? `${team} - College Football Belt History` : 'College Football Belt Team'}
+          description={
+            team
+              ? `Explore ${team}'s history with the College Football Belt.`
+              : 'Team information for the College Football Belt.'
+          }
+          canonicalPath={canonicalPath}
+          noIndex
+        />
         <NavBar />
         <div
           style={{
@@ -61,7 +58,6 @@ export default function TeamPage({ data, team }) {
             textAlign: 'center',
           }}
         >
-          {defaultHead}
           <p style={{ marginTop: '2rem' }}>No data available.</p>
           <p>Please check back later.</p>
         </div>
@@ -91,6 +87,16 @@ export default function TeamPage({ data, team }) {
     // 🚫 No ads here, just a message
     return (
       <>
+        <Seo
+          title={team ? `${team} - College Football Belt History` : 'College Football Belt Team'}
+          description={
+            team
+              ? `Explore ${team}'s history with the College Football Belt.`
+              : 'Team information for the College Football Belt.'
+          }
+          canonicalPath={canonicalPath}
+          noIndex
+        />
         <NavBar />
         <div
           style={{
@@ -104,7 +110,6 @@ export default function TeamPage({ data, team }) {
             textAlign: 'center',
           }}
         >
-          {defaultHead}
           <h1 style={{ fontSize: '2rem', color: '#001f3f', marginTop: '1rem' }}>
             Team not found
           </h1>
@@ -122,16 +127,15 @@ export default function TeamPage({ data, team }) {
     ? `https://a.espncdn.com/i/teamlogos/ncaa/500/${logoId}.png`
     : '';
 
-  const head = (
-    <Head>
-      <title>{team} - College Football Belt History</title>
-      <meta
-        name="description"
-        content={`Explore ${team}'s history with the College Football Belt.`}
-      />
-      <meta property="og:image" content={logoUrl || '/images/fallback-helmet.png'} />
-    </Head>
-  );
+  const teamStructuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'SportsTeam',
+    name: team,
+    sport: 'College Football',
+    url: `${SITE_URL}${canonicalPath}`,
+    description: `College Football Belt history for ${team}.`,
+    logo: logoUrl || `${SITE_URL}/images/fallback-helmet.png`,
+  };
 
   const filteredReigns = data
     .filter((r) => normalizeTeamName(r.beltHolder) === normalizedTeam)
@@ -204,6 +208,13 @@ export default function TeamPage({ data, team }) {
 
   return (
     <>
+      <Seo
+        title={`${team} - College Football Belt History`}
+        description={`Explore ${team}'s history with the College Football Belt.`}
+        canonicalPath={canonicalPath}
+        image={logoUrl || '/images/fallback-helmet.png'}
+        structuredData={teamStructuredData}
+      />
       <NavBar />
       <div
         style={{
@@ -217,8 +228,6 @@ export default function TeamPage({ data, team }) {
           borderRadius: '8px',
         }}
       >
-        {head}
-
         {/* ✅ Gate manual ads on real data */}
         <div className={adStyles.fullWidthAd}>
           <div className={adStyles.inner}>
