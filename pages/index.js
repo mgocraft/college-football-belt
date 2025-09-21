@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import NavBar from '../components/NavBar';
 import { teamLogoMap, normalizeTeamName, computeRecord } from '../utils/teamUtils';
-import Head from 'next/head';
 import AdSlot from '../components/AdSlot';
 import NewsletterSignup from '../components/NewsletterSignup';
 import BeltBookBanner from '../components/BeltBookBanner';
@@ -11,6 +10,7 @@ import { beltBookSpotlight } from '../data/beltBookSpotlight';
 import { fetchFromApi } from '../utils/ssr';
 import homeStyles from '../styles/HomePage.module.css';
 import adStyles from '../styles/FullWidthAd.module.css';
+import Seo, { SITE_NAME, SITE_URL } from '../components/Seo';
 
 // ...inside your component render where the placeholder was:
 
@@ -33,10 +33,36 @@ export default function HomePage({ data }) {
   const page = parseInt(router.query.page || '1', 10);
   const itemsPerPage = 10;
   const nextOpponent = 'Florida';
+  const homepageStructuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: SITE_NAME,
+    url: SITE_URL,
+    description:
+      'Live tracker for the College Football Belt, the lineal championship that passes whenever the reigning holder is defeated.',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: `${SITE_URL}/team/{search_term_string}`,
+      'query-input': 'required name=search_term_string',
+    },
+    about: {
+      '@type': 'Thing',
+      name: 'College Football Belt',
+      description:
+        'College football’s unofficial lineal championship traced from 1869 to the present day.',
+    },
+  };
 
   if (!data.length) {
     return (
       <>
+        <Seo
+          title="College Football Belt – The Lineal Title Tracker"
+          description="Track the history, reigns, and future path of the College Football Belt – the lineal championship of college football."
+          canonicalPath="/"
+          image="/images/fallback-helmet.png"
+          structuredData={homepageStructuredData}
+        />
         <NavBar />
         <div
           style={{
@@ -122,19 +148,14 @@ export default function HomePage({ data }) {
 
   return (
     <>
+      <Seo
+        title="College Football Belt – The Lineal Title Tracker"
+        description="Track the history, reigns, and future path of the College Football Belt – the lineal championship of college football."
+        canonicalPath="/"
+        image="/images/fallback-helmet.png"
+        structuredData={homepageStructuredData}
+      />
       <NavBar />
-      <Head>
-        <title>College Football Belt – The Lineal Title Tracker</title>
-        <meta
-          name="description"
-          content="Track the history, reigns, and future path of the College Football Belt – the lineal championship of college football."
-        />
-        <meta property="og:title" content="College Football Belt – CFB Lineal Championship" />
-        <meta property="og:description" content="See which team holds the College Football Belt, explore historical reigns, and follow its potential path." />
-        <meta property="og:image" content="/images/fallback-helmet.png" />
-        <meta property="og:url" content="https://your-domain.com" />
-        <meta name="twitter:card" content="summary_large_image" />
-      </Head>
       <div className={homeStyles.pageContainer}>
         <div className={`${adStyles.fullWidthAd} ${adStyles.tightTop}`}>
           <div className={adStyles.inner}>

@@ -1,21 +1,29 @@
 import React from 'react';
 import NavBar from '../components/NavBar';
-import Head from 'next/head';
 import AdSlot from '../components/AdSlot';
 import adStyles from '../styles/FullWidthAd.module.css';
+import Seo, { SITE_URL } from '../components/Seo';
 
 export default function AboutPage() {
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'AboutPage',
+    name: 'About the College Football Belt',
+    url: `${SITE_URL}/about`,
+    description:
+      'Background on the College Football Belt project, its mission, and how fans can support the site.',
+  };
+
   return (
     <>
+      <Seo
+        title="About"
+        description="Learn about the College Football Belt project, its history, and how to support the site."
+        canonicalPath="/about"
+        structuredData={structuredData}
+      />
       <NavBar />
       <div style={{ maxWidth: '800px', margin: 'auto', padding: '1rem', fontFamily: 'Arial, sans-serif', color: '#111' }}>
-        <Head>
-          <title>About - College Football Belt</title>
-          <meta
-            name="description"
-            content="Learn about the College Football Belt project, its history, and how to support the site."
-          />
-        </Head>
 
         <h1 style={{ fontSize: '2rem', marginBottom: '1rem', color: '#001f3f' }}>About the College Football Belt</h1>
 

@@ -1,19 +1,27 @@
 import React from 'react';
 import NavBar from '../components/NavBar';
-import Head from 'next/head';
+import Seo, { SITE_URL } from '../components/Seo';
 
 export default function PathToConference() {
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: 'Path to the Conferences',
+    url: `${SITE_URL}/path-to-conference`,
+    description:
+      'Projected scenarios showing how the College Football Belt could travel between conferences during the 2025 season.',
+  };
+
   return (
     <>
+      <Seo
+        title="Path to the Conferences"
+        description="See how the College Football Belt could move into each conference during the 2025 season."
+        canonicalPath="/path-to-conference"
+        structuredData={structuredData}
+      />
       <NavBar />
       <div style={{ maxWidth: '900px', margin: 'auto', padding: '1rem', fontFamily: 'Arial, sans-serif', color: '#111' }}>
-        <Head>
-          <title>Path to the Conferences - College Football Belt</title>
-          <meta
-            name="description"
-            content="See how the College Football Belt could move into each conference during the 2025 season."
-          />
-        </Head>
         <h1 style={{ fontSize: '2rem', marginBottom: '1rem', color: '#001f3f' }}>Path to the Conferences</h1>
 
       <p style={{ fontSize: '1rem', marginBottom: '1rem' }}>
