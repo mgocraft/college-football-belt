@@ -4,6 +4,10 @@ const host = "webservices.amazon.com";
 const region = "us-east-1";
 const service = "ProductAdvertisingAPI";
 
+function isNonEmptyString(value) {
+  return typeof value === "string" && value.trim().length > 0;
+}
+
 function sign(payload, accessKey, secretKey, endpoint, target) {
   const amzDate = new Date().toISOString().replace(/[-:]|\..*/g, "") + "Z";
   const dateStamp = amzDate.slice(0, 8);
@@ -57,11 +61,19 @@ function sign(payload, accessKey, secretKey, endpoint, target) {
   return { amzDate, authorizationHeader };
 }
 
+export function hasAmazonCredentials() {
+  return (
+    isNonEmptyString(process.env.AMAZON_ACCESS_KEY) &&
+    isNonEmptyString(process.env.AMAZON_SECRET_KEY) &&
+    isNonEmptyString(process.env.AMAZON_ASSOCIATE_TAG)
+  );
+}
+
 function getCredentials() {
   const accessKey = process.env.AMAZON_ACCESS_KEY;
   const secretKey = process.env.AMAZON_SECRET_KEY;
   const associateTag = process.env.AMAZON_ASSOCIATE_TAG;
-  if (!accessKey || !secretKey || !associateTag) {
+  if (!hasAmazonCredentials()) {
     throw new Error("Missing Amazon API credentials");
   }
   return { accessKey, secretKey, associateTag };
