@@ -1,6 +1,9 @@
 .wrapper {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin: 1rem auto;
+  width: 100%;
+  max-width: 56.25rem;
+  padding: 0 1rem;
+  box-sizing: border-box;
 }
 
 .errorMessage {
