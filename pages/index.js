@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import NavBar from '../components/NavBar';
 import { teamLogoMap, normalizeTeamName, computeRecord } from '../utils/teamUtils';
@@ -53,6 +54,16 @@ export default function HomePage({ data }) {
     },
   };
 
+  const verificationMetaTag = (
+    <Head>
+      <meta
+        key="impact-site-verification"
+        name="impact-site-verification"
+        value="f17e97a8-30ec-463f-a644-9a435fadb782"
+      />
+    </Head>
+  );
+
   if (!data.length) {
     return (
       <>
@@ -63,6 +74,7 @@ export default function HomePage({ data }) {
           image="/images/fallback-helmet.png"
           structuredData={homepageStructuredData}
         />
+        {verificationMetaTag}
         <NavBar />
         <div
           style={{
@@ -155,6 +167,7 @@ export default function HomePage({ data }) {
         image="/images/fallback-helmet.png"
         structuredData={homepageStructuredData}
       />
+      {verificationMetaTag}
       <NavBar />
       <div className={homeStyles.pageContainer}>
         <div className={`${adStyles.fullWidthAd} ${adStyles.tightTop}`}>
