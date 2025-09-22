@@ -25,6 +25,23 @@ const styles = {
   },
 };
 
+const parseDateToTimestamp = (value) => {
+  if (!value) return null;
+
+  const parts = value.split('/');
+  if (parts.length !== 3) return null;
+
+  const [monthStr, dayStr, yearStr] = parts;
+  const month = Number.parseInt(monthStr, 10) - 1;
+  const day = Number.parseInt(dayStr, 10);
+  const year = Number.parseInt(yearStr, 10);
+
+  if ([month, day, year].some((num) => Number.isNaN(num))) return null;
+
+  const timestamp = new Date(year, month, day).getTime();
+  return Number.isNaN(timestamp) ? null : timestamp;
+};
+
 export default function TeamPage({ data, team }) {
   const [expandedRows, setExpandedRows] = useState({});
   const canonicalPath = team ? `/team/${encodeURIComponent(team)}` : '/team';
@@ -144,19 +161,43 @@ export default function TeamPage({ data, team }) {
   const reignCount = filteredReigns.length;
   const { wins: totalWins, losses, ties, winPct } = computeRecord(team, data);
 
-  const totalWinsByTeam = {};
-  const totalReignsByTeam = {};
+  const teamStats = {};
   const beltGameLosses = [];
 
   data.forEach((reign, idx) => {
     const holder = normalizeTeamName(reign.beltHolder);
-    totalWinsByTeam[holder] =
-      (totalWinsByTeam[holder] || 0) + 1 + (reign.defenses?.length || 0);
-    totalReignsByTeam[holder] = (totalReignsByTeam[holder] || 0) + 1;
+    const defenses = reign.defenses || [];
+    const defenseCount = Number.isFinite(reign.numberOfDefenses)
+      ? reign.numberOfDefenses
+      : defenses.length;
+
+    if (!teamStats[holder]) {
+      teamStats[holder] = {
+        displayName: reign.beltHolder,
+        wins: 0,
+        reigns: 0,
+        longestReign: 0,
+        mostRecentTimestamp: null,
+      };
+    }
+
+    teamStats[holder].wins += 1 + defenseCount;
+    teamStats[holder].reigns += 1;
+    if (defenseCount > teamStats[holder].longestReign) {
+      teamStats[holder].longestReign = defenseCount;
+    }
+
+    const reignStartTimestamp = parseDateToTimestamp(reign.startOfReign);
+    if (
+      reignStartTimestamp != null &&
+      (teamStats[holder].mostRecentTimestamp == null ||
+        reignStartTimestamp > teamStats[holder].mostRecentTimestamp)
+    ) {
+      teamStats[holder].mostRecentTimestamp = reignStartTimestamp;
+    }
 
     if (holder === normalizedTeam) return;
 
-    const defenses = reign.defenses || [];
     const nextReign = data[idx + 1];
     const beltWasLost =
       nextReign && normalizeTeamName(nextReign.beltHolder) !== holder;
@@ -186,15 +227,36 @@ export default function TeamPage({ data, team }) {
     });
   });
 
-  const winRank =
-    Object.keys(totalWinsByTeam)
-      .sort((a, b) => totalWinsByTeam[b] - totalWinsByTeam[a])
-      .indexOf(team) + 1;
+  const rankTeam = (accessor, { descending = true } = {}) => {
+    const entries = Object.entries(teamStats);
+    if (!entries.length) return null;
 
-  const reignRank =
-    Object.keys(totalReignsByTeam)
-      .sort((a, b) => totalReignsByTeam[b] - totalReignsByTeam[a])
-      .indexOf(team) + 1;
+    const sorted = entries.sort(([, aStats], [, bStats]) => {
+      const rawA = accessor(aStats);
+      const rawB = accessor(bStats);
+      const valueA = rawA == null ? Number.NEGATIVE_INFINITY : rawA;
+      const valueB = rawB == null ? Number.NEGATIVE_INFINITY : rawB;
+
+      if (valueA === valueB) {
+        const nameA = aStats.displayName || '';
+        const nameB = bStats.displayName || '';
+        return nameA.localeCompare(nameB);
+      }
+
+      return descending ? valueB - valueA : valueA - valueB;
+    });
+
+    const index = sorted.findIndex(([key]) => key === normalizedTeam);
+    return index === -1 ? null : index + 1;
+  };
+
+  const winRank = rankTeam((stats) => stats.wins);
+  const reignRank = rankTeam((stats) => stats.reigns);
+  const longestReignRank = rankTeam((stats) => stats.longestReign);
+  const mostRecentReignRank = rankTeam((stats) => stats.mostRecentTimestamp);
+
+  const formatRank = (rank) =>
+    typeof rank === 'number' && rank > 0 ? `#${rank}` : '—';
 
   const firstReign = reignCount > 0 ? filteredReigns[reignCount - 1] : null;
   const intro = `This page chronicles ${team}'s history with the College Football Belt, which passes to any FBS team that defeats the current holder.`;
@@ -283,8 +345,10 @@ export default function TeamPage({ data, team }) {
         <div><strong>Total Reigns:</strong> {reignCount}</div>
         <div><strong>Total Record:</strong> {totalWins} - {losses} - {ties}</div>
         <div><strong>Win Percentage:</strong> {winPct}%</div>
-        <div><strong>Rank by Wins:</strong> #{winRank}</div>
-        <div><strong>Rank by Reigns:</strong> #{reignRank}</div>
+        <div><strong>Rank by Wins:</strong> {formatRank(winRank)}</div>
+        <div><strong>Rank by Reigns:</strong> {formatRank(reignRank)}</div>
+        <div><strong>Rank by Longest Reign:</strong> {formatRank(longestReignRank)}</div>
+        <div><strong>Rank by Most Recent Reign:</strong> {formatRank(mostRecentReignRank)}</div>
       </div>
 
       <h2
