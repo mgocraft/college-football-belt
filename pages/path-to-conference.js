@@ -25,7 +25,7 @@ export default function PathToConference() {
         <h1 style={{ fontSize: '2rem', marginBottom: '1rem', color: '#001f3f' }}>Path to the Conferences</h1>
 
       <p style={{ fontSize: '1rem', marginBottom: '1rem' }}>
-        This page tracks the most likely way the belt could end up in each major conference during the 2025 season, based on Miami's current possession of the belt and the remaining schedule. Bowl games and playoffs are not included.
+        This page tracks the most likely way the belt could end up in each major conference during the 2025 season, based on Miami's current possession of the belt and the remaining schedule. Bowl games and playoffs are not included. Impact-Site-Verification: f17e97a8-30ec-463f-a644-9a435fadb782
       </p>
 
       <h2 style={{ fontSize: '1.5rem', marginTop: '2rem', color: '#001f3f' }}>ACC</h2>
