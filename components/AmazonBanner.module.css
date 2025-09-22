@@ -1,8 +1,7 @@
 .wrapper {
-  margin: 1rem auto;
   width: 100%;
-  max-width: 56.25rem;
-  padding: 0 1rem;
+  margin: 0;
+  padding: clamp(0.75rem, 2vw, 1.5rem) clamp(1rem, 4vw, 2.5rem);
   box-sizing: border-box;
 }
 

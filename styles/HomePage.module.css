@@ -11,7 +11,10 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  align-items: stretch;
+}
+
+.layoutAdRow {
+  width: 100%;
 }
 
 .preContent {
@@ -64,9 +67,23 @@
   .layout {
     flex-direction: row;
     align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .mainContent {
+    flex: 1 1 0;
+    min-width: 0;
+    order: 1;
+  }
+
+  .layoutAdRow {
+    flex-basis: 100%;
+    order: 3;
   }
 
   .sidebar {
     width: 20rem;
+    flex: 0 0 20rem;
+    order: 2;
   }
 }
