@@ -299,6 +299,8 @@ export default function HomePage({ data }) {
 
               <div style={{ marginTop: '1rem' }}>{getPagination()}</div>
             </div>
+          </main>
+          <div className={homeStyles.layoutAdRow}>
             <div className={`${adStyles.fullWidthAd} ${adStyles.looseBottom}`}>
               <div className={adStyles.inner}>
                 <AdSlot
@@ -308,7 +310,7 @@ export default function HomePage({ data }) {
                 />
               </div>
             </div>
-          </main>
+          </div>
           <aside className={homeStyles.sidebar}>
             <BeltBookBanner {...beltBookSpotlight} />
           </aside>
