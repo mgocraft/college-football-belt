@@ -4,6 +4,8 @@ import {
   normalizeTeamName,
   computeRecord,
   debugTeamGames,
+  cleanOpponentName,
+  getResult,
 } from '../../utils/teamUtils';
 import AdSlot from '../../components/AdSlot';
 import adStyles from '../../styles/FullWidthAd.module.css';
@@ -203,27 +205,30 @@ export default function TeamPage({ data, team }) {
       nextReign && normalizeTeamName(nextReign.beltHolder) !== holder;
 
     defenses.forEach((text, i) => {
-      const isFinalDefense = i === defenses.length - 1;
-      if (isFinalDefense && beltWasLost) return;
-
       const match = text.match(/^(vs\.|at)\s+(.*?)\s+\((W|L|T)\s+(\d+)[\-–](\d+)\)/);
       if (!match) return;
 
-      const [, , opponentRaw, result, score1, score2] = match;
-      const opponent = normalizeTeamName(opponentRaw.trim());
+      const [, , opponentRaw, holderResult, score1, score2] = match;
+      const opponent = cleanOpponentName(opponentRaw);
 
       if (opponent !== normalizedTeam) return;
 
+      const isFinalDefense = i === defenses.length - 1;
+      const holderLostToTeam = holderResult === 'L';
+      if (isFinalDefense && beltWasLost && holderLostToTeam) {
+        return;
+      }
+
+      const challengerResult = getResult(text, true);
+      if (challengerResult !== 'L' && challengerResult !== 'T') return;
+
       const teamScore = parseInt(score2, 10);
       const oppScore = parseInt(score1, 10);
-      const isLossOrTie = teamScore <= oppScore;
-      const isTie = result === 'T';
+      const isTie = challengerResult === 'T';
 
-      if (isLossOrTie) {
-        const context = `Challenge to ${reign.beltHolder} Reign ${reign.startOfReign} to ${reign.endOfReign}`;
-        const score = `${teamScore}-${oppScore} (${isTie ? 'Tie' : 'Failed Attempt to Win Belt'})`;
-        beltGameLosses.push({ context, score });
-      }
+      const context = `Challenge to ${reign.beltHolder} Reign ${reign.startOfReign} to ${reign.endOfReign}`;
+      const score = `${teamScore}-${oppScore} (${isTie ? 'Tie' : 'Failed Attempt to Win Belt'})`;
+      beltGameLosses.push({ context, score });
     });
   });
 
