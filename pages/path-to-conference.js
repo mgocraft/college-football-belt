@@ -33,13 +33,14 @@ export default function PathToConference() {
         <ol>
           <li><strong>Completed:</strong> South Florida lost to Miami (Week 3).</li>
           <li><strong>Completed:</strong> Miami defended the belt by beating Florida 26–7 (Week 4).</li>
-          <li><strong>Next:</strong> Miami travels to Florida State on October 4 for a 7 p.m. ET kickoff.</li>
+          <li><strong>Completed:</strong> Miami went to Tallahassee on October 4 and defeated Florida State.</li>
+          <li><strong>Next:</strong> Louisville visits Miami on October 11 (time TBA).</li>
         </ol>
 
         <h2 style={{ fontSize: '1.5rem', marginTop: '2rem', color: '#001f3f' }}>SEC</h2>
         <p style={{ marginBottom: '0.5rem' }}>
-          Florida's quick turnaround bid fizzled in Miami. For the belt to return to the SEC, the Seminoles would need to capture
-          it and then fall to Florida or another SEC opponent later in the fall.
+          The regular-season road back to the SEC effectively closed in Tallahassee. Every remaining opponent on Miami's slate is
+          from the ACC, so there is no scheduled meeting with an SEC school before bowls or the playoff.
         </p>
 
         <h2 style={{ fontSize: '1.5rem', marginTop: '2rem', color: '#001f3f' }}>Big 12</h2>
