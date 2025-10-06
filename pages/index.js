@@ -33,7 +33,7 @@ export default function HomePage({ data }) {
   const router = useRouter();
   const page = parseInt(router.query.page || '1', 10);
   const itemsPerPage = 10;
-  const nextOpponent = 'Florida State';
+  const nextOpponent = 'Louisville';
   const homepageStructuredData = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
@@ -232,7 +232,7 @@ export default function HomePage({ data }) {
               <section className={homeStyles.section}>
                 <h2 className={homeStyles.sectionTitle}>Next Game Preview</h2>
                 <p className={homeStyles.bodyText}>
-                  Miami throttled Florida 26–7 to post its first defense since reclaiming the College Football Belt from South Florida. Next up is a prime-time trip to Tallahassee on October 4 at 7 p.m. ET, where rival Florida State will try to rip the belt away on its home field.
+                  Miami marched into Tallahassee on October 4 and toppled rival Florida State to retain the College Football Belt for a second straight week. The Hurricanes now return home to host Louisville on October 11, aiming to keep their momentum rolling against another ACC challenger.
                 </p>
               </section>
 

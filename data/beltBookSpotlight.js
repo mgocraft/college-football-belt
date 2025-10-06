@@ -1,6 +1,6 @@
 export const beltBookSpotlight = {
   title: "Belt Book of the Week",
-  subtitle: "Miami at Florida State Matchup Picks",
+  subtitle: "Louisville at Miami Matchup Picks",
   books: [
     {
       title:
