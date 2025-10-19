@@ -14,7 +14,10 @@ const collectTeamPaths = () => {
   try {
     const csvPath = path.join(__dirname, 'data', 'belt-history.csv');
     const raw = readFileSync(csvPath, 'utf8');
-    const records = parse(raw, { columns: true, skip_empty_lines: true });
+    const records = parse(raw, {
+      columns: true,
+      skip_empty_lines: true,
+    });
     const teams = new Set();
 
     records.forEach((record) => {
