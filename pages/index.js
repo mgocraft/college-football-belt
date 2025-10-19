@@ -33,7 +33,7 @@ export default function HomePage({ data }) {
   const router = useRouter();
   const page = parseInt(router.query.page || '1', 10);
   const itemsPerPage = 10;
-  const nextOpponent = 'Louisville';
+  const nextOpponent = 'Boston College';
   const homepageStructuredData = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
@@ -232,7 +232,7 @@ export default function HomePage({ data }) {
               <section className={homeStyles.section}>
                 <h2 className={homeStyles.sectionTitle}>Next Game Preview</h2>
                 <p className={homeStyles.bodyText}>
-                  Miami marched into Tallahassee on October 4 and toppled rival Florida State to retain the College Football Belt for a second straight week. The Hurricanes now return home to host Louisville on October 11, aiming to keep their momentum rolling against another ACC challenger.
+                  Louisville marched into Miami Gardens on October 10 and edged the Hurricanes 30–27 to seize the College Football Belt. The Cardinals now prepare for their first defense when Boston College visits on October 18, giving the new champs a quick turnaround against another ACC foe.
                 </p>
               </section>
 
