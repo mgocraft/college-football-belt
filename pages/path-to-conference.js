@@ -36,8 +36,9 @@ export default function PathToConference() {
           <li><strong>Completed:</strong> Miami went to Tallahassee on October 4 and defeated Florida State.</li>
           <li><strong>Completed:</strong> Louisville upset Miami on October 10 to capture the belt.</li>
           <li><strong>Completed:</strong> Louisville held serve against Boston College on October 18.</li>
+          <li><strong>Completed:</strong> Louisville survived Virginia Tech on October 24 to set up a cross-division clash with California.</li>
           <li><strong>Completed:</strong> California visited Louisville on October 25 and claimed the belt.</li>
-          <li><strong>Next:</strong> SMU travels to Berkeley on November 1.</li>
+          <li><strong>Next:</strong> Stanford travels to Berkeley on November 1.</li>
         </ol>
 
         <h2 style={{ fontSize: '1.5rem', marginTop: '2rem', color: '#001f3f' }}>SEC</h2>

@@ -42,13 +42,13 @@ export default function Blog() {
         <p>
           Louisville's trip to South Florida on October 10 produced one of the biggest moments of the 2025 season, as the
           Cardinals edged Miami 30–27 to rip away the College Football Belt. Jeff Brohm's group backed that up with a
-          34–24 win over Boston College eight days later, setting the stage for a cross-country showdown with
-          conference newcomer California.
+          34–24 win over Boston College eight days later and a hard-fought October 24 triumph over Virginia Tech, setting the stage for a
+          cross-country showdown with conference newcomer California.
         </p>
         <p>
           The Golden Bears, flying east for a marquee opportunity, rallied late for a 28–24 victory in Louisville on
           October 25. It's the program's first-ever possession of the lineal title and sets up a West Coast defense on
-          November 1 when SMU visits Berkeley. Strap in for a new chapter of belt football in the ACC.
+          November 1 when Stanford visits Berkeley. Strap in for a new chapter of belt football in the ACC.
         </p>
       </article>
 
