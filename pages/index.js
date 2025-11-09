@@ -33,7 +33,7 @@ export default function HomePage({ data }) {
   const router = useRouter();
   const page = parseInt(router.query.page || '1', 10);
   const itemsPerPage = 10;
-  const nextOpponent = 'SMU';
+  const nextOpponent = 'Stanford';
   const homepageStructuredData = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
@@ -233,8 +233,8 @@ export default function HomePage({ data }) {
                 <h2 className={homeStyles.sectionTitle}>Next Game Preview</h2>
                 <p className={homeStyles.bodyText}>
                   California stunned Louisville 28–24 on October 25, prying the College Football Belt away in the Cardinals'
-                  first defense. The Golden Bears now bring the lineal title to the Bay for the first time and welcome SMU to
-                  Berkeley on November 1 for their opening defense.
+                  first defense. The Golden Bears now bring the lineal title to the Bay for the first time and welcome Stanford
+                  to Berkeley on November 1 for their opening defense.
                 </p>
               </section>
 
