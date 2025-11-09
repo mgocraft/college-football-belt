@@ -27,6 +27,32 @@ export default function Blog() {
 
       {/* Most recent post first */}
       <article style={{ marginBottom: '3rem' }}>
+        <h2 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>California Brings the Belt West</h2>
+        <time
+          dateTime="2025-10-26"
+          style={{
+            color: '#555',
+            fontSize: '0.9rem',
+            marginBottom: '0.5rem',
+            display: 'block'
+          }}
+        >
+          October 26, 2025
+        </time>
+        <p>
+          Louisville's trip to South Florida on October 10 produced one of the biggest moments of the 2025 season, as the
+          Cardinals edged Miami 30–27 to rip away the College Football Belt. Jeff Brohm's group backed that up with a
+          34–24 win over Boston College eight days later, setting the stage for a cross-country showdown with
+          conference newcomer California.
+        </p>
+        <p>
+          The Golden Bears, flying east for a marquee opportunity, rallied late for a 28–24 victory in Louisville on
+          October 25. It's the program's first-ever possession of the lineal title and sets up a West Coast defense on
+          November 1 when SMU visits Berkeley. Strap in for a new chapter of belt football in the ACC.
+        </p>
+      </article>
+
+      <article style={{ marginBottom: '3rem' }}>
         <h2 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>Great Upsets in Belt Game History</h2>
         <time
           dateTime="2025-09-09"
