@@ -17,6 +17,7 @@ const collectTeamPaths = () => {
     const records = parse(raw, {
       columns: true,
       skip_empty_lines: true,
+      relax_column_count: true,
     });
     const teams = new Set();
 

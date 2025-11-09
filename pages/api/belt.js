@@ -8,7 +8,8 @@ export default function handler(req, res) {
 
   const records = parse(fileContent, {
     columns: true,
-    skip_empty_lines: true
+    skip_empty_lines: true,
+    relax_column_count: true
   });
 
   const beltData = records.map((row) => {
