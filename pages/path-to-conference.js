@@ -26,7 +26,7 @@ export default function PathToConference() {
 
         <p style={{ fontSize: '1rem', marginBottom: '1rem' }}>
           This page tracks the most likely way the belt could end up in each major conference during the 2025 season, based on
-          Louisville's current possession of the belt and the remaining schedule. Bowl games and playoffs are not included.
+          California's current possession of the belt and the remaining schedule. Bowl games and playoffs are not included.
         </p>
 
         <h2 style={{ fontSize: '1.5rem', marginTop: '2rem', color: '#001f3f' }}>ACC</h2>
@@ -35,13 +35,15 @@ export default function PathToConference() {
           <li><strong>Completed:</strong> Miami defended the belt by beating Florida 26–7 (Week 4).</li>
           <li><strong>Completed:</strong> Miami went to Tallahassee on October 4 and defeated Florida State.</li>
           <li><strong>Completed:</strong> Louisville upset Miami on October 10 to capture the belt.</li>
-          <li><strong>Next:</strong> Boston College travels to Louisville on October 18.</li>
+          <li><strong>Completed:</strong> Louisville held serve against Boston College on October 18.</li>
+          <li><strong>Completed:</strong> California visited Louisville on October 25 and claimed the belt.</li>
+          <li><strong>Next:</strong> SMU travels to Berkeley on November 1.</li>
         </ol>
 
         <h2 style={{ fontSize: '1.5rem', marginTop: '2rem', color: '#001f3f' }}>SEC</h2>
         <p style={{ marginBottom: '0.5rem' }}>
-          The regular-season road back to the SEC now depends on Louisville's schedule. The Cardinals close the year with ACC foes,
-          so there is no scheduled meeting with an SEC school before bowls or the playoff.
+          The regular-season road back to the SEC now depends on California's schedule. The Golden Bears close the year with ACC
+          foes, so there is no scheduled meeting with an SEC school before bowls or the playoff.
         </p>
 
         <h2 style={{ fontSize: '1.5rem', marginTop: '2rem', color: '#001f3f' }}>Big 12</h2>
