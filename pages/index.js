@@ -13,22 +13,6 @@ import homeStyles from '../styles/HomePage.module.css';
 import adStyles from '../styles/FullWidthAd.module.css';
 import Seo, { SITE_NAME, SITE_URL } from '../components/Seo';
 
-// ...inside your component render where the placeholder was:
-
-const tableStyles = {
-  tableHeader: {
-    textAlign: 'left',
-    padding: '10px 12px',
-    borderBottom: '2px solid #ccc',
-    backgroundColor: '#f0f4f8',
-    color: '#001f3f',
-  },
-  tableCell: {
-    padding: '10px 12px',
-    borderBottom: '1px solid #ddd',
-  },
-};
-
 export default function HomePage({ data }) {
   const router = useRouter();
   const page = parseInt(router.query.page || '1', 10);
@@ -127,7 +111,11 @@ export default function HomePage({ data }) {
 
     const buttons = [];
     if (start > 1) {
-      buttons.push(<span key="start-ellipsis" style={{ margin: '0 8px' }}>...</span>);
+      buttons.push(
+        <span key="start-ellipsis" className={homeStyles.paginationEllipsis}>
+          …
+        </span>
+      );
     }
 
     for (let i = start; i <= end; i++) {
@@ -135,15 +123,9 @@ export default function HomePage({ data }) {
         <button
           key={i}
           onClick={() => router.push(`/?page=${i}`, undefined, { shallow: true })}
-          style={{
-            background: page === i ? '#0070f3' : '#eee',
-            color: page === i ? '#fff' : '#000',
-            padding: '6px 12px',
-            borderRadius: 4,
-            border: 'none',
-            margin: '0 4px',
-            cursor: 'pointer',
-          }}
+          className={`${homeStyles.pageButton} ${
+            page === i ? homeStyles.pageButtonActive : ''
+          }`}
           aria-current={page === i ? 'page' : undefined}
         >
           {i}
@@ -152,11 +134,30 @@ export default function HomePage({ data }) {
     }
 
     if (end < totalPages) {
-      buttons.push(<span key="end-ellipsis" style={{ margin: '0 8px' }}>...</span>);
+      buttons.push(
+        <span key="end-ellipsis" className={homeStyles.paginationEllipsis}>
+          …
+        </span>
+      );
     }
 
     return buttons;
   };
+
+  const featuredTeams = [
+    {
+      name: currentReign.beltHolder,
+      logo: currentLogoUrl,
+      title: 'Reigning Belt Holder',
+      record: currentRecord,
+    },
+    {
+      name: nextOpponent,
+      logo: opponentLogoUrl,
+      title: 'Next Challenger',
+      record: opponentRecord,
+    },
+  ];
 
   return (
     <>
@@ -181,66 +182,128 @@ export default function HomePage({ data }) {
         <div className={homeStyles.layout}>
           <main className={homeStyles.mainContent}>
             <div className={homeStyles.mainInner}>
-              <div style={{ textAlign: 'center', marginBottom: '0.25rem' }}>
-                <h1 style={{ fontSize: '2rem', margin: 0, color: '#001f3f' }}>The College Football Belt</h1>
-                <div style={{ fontSize: '1.5rem', fontStyle: 'italic', color: '#666', marginTop: '0.5rem' }}>Next Game</div>
-              </div>
+              <section className={homeStyles.heroSection}>
+                <div className={homeStyles.heroContent}>
+                  <p className={homeStyles.heroEyebrow}>Lineal Championship Tracker</p>
+                  <h1 className={homeStyles.heroTitle}>College Football Belt Update</h1>
+                  <p className={homeStyles.heroSubtitle}>
+                    {currentReign.beltHolder} carries college football&apos;s lineal crown into a showdown with{' '}
+                    {nextOpponent}. Stay plugged into the reigning champion&apos;s story, the next challenge, and the belt&apos;s
+                    path through history.
+                  </p>
+                  <ul className={homeStyles.heroHighlights}>
+                    <li>
+                      <span className={homeStyles.heroHighlightLabel}>Kickoff</span>
+                      <span>November 1 • Berkeley, California</span>
+                    </li>
+                    <li>
+                      <span className={homeStyles.heroHighlightLabel}>Current Reign</span>
+                      <span>
+                        Began {currentReign.startOfReign} • {currentReign.numberOfDefenses} defense
+                        {currentReign.numberOfDefenses === 1 ? '' : 's'}
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+              </section>
 
-              <div style={{ display: 'flex', alignItems: 'center', marginBottom: '1.5rem', gap: '2rem', justifyContent: 'center' }}>
-                {[{ name: currentReign.beltHolder, logo: currentLogoUrl }, { name: nextOpponent, logo: opponentLogoUrl }].map((team, idx) => (
-                  <div key={idx} style={{ textAlign: 'center' }}>
-                    <Link href={`/team/${encodeURIComponent(team.name)}`} legacyBehavior>
-                      <a>
-                        {team.logo && (
-                          <img src={team.logo} alt={`${team.name} logo`} style={{ height: 100, cursor: 'pointer' }} />
-                        )}
-                      </a>
-                    </Link>
-                    <div style={{ marginTop: 4, fontWeight: 600 }}>{team.name}</div>
+              <section className={homeStyles.matchupSection}>
+                <div className={homeStyles.card}>
+                  <div className={homeStyles.cardHeader}>Next Defense</div>
+                  <div className={homeStyles.matchupGrid}>
+                    {featuredTeams.map((team) => (
+                      <div key={team.name} className={homeStyles.matchupTeam}>
+                        <Link href={`/team/${encodeURIComponent(team.name)}`} legacyBehavior>
+                          <a className={homeStyles.teamLink}>
+                            {team.logo ? (
+                              <img
+                                src={team.logo}
+                                alt={`${team.name} logo`}
+                                className={homeStyles.teamLogo}
+                              />
+                            ) : (
+                              <span className={homeStyles.teamLogoPlaceholder}>
+                                {team.name
+                                  .split(' ')
+                                  .map((word) => word[0])
+                                  .join('')}
+                              </span>
+                            )}
+                            <span className={homeStyles.teamName}>{team.name}</span>
+                          </a>
+                        </Link>
+                        <span className={homeStyles.teamRole}>{team.title}</span>
+                      </div>
+                    ))}
+                    <div className={homeStyles.matchupDivider} aria-hidden="true">
+                      vs
+                    </div>
                   </div>
-                ))}
-              </div>
+                  <div className={homeStyles.matchupMeta}>
+                    <span>Kickoff: November 1 • Berkeley, California</span>
+                    <span>
+                      Current reign began {currentReign.startOfReign} • {currentReign.numberOfDefenses} defense
+                      {currentReign.numberOfDefenses === 1 ? '' : 's'}
+                    </span>
+                  </div>
+                </div>
+              </section>
 
-              <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '1rem' }}>
-                <thead>
-                  <tr>
-                    <th style={tableStyles.tableHeader}>Team</th>
-                    <th style={tableStyles.tableHeader}>Reigns</th>
-                    <th style={tableStyles.tableHeader}>Record</th>
-                    <th style={tableStyles.tableHeader}>Win %</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {[currentReign.beltHolder, nextOpponent].map((team) => {
-                    const record = computeRecord(team, data);
-                    const reignsCount = countReigns(team);
+              <section className={homeStyles.statsSection}>
+                <div className={homeStyles.statsGrid}>
+                  {featuredTeams.map((team) => {
+                    const reignsCount = countReigns(team.name);
                     return (
-                      <tr key={team}>
-                        <td style={tableStyles.tableCell}>
-                          <Link href={`/team/${encodeURIComponent(team)}`} legacyBehavior>
-                            <a>{team}</a>
+                      <div key={team.name} className={homeStyles.statsCard}>
+                        <div className={homeStyles.statsCardHeader}>
+                          <span className={homeStyles.statsEyebrow}>{team.title}</span>
+                          <Link href={`/team/${encodeURIComponent(team.name)}`} legacyBehavior>
+                            <a className={homeStyles.statsTeamLink}>{team.name}</a>
                           </Link>
-                        </td>
-                        <td style={tableStyles.tableCell}>{reignsCount}</td>
-                        <td style={tableStyles.tableCell}>{record.wins} - {record.losses} - {record.ties}</td>
-                        <td style={tableStyles.tableCell}>{record.winPct}</td>
-                      </tr>
+                        </div>
+                        <dl className={homeStyles.statsList}>
+                          <div>
+                            <dt>Reigns</dt>
+                            <dd>{reignsCount}</dd>
+                          </div>
+                          <div>
+                            <dt>All-time Belt Record</dt>
+                            <dd>
+                              {team.record.wins}-{team.record.losses}-{team.record.ties}
+                            </dd>
+                          </div>
+                          <div>
+                            <dt>Win Percentage</dt>
+                            <dd>{team.record.winPct}</dd>
+                          </div>
+                        </dl>
+                      </div>
                     );
                   })}
-                </tbody>
-              </table>
-              <section className={homeStyles.section}>
-                <h2 className={homeStyles.sectionTitle}>Next Game Preview</h2>
-                <p className={homeStyles.bodyText}>
+                </div>
+              </section>
+
+              <section className={homeStyles.sectionCard}>
+                <div className={homeStyles.sectionHeader}>
+                  <h2>Next Game Preview</h2>
+                  <p>How the upcoming showdown could swing the belt.</p>
+                </div>
+                <p>
                   California stunned Louisville 28–24 on October 25, prying the College Football Belt away in the Cardinals'
                   first defense. The Golden Bears now bring the lineal title to the Bay for the first time and welcome Stanford
                   to Berkeley on November 1 for their opening defense.
                 </p>
+                <p className={homeStyles.sectionFootnote}>
+                  Expect a rivalry-charged atmosphere as the Cardinal aim to break Cal&apos;s nascent reign.
+                </p>
               </section>
 
-              <section className={homeStyles.section}>
-                <h2 className={homeStyles.sectionTitle}>Reign Summary</h2>
-                <p className={homeStyles.bodyText}>
+              <section className={homeStyles.sectionCard}>
+                <div className={homeStyles.sectionHeader}>
+                  <h2>Reign Snapshot</h2>
+                  <p>Where the belt currently stands.</p>
+                </div>
+                <p>
                   {currentReign.beltHolder} captured the College Football Belt on {currentReign.startOfReign} and has defended it{' '}
                   {currentReign.numberOfDefenses} time{currentReign.numberOfDefenses === 1 ? '' : 's'}. This marks their{' '}
                   {countReigns(currentReign.beltHolder)} reign{countReigns(currentReign.beltHolder) === 1 ? '' : 's'} with an overall belt
@@ -249,13 +312,17 @@ export default function HomePage({ data }) {
                 </p>
               </section>
 
-              <section className={homeStyles.section}>
-                <h2 className={homeStyles.sectionTitle}>About The CFB Belt</h2>
+              <section className={`${homeStyles.sectionCard} ${homeStyles.sectionCardAlt}`}>
+                <div className={homeStyles.sectionHeader}>
+                  <h2>About the College Football Belt</h2>
+                  <p>The story behind the sport&apos;s unofficial crown.</p>
+                </div>
                 <div className={homeStyles.bodyTextGroup}>
                   <p>
-                    The College Football Belt is a lineal championship that traces a single path through the sport's history, rewarding
+                    The College Football Belt is a lineal championship that traces a single path through the sport&apos;s history, rewarding
                     each program that manages to topple the reigning holder on the field. Much like boxing’s legendary belts, ownership is
-                    determined solely by results: beat the champion and the prize is yours. The tradition begins with first ever football game where Rutgers defeated Princeton 6-4 in 1869. Every subsequent game featuring the belt holder creates a
+                    determined solely by results: beat the champion and the prize is yours. The tradition begins with the first ever
+                    football game where Rutgers defeated Princeton 6-4 in 1869. Every subsequent game featuring the belt holder creates a
                     potential transfer of power, making the belt a colorful thread that connects eras, conferences, and generations of
                     players.
                   </p>
@@ -270,49 +337,52 @@ export default function HomePage({ data }) {
                 </div>
               </section>
 
-              <h2 className={homeStyles.sectionTitle}>Past Belt Reigns</h2>
-
-              <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                <thead>
-                  <tr>
-                    <th style={tableStyles.tableHeader}>Team</th>
-                    <th style={tableStyles.tableHeader}>Start</th>
-                    <th style={tableStyles.tableHeader}>End</th>
-                    <th style={tableStyles.tableHeader}>Defenses</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {paginatedReigns.map((reign, idx) => {
-                    const logoId = teamLogoMap[normalizeTeamName(reign.beltHolder)];
-                    const logoUrl = logoId
-                      ? `https://a.espncdn.com/i/teamlogos/ncaa/500/${logoId}.png`
-                      : '';
-                    return (
-                      <tr key={idx} style={{ backgroundColor: idx % 2 === 0 ? '#f5f7fa' : 'white' }}>
-                        <td style={tableStyles.tableCell}>
-                          <div style={{ display: 'flex', alignItems: 'center' }}>
-                            {logoUrl && (
-                              <img
-                                src={logoUrl}
-                                alt={`${reign.beltHolder} logo`}
-                                style={{ height: 24, marginRight: 8 }}
-                              />
-                            )}
-                            <Link href={`/team/${encodeURIComponent(reign.beltHolder)}`} legacyBehavior>
-                              <a>{reign.beltHolder}</a>
-                            </Link>
-                          </div>
-                        </td>
-                        <td style={tableStyles.tableCell}>{reign.startOfReign}</td>
-                        <td style={tableStyles.tableCell}>{reign.endOfReign}</td>
-                        <td style={tableStyles.tableCell}>{reign.numberOfDefenses}</td>
+              <section className={homeStyles.sectionCard}>
+                <div className={homeStyles.sectionHeader}>
+                  <h2>Past Belt Reigns</h2>
+                  <p>Scroll through the programs that have held the crown.</p>
+                </div>
+                <div className={homeStyles.tableScroll}>
+                  <table className={homeStyles.table}>
+                    <thead>
+                      <tr>
+                        <th scope="col">Team</th>
+                        <th scope="col">Start</th>
+                        <th scope="col">End</th>
+                        <th scope="col">Defenses</th>
                       </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-
-              <div style={{ marginTop: '1rem' }}>{getPagination()}</div>
+                    </thead>
+                    <tbody>
+                      {paginatedReigns.map((reign) => {
+                        const logoId = teamLogoMap[normalizeTeamName(reign.beltHolder)];
+                        const logoUrl = logoId
+                          ? `https://a.espncdn.com/i/teamlogos/ncaa/500/${logoId}.png`
+                          : '';
+                        return (
+                          <tr key={`${reign.beltHolder}-${reign.startOfReign}`}>
+                            <td className={`${homeStyles.tableCell} ${homeStyles.teamCell}`}>
+                              {logoUrl && (
+                                <img
+                                  src={logoUrl}
+                                  alt={`${reign.beltHolder} logo`}
+                                  className={homeStyles.tableTeamLogo}
+                                />
+                              )}
+                              <Link href={`/team/${encodeURIComponent(reign.beltHolder)}`} legacyBehavior>
+                                <a>{reign.beltHolder}</a>
+                              </Link>
+                            </td>
+                            <td className={homeStyles.tableCell}>{reign.startOfReign}</td>
+                            <td className={homeStyles.tableCell}>{reign.endOfReign}</td>
+                            <td className={homeStyles.tableCell}>{reign.numberOfDefenses}</td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+                <div className={homeStyles.pagination}>{getPagination()}</div>
+              </section>
             </div>
           </main>
           <div className={homeStyles.layoutAdRow}>
