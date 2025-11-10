@@ -27,21 +27,44 @@ function isBlocked(pathname) {
 }
 
 function ensureAutoAdsLoaded(pubId) {
-  if (!ADSENSE_ENABLED) return;
+  if (!ADSENSE_ENABLED || typeof window === "undefined") return;
+  if (window.__adsenseLoadFailed) {
+    return;
+  }
+
   // Skip if the page has no meaningful text content
   const bodyText = (document?.body?.innerText || "").trim();
   if (!bodyText.length) return;
 
   // Avoid double-inserting the auto-ads script
-  const already = Array.from(document.scripts).some((s) =>
-    s.src.includes("pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
+  const existing = document.querySelector(
+    "script[data-cfb-belt-adsense='auto']"
   );
-  if (already) return;
+  if (existing || window.__adsenseScriptLoading) {
+    return;
+  }
 
   const s = document.createElement("script");
   s.async = true;
   s.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${pubId}`;
   s.crossOrigin = "anonymous";
+  s.dataset.cfbBeltAdsense = "auto";
+
+  window.__adsenseScriptLoading = true;
+
+  s.addEventListener("load", () => {
+    window.__adsenseScriptLoading = false;
+    window.__adsenseLoaded = true;
+    window.dispatchEvent(new Event("adsense-loaded"));
+  });
+
+  s.addEventListener("error", () => {
+    window.__adsenseScriptLoading = false;
+    window.__adsenseLoadFailed = true;
+    window.dispatchEvent(new Event("adsense-error"));
+    s.remove();
+  });
+
   document.head.appendChild(s);
 }
 
