@@ -23,54 +23,17 @@ function deriveAsin(product) {
   return undefined;
 }
 
-function deriveAssociateTag(product) {
-  if (!product) {
-    return undefined;
-  }
-  if (typeof product.associateTag === "string") {
-    const trimmed = product.associateTag.trim();
-    if (trimmed.length > 0) {
-      return trimmed;
-    }
-  }
-  if (typeof product.link === "string") {
-    try {
-      const url = new URL(product.link);
-      const tag = url.searchParams.get("tag");
-      if (tag) {
-        const trimmed = tag.trim();
-        if (trimmed.length > 0) {
-          return trimmed;
-        }
-      }
-    } catch (error) {
-      // Ignore invalid URLs.
-    }
-  }
-  return undefined;
-}
-
 function deriveFallbackImage(asin, product) {
-  if (product?.fallbackImage) {
-    return product.fallbackImage;
+  const explicitImage = [product?.fallbackImage, product?.image]
+    .find((value) => typeof value === "string" && value.trim().length > 0);
+  if (explicitImage) {
+    return explicitImage.trim();
   }
   if (!asin) {
     return null;
   }
-  const params = new URLSearchParams({
-    _encoding: "UTF8",
-    ASIN: asin,
-    ServiceVersion: "20070822",
-    WS: "1",
-    Format: "SL250",
-    ID: "AsinImage",
-    MarketPlace: "US",
-  });
-  const tag = deriveAssociateTag(product);
-  if (tag) {
-    params.set("tag", tag);
-  }
-  return `https://ws-na.amazon-adsystem.com/widgets/q?${params.toString()}`;
+
+  return `https://m.media-amazon.com/images/I/${asin}._SL500_.jpg`;
 }
 
 /**
