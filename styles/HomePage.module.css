@@ -2,9 +2,9 @@
   margin: 0 auto;
   width: 100%;
   max-width: 80rem;
-  padding: 1.5rem 1rem;
-  font-family: Arial, sans-serif;
-  color: #111;
+  padding: 1.5rem 1rem 4rem;
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #0f172a;
 }
 
 .layout {
@@ -32,27 +32,390 @@
   max-width: 56.25rem;
   margin: 0 auto;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
 }
 
-.section {
-  margin-bottom: 2rem;
+.heroSection {
+  border-radius: 1.5rem;
+  padding: clamp(1.75rem, 4vw, 2.5rem);
+  background: #f8fafc;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 16px 38px -32px rgba(15, 23, 42, 0.35);
 }
 
-.sectionTitle {
-  color: #001f3f;
-  font-size: 1.5rem;
+.heroContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  color: #0f172a;
+  max-width: 38rem;
+}
+
+.heroEyebrow {
+  font-size: 0.85rem;
   font-weight: 600;
-  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #475569;
 }
 
-.bodyText {
-  color: #1f2937;
+.heroTitle {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  line-height: 1.2;
+  font-weight: 700;
+  margin: 0;
+}
+
+.heroSubtitle {
+  font-size: 1.05rem;
   line-height: 1.7;
+  color: #334155;
+  margin: 0;
+}
+
+.heroHighlights {
+  list-style: none;
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+}
+
+.heroHighlights li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  font-size: 0.95rem;
+}
+
+.heroHighlightLabel {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: #64748b;
+}
+
+.matchupSection {
+  margin-top: -0.75rem;
+}
+
+.card {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  border-radius: 1.5rem;
+  padding: 1.75rem;
+  box-shadow: 0 18px 35px -28px rgba(15, 23, 42, 0.4);
+  border: 1px solid rgba(15, 23, 42, 0.05);
+}
+
+.cardHeader {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #475569;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.matchupGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+  align-items: center;
+  position: relative;
+}
+
+.matchupDivider {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.9rem;
+  font-weight: 700;
+  background: #0f172a;
+  color: #f8fafc;
+  border-radius: 999px;
+  padding: 0.25rem 0.65rem;
+  box-shadow: 0 10px 18px -14px rgba(15, 23, 42, 0.65);
+}
+
+.matchupTeam {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.5rem;
+}
+
+.teamLink {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.65rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.teamLink:hover .teamName,
+.teamLink:focus-visible .teamName {
+  color: #1d4ed8;
+}
+
+.teamLogo {
+  width: 84px;
+  height: 84px;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 20px rgba(15, 23, 42, 0.15));
+}
+
+.teamLogoPlaceholder {
+  width: 84px;
+  height: 84px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: rgba(148, 163, 184, 0.25);
+  color: #1f2937;
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+.teamName {
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.teamRole {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #64748b;
+}
+
+.matchupMeta {
+  margin-top: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.95rem;
+  color: #475569;
+}
+
+.statsSection {
+  margin-top: -0.5rem;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1.5rem;
+}
+
+.statsCard {
+  padding: 1.5rem;
+  border-radius: 1.25rem;
+  border: 1px solid rgba(15, 23, 42, 0.05);
+  background: #ffffff;
+  box-shadow: 0 18px 35px -30px rgba(15, 23, 42, 0.35);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.statsCardHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.statsEyebrow {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.statsTeamLink {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #0f172a;
+  text-decoration: none;
+}
+
+.statsTeamLink:hover,
+.statsTeamLink:focus-visible {
+  color: #1d4ed8;
+}
+
+.statsList {
+  display: grid;
+  gap: 0.9rem;
+  margin: 0;
+}
+
+.statsList div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 1px dashed rgba(148, 163, 184, 0.35);
+  padding-bottom: 0.6rem;
+}
+
+.statsList div:last-of-type {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.statsList dt {
+  font-size: 0.85rem;
+  color: #475569;
+  font-weight: 500;
+}
+
+.statsList dd {
+  margin: 0;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.sectionCard {
+  padding: 2rem;
+  border-radius: 1.5rem;
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  background: #ffffff;
+  box-shadow: 0 24px 45px -35px rgba(15, 23, 42, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  line-height: 1.75;
+  color: #1f2937;
+}
+
+.sectionCardAlt {
+  background: linear-gradient(180deg, #0f172a 0%, #111827 100%);
+  color: #e2e8f0;
+  border-color: rgba(226, 232, 240, 0.05);
+}
+
+.sectionCardAlt p {
+  color: rgba(226, 232, 240, 0.9);
+}
+
+.sectionHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.sectionHeader h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.sectionHeader p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #475569;
+}
+
+.sectionCardAlt .sectionHeader p {
+  color: rgba(226, 232, 240, 0.75);
+}
+
+.sectionFootnote {
+  font-size: 0.9rem;
+  color: #64748b;
+  margin: 0;
+}
+
+.tableScroll {
+  overflow-x: auto;
+  border-radius: 1rem;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 38rem;
+  background-color: #ffffff;
+}
+
+.table thead {
+  background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+  color: #e2e8f0;
+}
+
+.table th,
+.table td {
+  padding: 0.85rem 1rem;
+  text-align: left;
+  font-size: 0.95rem;
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #f8fafc;
+}
+
+.tableCell {
+  border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+}
+
+.teamCell {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.tableTeamLogo {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.pagination {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.pageButton {
+  border: none;
+  background: #e2e8f0;
+  color: #0f172a;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.pageButton:hover,
+.pageButton:focus-visible {
+  background: #cbd5f5;
+  transform: translateY(-1px);
+}
+
+.pageButtonActive {
+  background: #1d4ed8;
+  color: #fff;
+  box-shadow: 0 10px 20px -12px rgba(37, 99, 235, 0.65);
+}
+
+.paginationEllipsis {
+  color: #475569;
+  font-weight: 600;
+  padding: 0 0.4rem;
 }
 
 .bodyTextGroup {
-  color: #1f2937;
-  line-height: 1.7;
+  color: inherit;
+  line-height: 1.8;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -61,6 +424,28 @@
 .sidebar {
   width: 100%;
   flex-shrink: 0;
+}
+
+@media (max-width: 640px) {
+  .heroSection {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .matchupGrid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .matchupDivider {
+    position: static;
+    transform: none;
+    margin: -0.75rem auto 0;
+  }
+
+  .matchupMeta {
+    align-items: center;
+    text-align: center;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -85,5 +470,7 @@
     width: 20rem;
     flex: 0 0 20rem;
     order: 2;
+    position: sticky;
+    top: 2rem;
   }
 }
