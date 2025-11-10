@@ -130,8 +130,15 @@ export default function AmazonBanner({ count = 3, startIndex = 0 } = {}) {
         const items = Array.isArray(data?.items) ? data.items : [];
         const message =
           typeof data?.error === "string" ? data.error.trim() : "";
+        const fallbackActive = data?.fallback === true;
+        const fallbackReason =
+          typeof data?.reason === "string" && data.reason.trim().length > 0
+            ? data.reason.trim()
+            : null;
         setProductDetails(items);
-        setHasError(message.length > 0);
+        setHasError(
+          message.length > 0 && !(fallbackActive && fallbackReason === "missing-credentials")
+        );
         setErrorMessage(message);
       } catch (error) {
         if (!isActive || error?.name === "AbortError") {

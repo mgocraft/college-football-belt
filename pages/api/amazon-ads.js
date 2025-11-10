@@ -168,10 +168,16 @@ function buildPlaceholderItems(products) {
   });
 }
 
-function respondWithFallback(res, products, message) {
-  const response = { items: buildPlaceholderItems(products) };
+function respondWithFallback(res, products, message, reason) {
+  const response = {
+    items: buildPlaceholderItems(products),
+    fallback: true,
+  };
   if (typeof message === "string" && message.trim().length > 0) {
     response.error = message.trim();
+  }
+  if (typeof reason === "string" && reason.trim().length > 0) {
+    response.reason = reason.trim();
   }
   res.status(200).json(response);
 }
@@ -241,7 +247,8 @@ export default async function handler(req, res) {
     respondWithFallback(
       res,
       products,
-      "Live Amazon pricing is disabled until affiliate credentials are configured. Showing curated picks instead."
+      "Live Amazon pricing is disabled until affiliate credentials are configured. Showing curated picks instead.",
+      "missing-credentials"
     );
     return;
   }
@@ -315,7 +322,8 @@ export default async function handler(req, res) {
     respondWithFallback(
       res,
       products,
-      "Live Amazon pricing is currently unavailable. Showing curated picks instead."
+      "Live Amazon pricing is currently unavailable. Showing curated picks instead.",
+      "api-error"
     );
   }
 }
