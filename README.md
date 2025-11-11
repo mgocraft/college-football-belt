@@ -59,13 +59,17 @@ AMAZON_SECRET_KEY="your_secret_key"
 AMAZON_ASSOCIATE_TAG="yourtag-20"
 ```
 
+The API route also accepts the standard AWS-style names (`AMAZON_ACCESS_KEY_ID`/`AWS_ACCESS_KEY_ID`,
+`AMAZON_SECRET_ACCESS_KEY`/`AWS_SECRET_ACCESS_KEY`) if you already have those configured, along with
+`AMAZON_PARTNER_TAG` or `ASSOCIATE_TAG` for the associate ID.
+
 Optionally set `AMAZON_ASINS` to the same comma-separated ASIN list if you want the API to have a default when called without query parameters:
 
 ```
 AMAZON_ASINS="B0D8KTKMQW,B00W5VNB80,B07QYCVT29,REPLACE_WITH_REAL_ASIN"
 ```
 
-Edit `data/amazonProducts.js` whenever you want to rotate the featured picks. The repo ships with entries for the Florida Gators wall art, Miami Hurricanes necklace, fantasy football championship belt, and a placeholder slot for your shortened Amazon link—replace `REPLACE_WITH_REAL_ASIN` with the ASIN behind that link so the banner can populate the live price and image automatically. Add or remove objects in this file to keep the banner stocked with up to six curated products.
+Edit `data/amazonProducts.js` whenever you want to rotate the featured picks. The repo ships with entries for the Florida Gators wall art, Miami Hurricanes necklace, fantasy football championship belt, and a placeholder slot for your shortened Amazon link—replace `REPLACE_WITH_REAL_ASIN` with the ASIN behind that link so the banner can populate the live price and image automatically. Add or remove objects in this file to keep the banner stocked with up to six curated products. Each item can declare an optional `associateTag` override; when present, the banner rewrites every Amazon URL into the current Associates format (`https://www.amazon.com/dp/<ASIN>?linkCode=ogi&tag=<your-tag>&language=en_US&ref_=as_li_ss_tl`) so you stay compliant even if the PA-API response omits the tag parameter.
 
 ## Newsletter signup
 

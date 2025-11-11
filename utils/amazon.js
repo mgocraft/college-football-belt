@@ -61,18 +61,54 @@ function sign(payload, accessKey, secretKey, endpoint, target) {
   return { amzDate, authorizationHeader };
 }
 
+function readAmazonEnvValue(names) {
+  for (const name of names) {
+    const value = process.env[name];
+    if (isNonEmptyString(value)) {
+      return value.trim();
+    }
+  }
+  return undefined;
+}
+
+function getAccessKey() {
+  return readAmazonEnvValue([
+    "AMAZON_ACCESS_KEY",
+    "AMAZON_ACCESS_KEY_ID",
+    "AMAZON_PAAPI_ACCESS_KEY",
+    "AWS_ACCESS_KEY_ID",
+  ]);
+}
+
+function getSecretKey() {
+  return readAmazonEnvValue([
+    "AMAZON_SECRET_KEY",
+    "AMAZON_SECRET_ACCESS_KEY",
+    "AMAZON_PAAPI_SECRET_KEY",
+    "AWS_SECRET_ACCESS_KEY",
+  ]);
+}
+
+function getAssociateTag() {
+  return readAmazonEnvValue([
+    "AMAZON_ASSOCIATE_TAG",
+    "AMAZON_PARTNER_TAG",
+    "ASSOCIATE_TAG",
+  ]);
+}
+
 export function hasAmazonCredentials() {
   return (
-    isNonEmptyString(process.env.AMAZON_ACCESS_KEY) &&
-    isNonEmptyString(process.env.AMAZON_SECRET_KEY) &&
-    isNonEmptyString(process.env.AMAZON_ASSOCIATE_TAG)
+    isNonEmptyString(getAccessKey()) &&
+    isNonEmptyString(getSecretKey()) &&
+    isNonEmptyString(getAssociateTag())
   );
 }
 
 function getCredentials() {
-  const accessKey = process.env.AMAZON_ACCESS_KEY;
-  const secretKey = process.env.AMAZON_SECRET_KEY;
-  const associateTag = process.env.AMAZON_ASSOCIATE_TAG;
+  const accessKey = getAccessKey();
+  const secretKey = getSecretKey();
+  const associateTag = getAssociateTag();
   if (!hasAmazonCredentials()) {
     throw new Error("Missing Amazon API credentials");
   }

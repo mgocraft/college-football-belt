@@ -1,7 +1,7 @@
 const amazonProducts = [
   {
     asin: "B0BKGZ54ZG",
-    link: "https://www.amazon.com/dp/B0BKGZ54ZG?tag=cfbbelt-20",
+    link: "https://www.amazon.com/dp/B0BKGZ54ZG?linkCode=ogi&tag=cfbbelt-20&language=en_US&ref_=as_li_ss_tl",
     associateTag: "cfbbelt-20",
     fallbackTitle: "Cal Golden Bears Adjustable Hat",
     tagline:
@@ -10,7 +10,7 @@ const amazonProducts = [
   },
   {
     asin: "B00CBE6VE2",
-    link: "https://www.amazon.com/dp/B00CBE6VE2?tag=cfbbelt-20",
+    link: "https://www.amazon.com/dp/B00CBE6VE2?linkCode=ogi&tag=cfbbelt-20&language=en_US&ref_=as_li_ss_tl",
     associateTag: "cfbbelt-20",
     fallbackTitle: "Cal Golden Bears Plush Throw",
     tagline:
@@ -19,7 +19,7 @@ const amazonProducts = [
   },
   {
     asin: "B002WIHYL6",
-    link: "https://www.amazon.com/dp/B002WIHYL6?tag=cfbbelt-20",
+    link: "https://www.amazon.com/dp/B002WIHYL6?linkCode=ogi&tag=cfbbelt-20&language=en_US&ref_=as_li_ss_tl",
     associateTag: "cfbbelt-20",
     fallbackTitle: "Cal Golden Bears Vintage Headcover",
     tagline:
@@ -28,7 +28,7 @@ const amazonProducts = [
   },
   {
     asin: "B0FZNXDLVY",
-    link: "https://www.amazon.com/dp/B0FZNXDLVY?tag=cfbbelt-20",
+    link: "https://www.amazon.com/dp/B0FZNXDLVY?linkCode=ogi&tag=cfbbelt-20&language=en_US&ref_=as_li_ss_tl",
     associateTag: "cfbbelt-20",
     fallbackTitle: "Stanford Cardinal Saturday Neon Sign",
     tagline:
@@ -37,7 +37,7 @@ const amazonProducts = [
   },
   {
     asin: "B0CW24FR83",
-    link: "https://www.amazon.com/dp/B0CW24FR83?tag=cfbbelt-20",
+    link: "https://www.amazon.com/dp/B0CW24FR83?linkCode=ogi&tag=cfbbelt-20&language=en_US&ref_=as_li_ss_tl",
     associateTag: "cfbbelt-20",
     fallbackTitle: "Cal Golden Bears Revolution Mini Helmet",
     tagline:
@@ -46,7 +46,7 @@ const amazonProducts = [
   },
   {
     asin: "B0CRQBPQZH",
-    link: "https://www.amazon.com/dp/B0CRQBPQZH?tag=cfbbelt-20",
+    link: "https://www.amazon.com/dp/B0CRQBPQZH?linkCode=ogi&tag=cfbbelt-20&language=en_US&ref_=as_li_ss_tl",
     associateTag: "cfbbelt-20",
     fallbackTitle: "Personalized California Football Newspaper Book",
     tagline:
