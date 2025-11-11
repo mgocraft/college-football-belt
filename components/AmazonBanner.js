@@ -4,6 +4,10 @@ import styles from "./AmazonBanner.module.css";
 
 const asinPattern = /^[A-Z0-9]{10}$/;
 
+function isNonEmptyString(value) {
+  return typeof value === "string" && value.trim().length > 0;
+}
+
 function deriveAsin(product) {
   if (!product) {
     return undefined;
@@ -34,6 +38,103 @@ function deriveFallbackImage(asin, product) {
   }
 
   return `https://m.media-amazon.com/images/I/${asin}._SL500_.jpg`;
+}
+
+function sanitizeAssociateTag(value) {
+  if (!isNonEmptyString(value)) {
+    return undefined;
+  }
+  const trimmed = value.trim();
+  return /[^a-zA-Z0-9-]/.test(trimmed) ? undefined : trimmed;
+}
+
+function extractAssociateTag(link) {
+  if (!isNonEmptyString(link)) {
+    return undefined;
+  }
+  try {
+    const url = new URL(link);
+    const tag = url.searchParams.get("tag");
+    return sanitizeAssociateTag(tag);
+  } catch (error) {
+    return undefined;
+  }
+}
+
+function buildAffiliateLink({ asin, rawLink, associateTag }) {
+  const normalizedAsin =
+    typeof asin === "string" && asinPattern.test(asin.trim().toUpperCase())
+      ? asin.trim().toUpperCase()
+      : undefined;
+  const sanitizedTag = sanitizeAssociateTag(associateTag);
+  const fallbackTag = sanitizedTag || extractAssociateTag(rawLink);
+  if (!isNonEmptyString(rawLink)) {
+    if (normalizedAsin) {
+      if (fallbackTag) {
+        return `https://www.amazon.com/dp/${normalizedAsin}?linkCode=ogi&tag=${fallbackTag}&language=en_US&ref_=as_li_ss_tl`;
+      }
+      return `https://www.amazon.com/dp/${normalizedAsin}`;
+    }
+    return rawLink || null;
+  }
+
+  let url;
+  try {
+    url = new URL(rawLink);
+  } catch (error) {
+    if (normalizedAsin) {
+      if (fallbackTag) {
+        return `https://www.amazon.com/dp/${normalizedAsin}?linkCode=ogi&tag=${fallbackTag}&language=en_US&ref_=as_li_ss_tl`;
+      }
+      return `https://www.amazon.com/dp/${normalizedAsin}`;
+    }
+    return rawLink;
+  }
+
+  const hostname = url.hostname.toLowerCase();
+  const isAmazonDomain =
+    hostname === "amzn.to" || /(^|\.)amazon\.[a-z.]+$/.test(hostname);
+  if (!isAmazonDomain) {
+    return rawLink;
+  }
+
+  const tag = fallbackTag;
+
+  if (hostname === "amzn.to") {
+    if (normalizedAsin) {
+      if (tag) {
+        return `https://www.amazon.com/dp/${normalizedAsin}?linkCode=ogi&tag=${tag}&language=en_US&ref_=as_li_ss_tl`;
+      }
+      return `https://www.amazon.com/dp/${normalizedAsin}`;
+    }
+    return rawLink;
+  }
+
+  if (normalizedAsin && !url.pathname.match(/\/dp\//i)) {
+    url.pathname = `/dp/${normalizedAsin}`;
+  }
+
+  if (tag) {
+    url.searchParams.set("tag", tag);
+  }
+
+  if (normalizedAsin) {
+    url.searchParams.set("psc", "1");
+  }
+
+  if (!url.searchParams.has("linkCode")) {
+    url.searchParams.set("linkCode", "ogi");
+  }
+
+  if (!url.searchParams.has("language")) {
+    url.searchParams.set("language", "en_US");
+  }
+
+  if (!url.searchParams.has("ref_")) {
+    url.searchParams.set("ref_", "as_li_ss_tl");
+  }
+
+  return url.toString();
 }
 
 /**
@@ -129,12 +230,16 @@ export default function AmazonBanner({ count = 3, startIndex = 0 } = {}) {
   const mappedCards = amazonProducts
     .map((product, index) => {
       const details = productDetails[index] || null;
-      const link = details?.link || product.link;
+      const asin = details?.asin || deriveAsin(product);
+      const link = buildAffiliateLink({
+        asin,
+        rawLink: details?.link || product.link,
+        associateTag: product.associateTag,
+      });
       const fallbackTitle =
         product.fallbackTitle ||
         "Amazon pick";
       const title = details?.title || fallbackTitle;
-      const asin = details?.asin || deriveAsin(product);
       const image =
         details?.image || deriveFallbackImage(asin, product);
       const key = asin || `${link || "amazon-product"}-${index}`;
