@@ -27,6 +27,14 @@ function deriveAsin(product) {
   return undefined;
 }
 
+function deriveAssociateTag(product) {
+  const explicitTag = sanitizeAssociateTag(product?.associateTag);
+  if (explicitTag) {
+    return explicitTag;
+  }
+  return extractAssociateTag(product?.link);
+}
+
 function deriveFallbackImage(asin, product) {
   const explicitImage = [product?.fallbackImage, product?.image]
     .find((value) => typeof value === "string" && value.trim().length > 0);
@@ -35,6 +43,20 @@ function deriveFallbackImage(asin, product) {
   }
   if (!asin) {
     return null;
+  }
+
+  const tag = deriveAssociateTag(product);
+  if (tag) {
+    const url = new URL("https://ws-na.amazon-adsystem.com/widgets/q");
+    url.searchParams.set("_encoding", "UTF8");
+    url.searchParams.set("ASIN", asin);
+    url.searchParams.set("Format", "_SL500_");
+    url.searchParams.set("ID", "AsinImage");
+    url.searchParams.set("MarketPlace", "US");
+    url.searchParams.set("ServiceVersion", "20070822");
+    url.searchParams.set("WS", "1");
+    url.searchParams.set("tag", tag);
+    return url.toString();
   }
 
   return `https://m.media-amazon.com/images/I/${asin}._SL500_.jpg`;
@@ -195,14 +217,8 @@ export default function AmazonBanner({ count = 3, startIndex = 0 } = {}) {
         const message =
           typeof data?.error === "string" ? data.error.trim() : "";
         const fallbackActive = data?.fallback === true;
-        const fallbackReason =
-          typeof data?.reason === "string" && data.reason.trim().length > 0
-            ? data.reason.trim()
-            : null;
         setProductDetails(items);
-        setHasError(
-          message.length > 0 && !(fallbackActive && fallbackReason === "missing-credentials")
-        );
+        setHasError(message.length > 0 && !fallbackActive);
         setErrorMessage(message);
       } catch (error) {
         if (!isActive || error?.name === "AbortError") {
