@@ -47,6 +47,14 @@ NEXT_PUBLIC_ADSENSE_ENABLED="false" # disable AdSense globally
 
 Any other value, including leaving the variable undefined, enables AdSense. When disabled, `<AdSlot>` returns `null` and no script is requested.
 
+To point the site at your own AdSense account, set the publisher ID (with or without the `ca-` prefix):
+
+```
+NEXT_PUBLIC_ADSENSE_PUBLISHER_ID="ca-pub-1234567890"
+```
+
+This value is shared by the UI and the `/ads.txt` route, so the authorized sellers file stays in sync with the ID you use to load the AdSense script.
+
 ## Newsletter signup
 
 The site includes an email newsletter powered by [Mailchimp](https://mailchimp.com). To enable the signup form, set the following environment variables:

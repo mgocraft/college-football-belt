@@ -4,8 +4,9 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 import Script from "next/script";
 import Footer from "../components/Footer";
+import { getAdsenseClientId } from "../utils/adsense";
 
-const PUB_ID = "ca-pub-7568133290427764"; // your AdSense publisher ID
+const PUB_ID = getAdsenseClientId();
 const ADSENSE_ENABLED = process.env.NEXT_PUBLIC_ADSENSE_ENABLED !== "false";
 
 // Routes where Auto Ads must NEVER initialize
