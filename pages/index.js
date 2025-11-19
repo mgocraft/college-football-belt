@@ -6,8 +6,6 @@ import NavBar from '../components/NavBar';
 import { teamLogoMap, normalizeTeamName, computeRecord } from '../utils/teamUtils';
 import AdSlot from '../components/AdSlot';
 import NewsletterSignup from '../components/NewsletterSignup';
-import BeltBookBanner from '../components/BeltBookBanner';
-import { beltBookSpotlight } from '../data/beltBookSpotlight';
 import { fetchFromApi } from '../utils/ssr';
 import homeStyles from '../styles/HomePage.module.css';
 import adStyles from '../styles/FullWidthAd.module.css';
@@ -401,7 +399,6 @@ export default function HomePage({ data }) {
                 format="rectangle"
               />
             </div>
-            <BeltBookBanner {...beltBookSpotlight} />
           </aside>
         </div>
       </div>
