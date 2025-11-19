@@ -1,4 +1,7 @@
 import React, { useEffect } from "react";
+import { getAdsenseClientId } from "../utils/adsense";
+
+const DEFAULT_CLIENT_ID = getAdsenseClientId();
 
 /**
  * Basic AdSense unit that renders the standard
@@ -13,7 +16,7 @@ export default function AdUnit({
   enabled = true,
   className = "",
   style = { display: "block" },
-  client = "ca-pub-7568133290427764",
+  client = DEFAULT_CLIENT_ID,
   format = "auto",
   fullWidthResponsive = true,
 }) {
