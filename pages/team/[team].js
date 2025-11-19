@@ -301,7 +301,6 @@ export default function TeamPage({ data, team }) {
             <AdSlot
               AdSlot="9168138847"
               enabled={data.length > 0}
-              startIndex={3}
             />
           </div>
         </div>

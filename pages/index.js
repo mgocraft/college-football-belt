@@ -388,15 +388,19 @@ export default function HomePage({ data }) {
           <div className={homeStyles.layoutAdRow}>
             <div className={`${adStyles.fullWidthAd} ${adStyles.looseBottom}`}>
               <div className={adStyles.inner}>
-                <AdSlot
-                  AdSlot="9168138847"
-                  enabled={data.length > 0}
-                  startIndex={3}
-                />
+                <AdSlot AdSlot="9168138847" enabled={data.length > 0} />
               </div>
             </div>
           </div>
           <aside className={homeStyles.sidebar}>
+            <div className={adStyles.sidebarAd}>
+              <AdSlot
+                AdSlot="9168138847"
+                enabled={data.length > 0}
+                style={{ display: 'block', minHeight: 250 }}
+                format="rectangle"
+              />
+            </div>
             <BeltBookBanner {...beltBookSpotlight} />
           </aside>
         </div>

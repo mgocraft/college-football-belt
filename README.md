@@ -37,39 +37,15 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 ## Advertising configuration
 
-This project can display either Google AdSense units or a fallback Amazon affiliate banner.
+The site now uses AdSense exclusively for its display inventory. The script loads automatically on eligible routes, so no extra markup is required—drop an `<AdSlot>` component anywhere in the UI and it will hydrate into a responsive `<ins class="adsbygoogle">` unit once Google finishes bootstrapping.
 
-Set the following environment variable to control which network is used:
-
-```
-NEXT_PUBLIC_ADSENSE_ENABLED="true" # use AdSense; any other value shows the Amazon banner
-```
-
-Enable this flag only after your AdSense account and the site have been approved. Once the flag is set to `"true"`, the AdSense script is injected dynamically and `<AdSlot>` components will render AdSense `<ins class="adsbygoogle">` slots. When the flag is not `"true"`, `<AdSlot>` instead renders the Amazon affiliate banner.
-
-### Amazon Product Advertising API
-
-The Amazon banner now renders a curated carousel defined in [`data/amazonProducts.js`](data/amazonProducts.js). Each entry can include your full affiliate link, a fallback title, an enticing tagline, and an optional call-to-action line. When the component mounts it derives the ASIN for every active product (either from the `asin` field or from the `/dp/` segment of the URL) and calls the `/api/amazon-ads` route with that list. The API then invokes Amazon's `GetItems` endpoint so the banner pulls back fresh hero imagery and pricing every time a visitor loads the page—keeping you compliant with Amazon's 24-hour pricing policy while letting you swap in a new set of up to six products each week. If the API is temporarily unavailable the cards still render with your copy so the slot never goes blank.
-
-Provide the following credentials in your environment so `/api/amazon-ads` can sign requests:
+If you need to temporarily suppress ads (for example in preview environments) set the following environment variable:
 
 ```
-AMAZON_ACCESS_KEY="your_access_key"
-AMAZON_SECRET_KEY="your_secret_key"
-AMAZON_ASSOCIATE_TAG="yourtag-20"
+NEXT_PUBLIC_ADSENSE_ENABLED="false" # disable AdSense globally
 ```
 
-The API route also accepts the standard AWS-style names (`AMAZON_ACCESS_KEY_ID`/`AWS_ACCESS_KEY_ID`,
-`AMAZON_SECRET_ACCESS_KEY`/`AWS_SECRET_ACCESS_KEY`) if you already have those configured, along with
-`AMAZON_PARTNER_TAG` or `ASSOCIATE_TAG` for the associate ID.
-
-Optionally set `AMAZON_ASINS` to the same comma-separated ASIN list if you want the API to have a default when called without query parameters:
-
-```
-AMAZON_ASINS="B0D8KTKMQW,B00W5VNB80,B07QYCVT29,REPLACE_WITH_REAL_ASIN"
-```
-
-Edit `data/amazonProducts.js` whenever you want to rotate the featured picks. The repo ships with entries for the Florida Gators wall art, Miami Hurricanes necklace, fantasy football championship belt, and a placeholder slot for your shortened Amazon link—replace `REPLACE_WITH_REAL_ASIN` with the ASIN behind that link so the banner can populate the live price and image automatically. Add or remove objects in this file to keep the banner stocked with up to six curated products. Each item can declare an optional `associateTag` override; when present, the banner rewrites every Amazon URL into the current Associates format (`https://www.amazon.com/dp/<ASIN>?linkCode=ogi&tag=<your-tag>&language=en_US&ref_=as_li_ss_tl`) so you stay compliant even if the PA-API response omits the tag parameter.
+Any other value, including leaving the variable undefined, enables AdSense. When disabled, `<AdSlot>` returns `null` and no script is requested.
 
 ## Newsletter signup
 

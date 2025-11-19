@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import AdUnit from "./AdUnit";
-import AmazonBanner from "./AmazonBanner";
 
-const ADSENSE_ENV_ENABLED = process.env.NEXT_PUBLIC_ADSENSE_ENABLED === "true";
+const ADSENSE_ENV_ENABLED =
+  process.env.NEXT_PUBLIC_ADSENSE_ENABLED !== "false";
 
 function resolveInitialPreference() {
   if (!ADSENSE_ENV_ENABLED) {
@@ -18,12 +18,12 @@ function resolveInitialPreference() {
 }
 
 /**
- * Chooses between AdSense and Amazon affiliate ads.
- * When NEXT_PUBLIC_ADSENSE_ENABLED === "true", renders <AdUnit/>;
- * otherwise falls back to <AmazonBanner/>.
+ * Thin wrapper that keeps AdSense units from rendering until
+ * the library has successfully loaded. When the script fails
+ * to initialize we simply hide the slot to avoid broken UI.
  */
-export default function AdSlot(props) {
-  const [useAdsense, setUseAdsense] = useState(resolveInitialPreference);
+export default function AdSlot({ enabled = true, ...props }) {
+  const [adsenseReady, setAdsenseReady] = useState(resolveInitialPreference);
 
   useEffect(() => {
     if (!ADSENSE_ENV_ENABLED || typeof window === "undefined") {
@@ -31,12 +31,12 @@ export default function AdSlot(props) {
     }
 
     function handleFailure() {
-      setUseAdsense(false);
+      setAdsenseReady(false);
     }
 
     function handleLoaded() {
       if (!window.__adsenseLoadFailed) {
-        setUseAdsense(true);
+        setAdsenseReady(true);
       }
     }
 
@@ -44,7 +44,11 @@ export default function AdSlot(props) {
     window.addEventListener("adsense-loaded", handleLoaded);
 
     if (window.__adsenseLoadFailed) {
-      setUseAdsense(false);
+      setAdsenseReady(false);
+    }
+
+    if (window.__adsenseLoaded) {
+      setAdsenseReady(true);
     }
 
     return () => {
@@ -53,8 +57,8 @@ export default function AdSlot(props) {
     };
   }, []);
 
-  if (!ADSENSE_ENV_ENABLED || !useAdsense) {
-    return <AmazonBanner {...props} />;
+  if (!enabled || !ADSENSE_ENV_ENABLED || !adsenseReady) {
+    return null;
   }
 
   return <AdUnit {...props} />;

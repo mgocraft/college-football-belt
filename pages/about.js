@@ -24,6 +24,11 @@ export default function AboutPage() {
       />
       <NavBar />
       <div style={{ maxWidth: '800px', margin: 'auto', padding: '1rem', fontFamily: 'Arial, sans-serif', color: '#111' }}>
+        <div className={`${adStyles.fullWidthAd} ${adStyles.tightTop}`}>
+          <div className={adStyles.inner}>
+            <AdSlot AdSlot="9168138847" />
+          </div>
+        </div>
 
         <h1 style={{ fontSize: '2rem', marginBottom: '1rem', color: '#001f3f' }}>About the College Football Belt</h1>
 
