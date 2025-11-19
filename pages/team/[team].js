@@ -301,6 +301,7 @@ export default function TeamPage({ data, team }) {
             <AdSlot
               AdSlot="9168138847"
               enabled={data.length > 0}
+              fullWidthResponsive={false}
             />
           </div>
         </div>
@@ -438,7 +439,11 @@ export default function TeamPage({ data, team }) {
 
         <div className={`${adStyles.fullWidthAd} ${adStyles.spaced}`}>
           <div className={adStyles.inner}>
-            <AdSlot AdSlot="9168138847" enabled={data.length > 0} />
+            <AdSlot
+              AdSlot="9168138847"
+              enabled={data.length > 0}
+              fullWidthResponsive={false}
+            />
           </div>
         </div>
       </div>

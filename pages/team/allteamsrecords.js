@@ -131,6 +131,7 @@ export default function AllTeamsRecords({ data }) {
               AdSlot="9168138847"
               variant="leaderboard"
               enabled={data.length > 0}
+              fullWidthResponsive={false}
             />
           </div>
         </div>
@@ -200,6 +201,7 @@ export default function AllTeamsRecords({ data }) {
             <AdSlot
               AdSlot="9168138847"
               enabled={data.length > 0}
+              fullWidthResponsive={false}
             />
           </div>
         </div>

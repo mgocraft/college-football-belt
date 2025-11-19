@@ -115,7 +115,11 @@ export default function RecordBookPage({ data }) {
         {/* Safe top ad: only after data is present */}
         <div className={`${adStyles.fullWidthAd} ${adStyles.tightTop}`}>
           <div className={adStyles.inner}>
-            <AdSlot AdSlot="9168138847" enabled={data.length > 0} />
+            <AdSlot
+              AdSlot="9168138847"
+              enabled={data.length > 0}
+              fullWidthResponsive={false}
+            />
           </div>
         </div>
 
@@ -168,6 +172,7 @@ export default function RecordBookPage({ data }) {
             <AdSlot
               AdSlot="9168138847"
               enabled={data.length > 0}
+              fullWidthResponsive={false}
             />
           </div>
         </div>
