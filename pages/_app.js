@@ -6,7 +6,7 @@ import Script from "next/script";
 import Footer from "../components/Footer";
 
 const PUB_ID = "ca-pub-7568133290427764"; // your AdSense publisher ID
-const ADSENSE_ENABLED = process.env.NEXT_PUBLIC_ADSENSE_ENABLED === "true";
+const ADSENSE_ENABLED = process.env.NEXT_PUBLIC_ADSENSE_ENABLED !== "false";
 
 // Routes where Auto Ads must NEVER initialize
 const AUTO_ADS_BLOCKLIST = [

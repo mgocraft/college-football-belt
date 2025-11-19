@@ -35,3 +35,13 @@
 .looseBottom {
   margin-top: 1.5rem;
 }
+
+.sidebarAd {
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.sidebarAd :global(.adsbygoogle) {
+  display: block;
+  width: 100%;
+}
