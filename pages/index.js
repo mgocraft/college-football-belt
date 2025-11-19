@@ -169,11 +169,15 @@ export default function HomePage({ data }) {
       {verificationMetaTag}
       <NavBar />
       <div className={homeStyles.pageContainer}>
-        <div className={`${adStyles.fullWidthAd} ${adStyles.tightTop}`}>
-          <div className={adStyles.inner}>
-            <AdSlot AdSlot="9168138847" enabled={data.length > 0} />
-          </div>
-        </div>
+            <div className={`${adStyles.fullWidthAd} ${adStyles.tightTop}`}>
+              <div className={adStyles.inner}>
+                <AdSlot
+                  AdSlot="9168138847"
+                  enabled={data.length > 0}
+                  fullWidthResponsive={false}
+                />
+              </div>
+            </div>
         <div className={homeStyles.preContent}>
           <NewsletterSignup />
         </div>
@@ -386,7 +390,11 @@ export default function HomePage({ data }) {
           <div className={homeStyles.layoutAdRow}>
             <div className={`${adStyles.fullWidthAd} ${adStyles.looseBottom}`}>
               <div className={adStyles.inner}>
-                <AdSlot AdSlot="9168138847" enabled={data.length > 0} />
+                <AdSlot
+                  AdSlot="9168138847"
+                  enabled={data.length > 0}
+                  fullWidthResponsive={false}
+                />
               </div>
             </div>
           </div>
@@ -395,8 +403,9 @@ export default function HomePage({ data }) {
               <AdSlot
                 AdSlot="9168138847"
                 enabled={data.length > 0}
-                style={{ display: 'block', minHeight: 250 }}
+                style={{ display: 'block', width: '100%', minHeight: 250, maxHeight: 600 }}
                 format="rectangle"
+                fullWidthResponsive={false}
               />
             </div>
           </aside>

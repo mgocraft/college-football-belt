@@ -22,6 +22,14 @@
   display: block;
   width: 100%;
   margin: 0;
+  height: 90px;
+  max-height: 100px;
+}
+
+@media (max-width: 768px) {
+  .inner :global(.adsbygoogle) {
+    height: 100px;
+  }
 }
 
 .spaced {
@@ -38,10 +46,13 @@
 
 .sidebarAd {
   width: 100%;
+  max-width: 320px;
   margin-bottom: 1.5rem;
 }
 
 .sidebarAd :global(.adsbygoogle) {
   display: block;
   width: 100%;
+  min-height: 250px;
+  max-height: 600px;
 }

@@ -26,7 +26,7 @@ export default function AboutPage() {
       <div style={{ maxWidth: '800px', margin: 'auto', padding: '1rem', fontFamily: 'Arial, sans-serif', color: '#111' }}>
         <div className={`${adStyles.fullWidthAd} ${adStyles.tightTop}`}>
           <div className={adStyles.inner}>
-            <AdSlot AdSlot="9168138847" />
+            <AdSlot AdSlot="9168138847" fullWidthResponsive={false} />
           </div>
         </div>
 
@@ -71,7 +71,7 @@ export default function AboutPage() {
   </p>
         <div className={`${adStyles.fullWidthAd} ${adStyles.spaced}`}>
           <div className={adStyles.inner}>
-            <AdSlot AdSlot="9168138847" />
+            <AdSlot AdSlot="9168138847" fullWidthResponsive={false} />
           </div>
         </div>
       </div>
