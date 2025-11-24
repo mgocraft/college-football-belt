@@ -15,7 +15,7 @@ export default function HomePage({ data }) {
   const router = useRouter();
   const page = parseInt(router.query.page || '1', 10);
   const itemsPerPage = 10;
-  const nextOpponent = 'Stanford';
+  const nextOpponent = 'Notre Dame';
   const homepageStructuredData = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
@@ -196,7 +196,7 @@ export default function HomePage({ data }) {
                   <ul className={homeStyles.heroHighlights}>
                     <li>
                       <span className={homeStyles.heroHighlightLabel}>Kickoff</span>
-                      <span>November 1 • Berkeley, California</span>
+                      <span>November 8 • South Bend, Indiana</span>
                     </li>
                     <li>
                       <span className={homeStyles.heroHighlightLabel}>Current Reign</span>
@@ -242,7 +242,7 @@ export default function HomePage({ data }) {
                     </div>
                   </div>
                   <div className={homeStyles.matchupMeta}>
-                    <span>Kickoff: November 1 • Berkeley, California</span>
+                    <span>Kickoff: November 8 • South Bend, Indiana</span>
                     <span>
                       Current reign began {currentReign.startOfReign} • {currentReign.numberOfDefenses} defense
                       {currentReign.numberOfDefenses === 1 ? '' : 's'}
@@ -291,12 +291,13 @@ export default function HomePage({ data }) {
                   <p>How the upcoming showdown could swing the belt.</p>
                 </div>
                 <p>
-                  California stunned Louisville 28–24 on October 25, prying the College Football Belt away in the Cardinals'
-                  first defense. The Golden Bears now bring the lineal title to the Bay for the first time and welcome Stanford
-                  to Berkeley on November 1 for their opening defense.
+                  Stanford dominated California 31–10 on November 1 to rip the belt away from their Bay Area rival and end the
+                  Golden Bears&apos; brief first reign. The Cardinal now prepare for a cross-country defense at Notre Dame, where the
+                  Irish hope to reclaim a piece of belt history on November 8.
                 </p>
                 <p className={homeStyles.sectionFootnote}>
-                  Expect a rivalry-charged atmosphere as the Cardinal aim to break Cal&apos;s nascent reign.
+                  It&apos;s a classic intersectional matchup with the belt on the line: Stanford&apos;s fresh reign heads to South
+                  Bend for a high-profile test.
                 </p>
               </section>
 

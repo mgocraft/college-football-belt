@@ -27,9 +27,9 @@ export default function Blog() {
 
       {/* Most recent post first */}
       <article style={{ marginBottom: '3rem' }}>
-        <h2 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>California Brings the Belt West</h2>
+        <h2 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>Stanford Seizes the Belt in the Big Game</h2>
         <time
-          dateTime="2025-10-26"
+          dateTime="2025-11-02"
           style={{
             color: '#555',
             fontSize: '0.9rem',
@@ -37,18 +37,17 @@ export default function Blog() {
             display: 'block'
           }}
         >
-          October 26, 2025
+          November 2, 2025
         </time>
         <p>
-          Louisville's trip to South Florida on October 10 produced one of the biggest moments of the 2025 season, as the
-          Cardinals edged Miami 30–27 to rip away the College Football Belt. Jeff Brohm's group backed that up with a
-          34–24 win over Boston College eight days later and a hard-fought October 24 triumph over Virginia Tech, setting the stage for a
-          cross-country showdown with conference newcomer California.
+          Stanford made the most of its Bay Area rivalry, thumping California 31–10 on November 1 to rip the College Football
+          Belt away from the Golden Bears in their first defense. Cal's reign ends at one week, while the Cardinal celebrate the
+          program's fifth all-time belt possession and first since 1982.
         </p>
         <p>
-          The Golden Bears, flying east for a marquee opportunity, rallied late for a 28–24 victory in Louisville on
-          October 25. It's the program's first-ever possession of the lineal title and sets up a West Coast defense on
-          November 1 when Stanford visits Berkeley. Strap in for a new chapter of belt football in the ACC.
+          The next challenge comes quickly: Stanford heads to South Bend on November 8 to defend the belt against Notre Dame.
+          The Irish have historically underperformed in belt games, and this visit offers an early chance to rewrite that
+          narrative in front of a home crowd.
         </p>
       </article>
 
