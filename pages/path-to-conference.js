@@ -25,8 +25,9 @@ export default function PathToConference() {
         <h1 style={{ fontSize: '2rem', marginBottom: '1rem', color: '#001f3f' }}>Path to the Conferences</h1>
 
         <p style={{ fontSize: '1rem', marginBottom: '1rem' }}>
-          This page tracks the most likely way the belt could end up in each major conference during the 2025 season, based on
-          Stanford&apos;s current possession of the belt and the remaining schedule. Bowl games and playoffs are not included.
+          This page tracks the most likely way the belt could end up in each major conference during the 2025 season, now that
+          Notre Dame has wrested the belt away with a 49–20 road win over Stanford on November 29. Bowl games and playoffs are
+          not included.
         </p>
 
         <h2 style={{ fontSize: '1.5rem', marginTop: '2rem', color: '#001f3f' }}>ACC</h2>
@@ -39,13 +40,13 @@ export default function PathToConference() {
           <li><strong>Completed:</strong> Louisville survived Virginia Tech on October 24 to set up a cross-division clash with California.</li>
           <li><strong>Completed:</strong> California visited Louisville on October 25 and claimed the belt.</li>
           <li><strong>Completed:</strong> Stanford knocked off California in Berkeley on November 1 to take the belt.</li>
-          <li><strong>Next:</strong> Stanford heads to South Bend to face Notre Dame on November 8.</li>
+          <li><strong>Completed:</strong> Notre Dame stunned Stanford 49–20 in Palo Alto on November 29 to grab the belt.</li>
         </ol>
 
         <h2 style={{ fontSize: '1.5rem', marginTop: '2rem', color: '#001f3f' }}>SEC</h2>
         <p style={{ marginBottom: '0.5rem' }}>
-          The regular-season road back to the SEC now depends on Stanford&apos;s schedule. With the belt in ACC hands, there is no
-          scheduled meeting with an SEC school before bowls or the playoff.
+          The regular-season road back to the SEC now depends on Notre Dame&apos;s 2026 schedule. With the belt in Independent hands,
+          there is no confirmed matchup with an SEC school before postseason play.
         </p>
 
         <h2 style={{ fontSize: '1.5rem', marginTop: '2rem', color: '#001f3f' }}>Big 12</h2>
@@ -61,7 +62,7 @@ export default function PathToConference() {
 
         <h2 style={{ fontSize: '1.5rem', marginTop: '2rem', color: '#001f3f' }}>Group of Five / Independents</h2>
         <p style={{ marginBottom: '0.5rem' }}>
-          The belt now resides in the ACC.
+          The belt currently sits with Independent Notre Dame.
         </p>
 
         <div style={{ marginTop: '2rem', fontStyle: 'italic', color: '#444' }}>
