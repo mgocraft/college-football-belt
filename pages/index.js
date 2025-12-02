@@ -15,7 +15,7 @@ export default function HomePage({ data }) {
   const router = useRouter();
   const page = parseInt(router.query.page || '1', 10);
   const itemsPerPage = 10;
-  const nextOpponent = 'Notre Dame';
+  const nextOpponent = 'TBD';
   const homepageStructuredData = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
@@ -189,14 +189,13 @@ export default function HomePage({ data }) {
                   <p className={homeStyles.heroEyebrow}>Lineal Championship Tracker</p>
                   <h1 className={homeStyles.heroTitle}>College Football Belt Update</h1>
                   <p className={homeStyles.heroSubtitle}>
-                    {currentReign.beltHolder} carries college football&apos;s lineal crown into a showdown with{' '}
-                    {nextOpponent}. Stay plugged into the reigning champion&apos;s story, the next challenge, and the belt&apos;s
-                    path through history.
+                    {currentReign.beltHolder} reclaimed college football&apos;s lineal crown with a 49–20 road win at Stanford.
+                    Stay plugged into the reigning champion&apos;s story, the next challenge, and the belt&apos;s path through history.
                   </p>
                   <ul className={homeStyles.heroHighlights}>
                     <li>
-                      <span className={homeStyles.heroHighlightLabel}>Kickoff</span>
-                      <span>November 8 • South Bend, Indiana</span>
+                      <span className={homeStyles.heroHighlightLabel}>Last Result</span>
+                      <span>November 29 • Stanford, California • W 49–20</span>
                     </li>
                     <li>
                       <span className={homeStyles.heroHighlightLabel}>Current Reign</span>
@@ -242,11 +241,8 @@ export default function HomePage({ data }) {
                     </div>
                   </div>
                   <div className={homeStyles.matchupMeta}>
-                    <span>Kickoff: November 8 • South Bend, Indiana</span>
-                    <span>
-                      Current reign began {currentReign.startOfReign} • {currentReign.numberOfDefenses} defense
-                      {currentReign.numberOfDefenses === 1 ? '' : 's'}
-                    </span>
+                    <span>Last game: November 29 at Stanford — {currentReign.beltHolder} won 49–20.</span>
+                    <span>Next defense: To be announced for the 2026 schedule.</span>
                   </div>
                 </div>
               </section>
@@ -288,16 +284,16 @@ export default function HomePage({ data }) {
               <section className={homeStyles.sectionCard}>
                 <div className={homeStyles.sectionHeader}>
                   <h2>Next Game Preview</h2>
-                  <p>How the upcoming showdown could swing the belt.</p>
+                  <p>Recapping the latest result and what it means for the belt path.</p>
                 </div>
                 <p>
-                  Stanford dominated California 31–10 on November 1 to rip the belt away from their Bay Area rival and end the
-                  Golden Bears&apos; brief first reign. The Cardinal now prepare for a cross-country defense at Notre Dame, where the
-                  Irish hope to reclaim a piece of belt history on November 8.
+                  Notre Dame stormed into Palo Alto and blew past Stanford 49–20 on November 29, ending the Cardinal&apos;s two-game
+                  reign and claiming the belt for the seventh time in program history. The Irish delivered their statement win on
+                  the road, turning a late-season showdown into a decisive belt transfer.
                 </p>
                 <p className={homeStyles.sectionFootnote}>
-                  It&apos;s a classic intersectional matchup with the belt on the line: Stanford&apos;s fresh reign heads to South
-                  Bend for a high-profile test.
+                  With the belt back in Independent hands, the next defense will hinge on Notre Dame&apos;s upcoming slate — stay
+                  tuned for the first 2026 challenger.
                 </p>
               </section>
 
@@ -310,8 +306,8 @@ export default function HomePage({ data }) {
                   {currentReign.beltHolder} captured the College Football Belt on {currentReign.startOfReign} and has defended it{' '}
                   {currentReign.numberOfDefenses} time{currentReign.numberOfDefenses === 1 ? '' : 's'}. This marks their{' '}
                   {countReigns(currentReign.beltHolder)} reign{countReigns(currentReign.beltHolder) === 1 ? '' : 's'} with an overall belt
-                  record of {currentRecord.wins}-{currentRecord.losses}-{currentRecord.ties} ({currentRecord.winPct}). The upcoming clash
-                  with {nextOpponent} offers a chance to extend the streak and further cement their lineal legacy.
+                  record of {currentRecord.wins}-{currentRecord.losses}-{currentRecord.ties} ({currentRecord.winPct}). The next defense will
+                  be set once Notre Dame&apos;s 2026 slate is finalized, giving Irish fans time to savor a new belt reign.
                 </p>
               </section>
 

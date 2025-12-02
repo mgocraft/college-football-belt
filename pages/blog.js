@@ -27,9 +27,9 @@ export default function Blog() {
 
       {/* Most recent post first */}
       <article style={{ marginBottom: '3rem' }}>
-        <h2 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>Stanford Seizes the Belt in the Big Game</h2>
+        <h2 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>Notre Dame Routs Stanford to Claim the Belt</h2>
         <time
-          dateTime="2025-11-02"
+          dateTime="2025-11-30"
           style={{
             color: '#555',
             fontSize: '0.9rem',
@@ -37,17 +37,16 @@ export default function Blog() {
             display: 'block'
           }}
         >
-          November 2, 2025
+          November 30, 2025
         </time>
         <p>
-          Stanford made the most of its Bay Area rivalry, thumping California 31–10 on November 1 to rip the College Football
-          Belt away from the Golden Bears in their first defense. Cal's reign ends at one week, while the Cardinal celebrate the
-          program's fifth all-time belt possession and first since 1982.
+          Notre Dame marched into Palo Alto and dismantled Stanford 49–20 on November 29, ending the Cardinal&apos;s short run and
+          lifting the College Football Belt for the program&apos;s seventh reign. The Irish turned a late-season defense into a
+          statement win, seizing control of the belt with a dominant road performance.
         </p>
         <p>
-          The next challenge comes quickly: Stanford heads to South Bend on November 8 to defend the belt against Notre Dame.
-          The Irish have historically underperformed in belt games, and this visit offers an early chance to rewrite that
-          narrative in front of a home crowd.
+          The victory returns the belt to Independent hands. Notre Dame&apos;s next defense will come once the 2026 slate begins,
+          giving Irish fans a full offseason to savor the new title run.
         </p>
       </article>
 
