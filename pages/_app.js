@@ -5,6 +5,10 @@ import { useRouter } from "next/router";
 import Script from "next/script";
 import Footer from "../components/Footer";
 import { getAdsenseClientId } from "../utils/adsense";
+import {
+  AdPreferencesProvider,
+  useAdPreferences,
+} from "../components/AdPreferencesProvider";
 
 const PUB_ID = getAdsenseClientId();
 const ADSENSE_ENABLED = process.env.NEXT_PUBLIC_ADSENSE_ENABLED !== "false";
@@ -69,12 +73,13 @@ function ensureAutoAdsLoaded(pubId) {
   document.head.appendChild(s);
 }
 
-export default function MyApp({ Component, pageProps }) {
+function AppShell({ Component, pageProps }) {
   const router = useRouter();
   const { hasContent = true } = pageProps;
+  const { autoAdsEnabled } = useAdPreferences();
 
   useEffect(() => {
-    if (!ADSENSE_ENABLED) return;
+    if (!ADSENSE_ENABLED || !autoAdsEnabled) return;
     const handle = (url) => {
       const bodyText = (document?.body?.innerText || "").trim();
       const contentPresent =
@@ -87,7 +92,7 @@ export default function MyApp({ Component, pageProps }) {
     // on client route changes
     router.events.on("routeChangeStart", handle);
     return () => router.events.off("routeChangeStart", handle);
-  }, [router.pathname, hasContent]);
+  }, [router.pathname, hasContent, autoAdsEnabled]);
 
   return (
     <>
@@ -115,5 +120,13 @@ export default function MyApp({ Component, pageProps }) {
       <Component {...pageProps} />
       <Footer />
     </>
+  );
+}
+
+export default function MyApp(props) {
+  return (
+    <AdPreferencesProvider>
+      <AppShell {...props} />
+    </AdPreferencesProvider>
   );
 }

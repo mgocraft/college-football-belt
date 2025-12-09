@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import AdUnit from "./AdUnit";
+import { useAdPreferences } from "./AdPreferencesProvider";
 
 const ADSENSE_ENV_ENABLED =
   process.env.NEXT_PUBLIC_ADSENSE_ENABLED !== "false";
@@ -23,7 +24,11 @@ function resolveInitialPreference() {
  * to initialize we simply hide the slot to avoid broken UI.
  */
 export default function AdSlot({ enabled = true, ...props }) {
+  const { registerSlot } = useAdPreferences();
   const [adsenseReady, setAdsenseReady] = useState(resolveInitialPreference);
+  const [slotAllowed] = useState(() =>
+    typeof registerSlot === "function" ? registerSlot() : true
+  );
 
   useEffect(() => {
     if (!ADSENSE_ENV_ENABLED || typeof window === "undefined") {
@@ -57,7 +62,7 @@ export default function AdSlot({ enabled = true, ...props }) {
     };
   }, []);
 
-  if (!enabled || !ADSENSE_ENV_ENABLED || !adsenseReady) {
+  if (!enabled || !ADSENSE_ENV_ENABLED || !adsenseReady || !slotAllowed) {
     return null;
   }
 
