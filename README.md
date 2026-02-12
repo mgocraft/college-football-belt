@@ -53,7 +53,7 @@ To point the site at your own AdSense account, set the publisher ID (with or wit
 NEXT_PUBLIC_ADSENSE_PUBLISHER_ID="ca-pub-1234567890"
 ```
 
-This value is shared by the UI and the `/ads.txt` route, so the authorized sellers file stays in sync with the ID you use to load the AdSense script.
+Also update `public/ads.txt` with the matching publisher ID (`pub-...`) so AdSense can verify your authorized seller record at `https://your-domain.com/ads.txt`.
 
 ## Newsletter signup
 
