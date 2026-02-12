@@ -45,7 +45,7 @@ export default function PathToConference() {
 
         <h2 style={{ fontSize: '1.5rem', marginTop: '2rem', color: '#001f3f' }}>SEC</h2>
         <p style={{ marginBottom: '0.5rem' }}>
-          The regular-season road back to the SEC now depends on Notre Dame&apos;s 2026 schedule. With the belt in Independent hands,
+          The regular-season road back to the SEC now runs through Notre Dame&apos;s Sun, Sep 6 game vs Wisconsin*. With the belt in Independent hands,
           there is no confirmed matchup with an SEC school before postseason play.
         </p>
 

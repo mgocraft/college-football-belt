@@ -15,7 +15,8 @@ export default function HomePage({ data }) {
   const router = useRouter();
   const page = parseInt(router.query.page || '1', 10);
   const itemsPerPage = 10;
-  const nextOpponent = 'TBD';
+  const nextOpponent = 'Wisconsin';
+  const nextOpponentDisplay = `${nextOpponent} *`;
   const homepageStructuredData = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
@@ -150,7 +151,7 @@ export default function HomePage({ data }) {
       record: currentRecord,
     },
     {
-      name: nextOpponent,
+      name: nextOpponentDisplay,
       logo: opponentLogoUrl,
       title: 'Next Challenger',
       record: opponentRecord,
@@ -242,7 +243,7 @@ export default function HomePage({ data }) {
                   </div>
                   <div className={homeStyles.matchupMeta}>
                     <span>Last game: November 29 at Stanford — {currentReign.beltHolder} won 49–20.</span>
-                    <span>Next defense: To be announced for the 2026 schedule.</span>
+                    <span>Next defense: Sun, Sep 6 vs Wisconsin*.</span>
                   </div>
                 </div>
               </section>
@@ -292,8 +293,7 @@ export default function HomePage({ data }) {
                   the road, turning a late-season showdown into a decisive belt transfer.
                 </p>
                 <p className={homeStyles.sectionFootnote}>
-                  With the belt back in Independent hands, the next defense will hinge on Notre Dame&apos;s upcoming slate — stay
-                  tuned for the first 2026 challenger.
+                  With the belt back in Independent hands, the first 2026 defense is set for Sunday, September 6 against Wisconsin.
                 </p>
               </section>
 
@@ -306,8 +306,8 @@ export default function HomePage({ data }) {
                   {currentReign.beltHolder} captured the College Football Belt on {currentReign.startOfReign} and has defended it{' '}
                   {currentReign.numberOfDefenses} time{currentReign.numberOfDefenses === 1 ? '' : 's'}. This marks their{' '}
                   {countReigns(currentReign.beltHolder)} reign{countReigns(currentReign.beltHolder) === 1 ? '' : 's'} with an overall belt
-                  record of {currentRecord.wins}-{currentRecord.losses}-{currentRecord.ties} ({currentRecord.winPct}). The next defense will
-                  be set once Notre Dame&apos;s 2026 slate is finalized, giving Irish fans time to savor a new belt reign.
+                  record of {currentRecord.wins}-{currentRecord.losses}-{currentRecord.ties} ({currentRecord.winPct}). Notre Dame&apos;s next
+                  defense is scheduled for Sunday, September 6 vs Wisconsin.
                 </p>
               </section>
 
