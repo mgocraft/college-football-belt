@@ -45,7 +45,7 @@ export default function Blog() {
           statement win, seizing control of the belt with a dominant road performance.
         </p>
         <p>
-          The victory returns the belt to Independent hands. Notre Dame&apos;s next defense will come once the 2026 slate begins,
+          The victory returns the belt to Independent hands. Notre Dame&apos;s next defense is set for Sun, Sep 6 vs Wisconsin*,
           giving Irish fans a full offseason to savor the new title run.
         </p>
       </article>
