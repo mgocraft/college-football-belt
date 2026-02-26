@@ -79,12 +79,18 @@ function AppShell({ Component, pageProps }) {
   const { autoAdsEnabled } = useAdPreferences();
 
   useEffect(() => {
-    if (!ADSENSE_ENABLED || !autoAdsEnabled) return;
+    if (!ADSENSE_ENABLED) return;
     const handle = (url) => {
       const bodyText = (document?.body?.innerText || "").trim();
       const contentPresent =
         typeof hasContent === "boolean" ? hasContent : bodyText.length > 0;
-      if (!isBlocked(url) && contentPresent) ensureAutoAdsLoaded(PUB_ID);
+      const routeBlocked = isBlocked(url);
+      const shouldLoadForAutoAds = autoAdsEnabled && !routeBlocked && contentPresent;
+      const shouldLoadForManualSlots = !routeBlocked;
+
+      if (shouldLoadForAutoAds || shouldLoadForManualSlots) {
+        ensureAutoAdsLoaded(PUB_ID);
+      }
     };
 
     // initial load
