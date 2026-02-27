@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import AdUnit from "./AdUnit";
 import { useAdPreferences } from "./AdPreferencesProvider";
+import { getAdsenseClientId } from "../utils/adsense";
+import { ensureAdsenseLoaded } from "../utils/adsenseLoader";
 
 const ADSENSE_ENV_ENABLED =
   process.env.NEXT_PUBLIC_ADSENSE_ENABLED !== "false";
+const PUB_ID = getAdsenseClientId();
 
 function resolveInitialPreference() {
   if (!ADSENSE_ENV_ENABLED) {
@@ -34,6 +37,8 @@ export default function AdSlot({ enabled = true, ...props }) {
     if (!ADSENSE_ENV_ENABLED || typeof window === "undefined") {
       return;
     }
+
+    ensureAdsenseLoaded(PUB_ID);
 
     function handleFailure() {
       setAdsenseReady(false);
