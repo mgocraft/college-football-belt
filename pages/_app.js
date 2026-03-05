@@ -35,6 +35,7 @@ function isBlocked(pathname) {
 function AppShell({ Component, pageProps }) {
   const router = useRouter();
   const { hasContent = true } = pageProps;
+  const { enableAutoAds = false } = pageProps;
   const { autoAdsEnabled } = useAdPreferences();
 
   useEffect(() => {
@@ -44,7 +45,11 @@ function AppShell({ Component, pageProps }) {
       const contentPresent =
         typeof hasContent === "boolean" ? hasContent : bodyText.length > 0;
       const routeBlocked = isBlocked(url);
-      const shouldLoadForAutoAds = autoAdsEnabled && !routeBlocked && contentPresent;
+      const shouldLoadForAutoAds =
+        autoAdsEnabled &&
+        enableAutoAds &&
+        !routeBlocked &&
+        contentPresent;
 
       if (shouldLoadForAutoAds) {
         ensureAdsenseLoaded(PUB_ID);
@@ -56,7 +61,7 @@ function AppShell({ Component, pageProps }) {
     // on client route changes
     router.events.on("routeChangeStart", handle);
     return () => router.events.off("routeChangeStart", handle);
-  }, [router.pathname, hasContent, autoAdsEnabled]);
+  }, [router.pathname, hasContent, autoAdsEnabled, enableAutoAds]);
 
   return (
     <>
