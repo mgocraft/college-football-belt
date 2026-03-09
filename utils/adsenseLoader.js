@@ -14,6 +14,14 @@ export function ensureAdsenseLoaded(pubId) {
     "script[data-cfb-belt-adsense='auto']"
   );
 
+  // Keep account-level Auto Ads from injecting additional ad blocks
+  // between content sections. We only want explicitly rendered slots.
+  window.adsbygoogle = window.adsbygoogle || [];
+  window.adsbygoogle.push({
+    google_ad_client: pubId,
+    enable_page_level_ads: false,
+  });
+
   if (existing || window.__adsenseScriptLoading) {
     if (window.__adsenseLoaded) {
       window.dispatchEvent(new Event("adsense-loaded"));
@@ -44,4 +52,3 @@ export function ensureAdsenseLoaded(pubId) {
 
   document.head.appendChild(script);
 }
-
