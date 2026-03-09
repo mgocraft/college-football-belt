@@ -14,13 +14,8 @@ export function ensureAdsenseLoaded(pubId) {
     "script[data-cfb-belt-adsense='auto']"
   );
 
-  // Keep account-level Auto Ads from injecting additional ad blocks
-  // between content sections. We only want explicitly rendered slots.
-  window.adsbygoogle = window.adsbygoogle || [];
-  window.adsbygoogle.push({
-    google_ad_client: pubId,
-    enable_page_level_ads: false,
-  });
+  // Load only the AdSense library. Individual ad units are initialized
+  // by <AdUnit /> with `adsbygoogle.push({})` once mounted.
 
   if (existing || window.__adsenseScriptLoading) {
     if (window.__adsenseLoaded) {
